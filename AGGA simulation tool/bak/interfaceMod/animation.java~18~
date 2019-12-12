@@ -1,0 +1,127 @@
+package interfaceMod;
+
+import javax.swing.*;
+import java.awt.*;
+import com.borland.jbcl.layout.*;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.chart.plot.PlotOrientation;
+import java.awt.image.BufferedImage;
+import javax.swing.border.*;
+import java.awt.event.*;
+import com.xj.anylogic.Engine;
+
+
+public class animation extends JDialog {
+
+
+ImageIcon imageOK;
+  ImageIcon imageWait1;
+  ImageIcon imageWait2;
+               ImageIcon imageExitWin;
+  BorderLayout borderLayout1 = new BorderLayout();
+  JPanel jPanel1 = new JPanel();
+  XYLayout xYLayout1 = new XYLayout();
+  Border border1;
+  Border border2;
+  Border border3;
+  Border border4;
+  JLabel jLabel1 = new JLabel();
+  JButton jButton1 = new JButton();
+  JLabel jLabel3 = new JLabel();
+  JLabel anim1 = new JLabel();
+  JLabel anim2 = new JLabel();
+
+  public animation(Frame frame, String title, boolean modal) {
+   super(frame, title, modal);
+    try {
+      jbInit();
+   //pack();
+    }
+    catch(Exception ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  void jbInit() throws Exception {
+    border1 = new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151));
+    border2 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры счётчика");
+    border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Тип счётчика");
+    border4 = BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151));
+    this.getContentPane().setLayout(borderLayout1);
+
+ imageWait1 = new ImageIcon(interfaceMod.Frame1.class.getResource("wait1.png"));
+ imageWait2 = new ImageIcon(interfaceMod.Frame1.class.getResource("wait2.png"));
+imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
+    imageExitWin = new ImageIcon(interfaceMod.Frame1.class.getResource("exitWin.png"));
+ //setVisible(true);
+    jPanel1.setLayout(xYLayout1);
+    this.setResizable(false);
+    this.setSize(new Dimension(277, 135));
+
+    jPanel1.setBackground(new Color(236, 233, 210));
+
+
+    jLabel1.setText("Идёт процесс моделирования!");
+    jButton1.setText("Отмена");
+    jButton1.addActionListener(new animation_jButton1_actionAdapter(this));
+    jLabel3.setText("Подождите!");
+    anim1.setIcon(imageWait1);
+    anim2.setIcon(imageWait2);
+    //anim2.setVisible(false);
+    this.getContentPane().add(jPanel1, BorderLayout.CENTER);
+    jPanel1.add(jLabel1, new XYConstraints(73, 14, -1, -1));
+    jPanel1.add(jLabel3, new XYConstraints(120, 34, -1, -1));
+    jPanel1.add(jButton1, new XYConstraints(114, 61, -1, -1));
+    jPanel1.add(anim2, new XYConstraints(12, 51, -1, -1));
+    jPanel1.add(anim1, new XYConstraints(61, 53, -1, -1));
+
+
+
+
+
+//setTitle("Процесс моделирования");
+//setModal(true);
+//setVisible(true);
+  }
+
+  void selectSET_itemStateChanged(ItemEvent e) {
+
+}
+
+
+  void bExit_actionPerformed(ActionEvent e) {
+this.dispose();
+  }
+
+  void jButton1_actionPerformed(ActionEvent e) {
+    Engine.stop();
+    dispose();
+  }
+
+
+
+
+
+
+}
+
+class animation_jButton1_actionAdapter implements java.awt.event.ActionListener {
+  animation adaptee;
+
+  animation_jButton1_actionAdapter(animation adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.jButton1_actionPerformed(e);
+  }
+}
+
+
+
+
+

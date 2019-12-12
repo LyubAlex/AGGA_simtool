@@ -1,0 +1,6 @@
+package interfaceMod;
+
+public class test {
+  public test() {
+  }
+}

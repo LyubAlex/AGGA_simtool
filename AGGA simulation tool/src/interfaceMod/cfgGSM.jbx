@@ -1,0 +1,32 @@
+[PropertyInfo]
+border1,Border,false,false, , ,false,<default>
+border2,Border,false,false, , ,false,<default>
+imageOK,ImageIcon,false,false, , ,false,<default>
+inputVerEndGSM,JFormattedTextField,false,false, , ,false,<default>
+inputVerGSM,JFormattedTextField,false,false, , ,false,<default>
+inputVrEndGSM,JFormattedTextField,false,false, , ,false,<default>
+inputVrGSM,JFormattedTextField,false,false, , ,false,<default>
+jHighLevel,JRadioButton,false,false, , ,false,<default>
+jLabelVerEnd,JLabel,false,false, , ,false,<default>
+jLabelVerUst,JLabel,false,false, , ,false,<default>
+jLabelVrEnd,JLabel,false,false, , ,false,<default>
+jLabelVrUst,JLabel,false,false, , ,false,<default>
+jLowLevel,JRadioButton,false,false, , ,false,<default>
+jNormalLevel,JRadioButton,false,false, , ,false,<default>
+jPanel1,JPanel,false,false, , ,false,<default>
+jPanel2,JPanel,false,false, , ,false,<default>
+jPanel3,JPanel,false,false, , ,false,<default>
+jPanel5,JPanel,false,false, , ,false,<default>
+jScrollPane1,JScrollPane,false,false, , ,false,<default>
+saveCfgGSM,JButton,false,false, , ,false,<default>
+titledBorder1,TitledBorder,false,false, , ,false,<default>
+titledBorder2,TitledBorder,false,false, , ,false,<default>
+xYLayout1,XYLayout,false,false, , ,false,<default>
+xYLayout2,XYLayout,false,false, , ,false,<default>
+xYLayout3,XYLayout,false,false, , ,false,<default>
+xYLayout4,XYLayout,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

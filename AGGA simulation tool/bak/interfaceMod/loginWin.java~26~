@@ -1,0 +1,40 @@
+package interfaceMod;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class loginWin extends JDialog {
+
+  JPanel contentPane;
+
+
+
+  public loginWin(JFrame frame, String title, boolean modal) {
+    super(frame, title, modal);
+
+  }
+
+  public loginWin() {
+    try {
+      jbInit();
+    }
+    catch(Exception e) {
+    // e.printStackTrace();
+    }
+  }
+  private void jbInit() throws Exception {
+    contentPane = (JPanel) this.getContentPane();
+
+
+
+
+
+
+
+
+
+
+  }
+
+
+}

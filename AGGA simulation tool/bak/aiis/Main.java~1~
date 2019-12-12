@@ -1,0 +1,283 @@
+// Main.java
+
+package aiis;
+
+import java.util.Vector;
+import java.util.Hashtable;
+import java.awt.Color;
+import com.xj.jama.Matrix;
+import com.xj.anylogic.*;
+import com.xj.anylogic.animation.*;
+import com.xj.random.*;
+
+
+public class Main extends ActiveObject
+ {
+
+  public static void main( String[] args ) {
+    System.out.println( "...started..." );
+    try {
+      Engine.setRoot( new Main() );
+    } catch ( Throwable ex ) {
+      Engine.traceException( ex );
+      Engine.setError( "Exception during model root object creation: " + ex );
+    }
+    Engine.start( args );
+    System.out.println( "...finished..." );
+  }
+
+  public void onEngineCreate() {
+  }
+
+  public String getType() {
+    return "test.Main";
+  }
+
+  protected void getEquations() {
+    addFE( _ref_var, new DoubleFunction() {
+      public double value() { return todouble(
+// _XJ_SECTION_BEGIN( AO.Equation.0.var )
+getTime()
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "var = getTime()"; }
+    }, true, null );
+  }
+
+  public void create() {
+    _ref_var2.setup( this, "var2", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.var2 )
+    var2 = 1
+;
+// _XJ_SECTION_END
+    _ref_var1.setup( this, "var1", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.var1 )
+    var1 = false
+;
+// _XJ_SECTION_END
+    _ref_var.setup( this, "var", true );
+    statechart = new Type_statechart();
+  }
+
+  public void destroy() {
+    statechart = null;
+    super.destroy();
+  }
+
+  protected void startup() {
+    startThread( statechart, "statechart" );
+  }
+
+
+  // Class parameters
+  // Structure objects
+public int var2;
+  public VariableRefDouble _ref_var2 = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { var2 = (int)_value; }
+    public double getDoubleValue() { return (double)var2; } };
+public boolean var1;
+  public VariableRefDouble _ref_var1 = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { var1 = _value != 0 ? true : false; }
+    public double getDoubleValue() { return var1 ? 1.0 : 0.0; } };
+public double var;
+  public VariableRefDouble _ref_var = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { var = (double)_value; }
+    public double getDoubleValue() { return (double)var; } };
+
+// Group class for group _IconGroup
+public class _IconGroup extends Group {
+
+  public void setup() {
+    setActiveObject( Main.this );
+    super.setup();
+    setSize( 62, 42 );
+    setOrigin( -30, -20 );
+
+    add( _shape_ );
+    _shape_.setShapeName( "_shape_" );
+    _shape_.setPos( -27, -17 );
+    _shape_.setFillColor( new Color( 12632256 ) );
+    _shape_.setSize( 60, 40 );
+    _shape_.setLineWidth( 0 );
+    _shape_.setLineColor( null );
+
+    add( _shape_rectangle );
+    _shape_rectangle.setShapeName( "_shape_rectangle" );
+    _shape_rectangle.setPos( -30, -20 );
+    _shape_rectangle.setFillColor( new Color( 16231006 ) );
+    _shape_rectangle.setSize( 60, 40 );
+    _shape_rectangle.setLineWidth( 1 );
+    _shape_rectangle.setLineColor( new Color( 16093485 ) );
+  }
+
+  public void init() {
+    super.init();
+  }
+
+  public void update() {
+    super.update();
+  }
+
+    public ShapeRect _shape_rectangle = new ShapeRect();
+    public ShapeRect _shape_ = new ShapeRect();
+}
+
+  public _IconGroup icon = null;
+  public Group createIcon() {
+    return icon != null ? icon : ( icon = new _IconGroup() );
+  }
+
+// Group class for group _StructureGroup
+public class _StructureGroup extends Group {
+
+  public void setup() {
+    setScale( 0.8 );
+    setActiveObject( Main.this );
+    super.setup();
+    setSize( 402, 202 );
+    setOrigin( -1, -1 );
+
+    add( _object_Main );
+    _object_Main.setShapeName( "_object_Main" );
+    _object_Main.setPos( 0, 0 );
+    _object_Main.setSize( 400, 200 );
+    _object_Main.setName( "Main" );
+    _object_Main.setNameOffset( 10, 10 );
+
+    add( _shape_statechart );
+    _shape_statechart.setShapeName( "_shape_statechart" );
+    _shape_statechart.setPos( 210, 100 );
+    _shape_statechart.setName( "statechart" );
+    _shape_statechart.setNameOffset( 10, 0 );
+
+    add( _shape_var );
+    _shape_var.setShapeName( "_shape_var" );
+    _shape_var.setPos( 130, 80 );
+    _shape_var.setFillColor( new Color( 10526975 ) );
+    _shape_var.setStateVariable( true );
+    _shape_var.setName( "var" );
+    _shape_var.setNameOffset( 10, 0 );
+
+    add( _shape_var1 );
+    _shape_var1.setShapeName( "_shape_var1" );
+    _shape_var1.setPos( 300, 130 );
+    _shape_var1.setFillColor( new Color( 10526975 ) );
+    _shape_var1.setStateVariable( true );
+    _shape_var1.setName( "var1" );
+    _shape_var1.setNameOffset( 10, 0 );
+
+    add( _shape_var2 );
+    _shape_var2.setShapeName( "_shape_var2" );
+    _shape_var2.setPos( 290, 30 );
+    _shape_var2.setFillColor( new Color( 10526975 ) );
+    _shape_var2.setStateVariable( true );
+    _shape_var2.setName( "var2" );
+    _shape_var2.setNameOffset( 10, 0 );
+  }
+
+  public void init() {
+    super.init();
+  }
+
+  public void update() {
+    super.update();
+  }
+
+    public ShapeVar _shape_var2 = new ShapeVar();
+    public ShapeVar _shape_var1 = new ShapeVar();
+    public ShapeVar _shape_var = new ShapeVar();
+    public ShapeStatechart _shape_statechart = new ShapeStatechart();
+    public ShapeBounds _object_Main = new ShapeBounds();
+}
+
+  public _StructureGroup structure = null;
+  public Group createStructure() {
+    return structure != null ? structure : ( structure = new _StructureGroup() );
+  }
+
+// _XJ_SECTION_BEGIN( AO.Code )
+;
+// _XJ_SECTION_END
+// Class inner statecharts
+// Statechart Type_statechart
+public Type_statechart statechart;
+class Type_statechart extends Statechart {
+
+  public static final short transition1 = 1;
+  public static final short transition = 2;
+  public static final short state2 = 3;
+  public static final short state1 = 4;
+  public static final short state = 5;
+
+  protected Node[] getNodes() { return new Node[]{
+    new Node( 4, eInitialMarker, "pointer", -1, -1, 5 ),
+    new Node( 8, eTransition, "transition1", -1, 5, 3 ),
+    new Node( 6, eTransition, "transition", -1, 3, 4 ),
+    new Node( 7, eState, "state2", -1 ),
+    new Node( 5, eState, "state1", -1 ),
+    new Node( 2, eState, "state", -1 ),
+  }; }
+  protected void calculate( int node, int codeType ) {
+    switch ( node ) {
+// Transition: transition1
+      case 1: switch ( codeType ) {
+        case eTrigger: nodeTriggerDelay(
+// _XJ_SECTION_BEGIN( SC.statechart.8.Trigger )
+10000
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition
+      case 2: switch ( codeType ) {
+        case eTrigger: nodeTriggerDelay(
+// _XJ_SECTION_BEGIN( SC.statechart.6.Trigger )
+10
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// State: state1
+      case 4: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.statechart.5.EntryAction )
+var++;
+var1=true;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+    }
+  }
+
+} // end of the Type_statechart statechart
+ // Stop conditions for experiment Simulation
+
+  // class for the experiment Simulation
+ /* public static class Simulation extends SimulationExperiment {
+
+    public void runModel( test.Main _root2 ) {
+      final test.Main _root = _root2;
+      super.runModel( (ActiveObject)_root );
+    }
+
+    public void runExperiment() {
+      Engine.setSysVar( "HTOL", "0.01" );
+      Engine.setRealTimeScale( 1 );
+      Engine.setRealTimeMode( false );
+      test.Main _root = new test.Main();
+      runModel( _root );
+    }
+
+    public void setParameters( ActiveObject _root2 ) {
+      test.Main _root = (test.Main)_root2;
+      long index = Engine.getReplication();
+    }
+
+    public static void main( String[] args ) {
+      System.out.println( "Started..." );
+      new Simulation().run( args );
+      System.out.println( "Finished..." );
+    }
+
+  }*/
+
+}

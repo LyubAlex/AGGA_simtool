@@ -1,0 +1,400 @@
+package interfaceMod;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import com.borland.jbcl.layout.*;
+import javax.swing.border.*;
+
+
+/**
+ * <p>Title: </p>
+ * <p>Description: </p>
+ * <p>Copyright: Copyright (c) 2008</p>
+ * <p>Company: </p>
+ * @author not attributable
+ * @version 1.0
+ */
+
+public class cfgGPRS extends JDialog {
+  Object[] dataCS = {new String("CS1"),
+                     new String("CS2"),
+                     new String("CS3"),
+                     new String("CS4"),
+               };
+  Object[] dataClass = {new String("Класс 1"),
+                        new String("Класс 2"),
+                        new String("Класс 3"),
+                        new String("Класс 4"),
+                        new String("Класс 5"),
+                        new String("Класс 6"),
+                        new String("Класс 7"),
+                        new String("Класс 8"),
+                        new String("Класс 9"),
+                        new String("Класс 10"),
+                          };
+
+
+
+ImageIcon imageOK;
+JPanel contentPane;
+  JScrollPane jScrollPane1 = new JScrollPane();
+  JPanel jPanel1 = new JPanel();
+  XYLayout xYLayout1 = new XYLayout();
+  JPanel jPanel2 = new JPanel();
+  TitledBorder titledBorder1;
+  JLabel jLabelVerUst = new JLabel();
+  XYLayout xYLayout2 = new XYLayout();
+  JLabel jLabelVrUst = new JLabel();
+  JLabel jLabelVerEnd = new JLabel();
+  JLabel jLabelVrEnd = new JLabel();
+  JPanel jPanel3 = new JPanel();
+  Border border1;
+  XYLayout xYLayout3 = new XYLayout();
+  Border border2;
+  TitledBorder titledBorder2;
+  JComboBox jSelectCS = new JComboBox(dataCS);
+  JComboBox jSelectClass = new JComboBox(dataClass);
+  JLabel jLabelVrEnd1 = new JLabel();
+  JFormattedTextField slotReceive = new JFormattedTextField();
+  JFormattedTextField slotSend = new JFormattedTextField();
+  JButton saveCfgGPRS = new JButton();
+  JPanel panelSignal = new JPanel();
+  Border border3;
+  JLabel jLabel1 = new JLabel();
+  XYLayout xYLayout4 = new XYLayout();
+  JFormattedTextField inKolCh = new JFormattedTextField();
+  JLabel jLabel2 = new JLabel();
+  JLabel jLabel3 = new JLabel();
+  JFormattedTextField inHBS = new JFormattedTextField();
+  JFormattedTextField inHMS = new JFormattedTextField();
+  JLabel jLabel4 = new JLabel();
+  JLabel jLabel5 = new JLabel();
+  JLabel jLabel6 = new JLabel();
+  JFormattedTextField inDistance = new JFormattedTextField();
+  JLabel jLabel7 = new JLabel();
+  JFormattedTextField inMaxMS = new JFormattedTextField();
+  JFormattedTextField inMinMS = new JFormattedTextField();
+  JLabel jLabel8 = new JLabel();
+
+  //Construct the frame
+  public cfgGPRS(Frame frame, String title, boolean modal) {
+    super(frame, title, modal);
+    //enableEvents(AWTEvent.WINDOW_EVENT_MASK);
+    try {
+      jbInit();
+
+    }
+    catch(Exception e) {
+     // e.printStackTrace();
+    }
+  }
+
+  //Component initialization
+  private void jbInit() throws Exception  {
+
+    titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры каналов GPRS");
+    imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
+
+    contentPane = (JPanel) this.getContentPane();
+    border1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"");
+    border2 = BorderFactory.createEtchedBorder(Color.white,new Color(147, 165, 178));
+    titledBorder2 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры каналов GPRS");
+    border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры соты");
+    contentPane.setBackground(new Color(210, 236, 255));
+    contentPane.setFont(new java.awt.Font("MS Outlook", 0, 11));
+    //this.setForeground(Color.red);
+    this.setSize(new Dimension(342, 437));
+    //this.setTitle("Параметры канала GSM");
+    this.setModal(true);
+    this.setResizable(false);
+
+
+// установки по умолчанию (CS2 и Класс 10)
+    jSelectCS.setSelectedIndex(1);
+    jSelectClass.setSelectedIndex(9);
+   inHBS.setValue(new Double(30.0));
+   inHMS.setValue(new Double(2.0));
+   inKolCh.setValue(new Double(3.0));
+   inMaxMS.setValue(new Double(20.0));
+   inMinMS.setValue(new Double(1.0));
+    inDistance.setValue(new Double(5.0));
+    //slotReceive.setValue(new Integer(4));
+  //  slotSend.setValue(new Integer(2));
+
+    jPanel1.setLayout(xYLayout1);
+    jPanel1.setBackground(new Color(210, 236, 255));
+    jPanel1.setBorder(null);
+    jPanel1.setMinimumSize(new Dimension(4, 4));
+    jPanel1.setOpaque(true);
+    jPanel1.setToolTipText("");
+
+    jPanel2.setBackground(new Color(210, 236, 255));
+    jPanel2.setFont(new java.awt.Font("Georgia", 0, 20));
+    jPanel2.setForeground(Color.red);
+    jPanel2.setBorder(titledBorder1);
+    jPanel2.setDebugGraphicsOptions(0);
+    jPanel2.setLayout(xYLayout2);
+    jScrollPane1.setFont(new java.awt.Font("Dialog", 0, 20));
+    titledBorder1.setTitleFont(new java.awt.Font("Arial", 0, 11));
+    jLabelVerUst.setFont(new java.awt.Font("Arial", 0, 11));
+    jLabelVerUst.setText("Схема кодирования (CS)");
+
+
+
+
+
+    jLabelVrUst.setText("Класс приёмо-передающих устройств");
+    jLabelVrUst.setFont(new java.awt.Font("Arial", 0, 11));
+
+    jLabelVerEnd.setText("Количество слотов:");
+    jLabelVerEnd.setFont(new java.awt.Font("Arial", 0, 11));
+    jLabelVrEnd.setFont(new java.awt.Font("Arial", 0, 11));
+    jLabelVrEnd.setText("на приём");
+    jPanel3.setBackground(new Color(210, 236, 255));
+    jPanel3.setBorder(border1);
+    jPanel3.setLayout(xYLayout3);
+
+    jLabelVrEnd1.setText("на передачу");
+    jLabelVrEnd1.setFont(new java.awt.Font("Arial", 0, 11));
+    slotReceive.setEditable(true);
+    slotReceive.setEnabled(false);
+    slotReceive.setHorizontalAlignment(SwingConstants.CENTER);
+   // slotReceive.setText("");
+   slotReceive.setValue(new Integer(4));
+    slotSend.setEditable(true);
+    slotSend.setEnabled(false);
+    slotSend.setHorizontalAlignment(SwingConstants.CENTER);
+   // slotSend.setText("");
+    slotSend.setValue(new Integer(2));
+    jSelectClass.addActionListener(new cfgGPRS_jSelectClass_actionAdapter(this));
+    saveCfgGPRS.setFont(new java.awt.Font("Arial", 0, 11));
+    saveCfgGPRS.setIcon(imageOK);
+    saveCfgGPRS.setText("Сохранить");
+    saveCfgGPRS.addActionListener(new cfgGPRS_saveCfgGPRS_actionAdapter(this));
+
+    panelSignal.setBackground(new Color(210, 236, 255));
+    panelSignal.setBorder(border3);
+    panelSignal.setDebugGraphicsOptions(0);
+    panelSignal.setLayout(xYLayout4);
+    jLabel1.setText("Количество частотных каналов БС, шт.");
+    jLabel2.setText("Высота БС, м");
+    jLabel3.setText("Высота МС, м");
+
+    inHBS.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+    inHMS.setHorizontalAlignment(SwingConstants.CENTER);
+
+    jLabel4.setText("Количество частотных каналов БС, шт.");
+    jLabel5.setText("Количество частотных каналов БС, шт.");
+    jLabel6.setText("Расстояние от БС до МС, км");
+    inDistance.setHorizontalAlignment(SwingConstants.CENTER);
+
+    jLabel7.setText("Максимальное кол-во активных МС, шт.");
+    inMaxMS.setHorizontalAlignment(SwingConstants.CENTER);
+
+    inMinMS.setHorizontalAlignment(SwingConstants.CENTER);
+
+    jLabel8.setText("Минимальное кол-во активных МС, шт.");
+    inKolCh.setHorizontalAlignment(SwingConstants.CENTER);
+
+    contentPane.add(jScrollPane1, BorderLayout.CENTER);
+    jScrollPane1.getViewport().add(jPanel1, null);
+    jPanel2.add(jLabelVerUst,   new XYConstraints(8, 8, -1, -1));
+    jPanel2.add(jSelectCS,       new XYConstraints(215, 3, 71, 22));
+    jPanel2.add(jSelectClass,      new XYConstraints(215, 35, 71, 22));
+    jPanel2.add(jLabelVrUst,  new XYConstraints(8, 40, -1, -1));
+    jPanel2.add(jLabelVerEnd,  new XYConstraints(8, 66, -1, -1));
+    jPanel2.add(jLabelVrEnd1,   new XYConstraints(218, 66, -1, -1));
+    jPanel2.add(jLabelVrEnd,   new XYConstraints(141, 66, -1, -1));
+    jPanel2.add(slotReceive,   new XYConstraints(143, 85, 42, -1));
+    jPanel2.add(slotSend,    new XYConstraints(227, 85, 42, -1));
+    jPanel1.add(jPanel3, new XYConstraints(17, 345, 302, 45));
+    jPanel3.add(saveCfgGPRS,  new XYConstraints(90, 2, -1, -1));
+    jPanel1.add(panelSignal,        new XYConstraints(15, 166, 306, 171));
+    panelSignal.add(jLabel1,   new XYConstraints(5, 6, -1, -1));
+    panelSignal.add(inKolCh,      new XYConstraints(222, 4, 59, -1));
+    jPanel1.add(jPanel2,        new XYConstraints(15, 17, 306, 143));
+    panelSignal.add(jLabel2,  new XYConstraints(5, 35, -1, -1));
+    panelSignal.add(jLabel3,    new XYConstraints(147, 35, -1, -1));
+    panelSignal.add(inHBS,  new XYConstraints(79, 32, 59, -1));
+    panelSignal.add(inHMS,   new XYConstraints(222, 32, 59, -1));
+    panelSignal.add(jLabel6,   new XYConstraints(5, 64, -1, -1));
+    panelSignal.add(inDistance,     new XYConstraints(222, 60, 59, -1));
+    panelSignal.add(jLabel7,  new XYConstraints(4, 90, -1, -1));
+    panelSignal.add(inMaxMS,   new XYConstraints(222, 88, 59, -1));
+    panelSignal.add(inMinMS,  new XYConstraints(222, 116, 59, -1));
+    panelSignal.add(jLabel8,  new XYConstraints(4, 116, -1, -1));
+
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      Dimension frameSize = this.getSize();
+      if (frameSize.height > screenSize.height) {
+        frameSize.height = screenSize.height;
+      }
+      if (frameSize.width > screenSize.width) {
+        frameSize.width = screenSize.width;
+      }
+      this.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+      this.setVisible(false);
+
+
+
+  }
+
+  void jSelectClass_actionPerformed(ActionEvent e) {
+if (jSelectClass.getSelectedIndex()==0)
+{
+  slotReceive.setValue(new Integer(1));
+  slotSend.setValue(new Integer(1));
+}
+else if (jSelectClass.getSelectedIndex()==1)
+{
+  slotReceive.setValue(new Integer(2));
+  slotSend.setValue(new Integer(1));
+}
+else if (jSelectClass.getSelectedIndex()==2)
+{
+  slotReceive.setValue(new Integer(2));
+  slotSend.setValue(new Integer(2));
+}
+else if (jSelectClass.getSelectedIndex()==3)
+{
+  slotReceive.setValue(new Integer(3));
+  slotSend.setValue(new Integer(1));
+}
+else if (jSelectClass.getSelectedIndex()==4)
+{
+  slotReceive.setValue(new Integer(2));
+  slotSend.setValue(new Integer(2));
+}
+else if (jSelectClass.getSelectedIndex()==5)
+{
+  slotReceive.setValue(new Integer(3));
+  slotSend.setValue(new Integer(2));
+}
+else if (jSelectClass.getSelectedIndex()==6)
+{
+  slotReceive.setValue(new Integer(3));
+  slotSend.setValue(new Integer(3));
+}
+else if (jSelectClass.getSelectedIndex()==7)
+{
+  slotReceive.setValue(new Integer(4));
+  slotSend.setValue(new Integer(1));
+}
+
+else if (jSelectClass.getSelectedIndex()==8)
+{
+  slotReceive.setValue(new Integer(3));
+  slotSend.setValue(new Integer(2));
+}
+
+else if (jSelectClass.getSelectedIndex()==9)
+{
+  slotReceive.setValue(new Integer(4));
+  slotSend.setValue(new Integer(2));
+}
+
+  }
+
+  void saveCfgGPRS_actionPerformed(ActionEvent e) {
+
+      Number valueh1 = (Number)slotSend.getValue();
+  double valueSlotSend = valueh1.doubleValue();
+  aiis.model.set_parMaxKolSlotUP(valueSlotSend);
+
+  Number valueh2 = (Number)slotReceive.getValue();
+   double valueSlotReceive = valueh2.doubleValue();
+   aiis.model.set_parMaxKolSlotDOWN(valueSlotReceive);
+
+   Number valueh3 = (Number)inKolCh.getValue();
+double valueKolCh = valueh3.doubleValue();
+    aiis.model.set_parKolFCh(valueKolCh);
+
+    Number valueh4 = (Number)inHBS.getValue();
+    double valueHBS = valueh4.doubleValue();
+        aiis.model.set_parHBS(valueHBS);
+
+        Number valueh5 = (Number)inHMS.getValue();
+           double valueHMS = valueh5.doubleValue();
+               aiis.model.set_parHMS(valueHMS);
+
+   Number valueh6 = (Number)inDistance.getValue();
+   double valueDis = valueh6.doubleValue();
+   aiis.model.set_parD(valueDis);
+
+   Number valueh7 = (Number)inMaxMS.getValue();
+   double valueMaxMS = valueh7.doubleValue();
+   aiis.model.set_parMaxMS(valueMaxMS);
+
+   Number valueh8 = (Number)inMinMS.getValue();
+   double valueMinMS = valueh8.doubleValue();
+   aiis.model.set_parMinMS(valueMinMS);
+
+
+  if (jSelectCS.getSelectedIndex()==0)
+  {
+    aiis.model.parCSforGPRS=1;
+  }
+  else  if (jSelectCS.getSelectedIndex()==1)
+  {
+    aiis.model.parCSforGPRS=2;
+  }
+  else  if (jSelectCS.getSelectedIndex()==2)
+   {
+     aiis.model.parCSforGPRS=3;
+   }
+   else  if (jSelectCS.getSelectedIndex()==3)
+ {
+   aiis.model.parCSforGPRS=4;
+ }
+
+
+
+
+this.dispose();
+  }
+
+
+
+
+
+  //Overridden so we can exit when window is closed
+  /*protected void processWindowEvent(WindowEvent e) {
+    super.processWindowEvent(e);
+    if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+      System.exit(0);
+    }
+  }*/
+
+
+
+
+
+
+
+}
+
+class cfgGPRS_jSelectClass_actionAdapter implements java.awt.event.ActionListener {
+  cfgGPRS adaptee;
+
+  cfgGPRS_jSelectClass_actionAdapter(cfgGPRS adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.jSelectClass_actionPerformed(e);
+  }
+}
+
+class cfgGPRS_saveCfgGPRS_actionAdapter implements java.awt.event.ActionListener {
+  cfgGPRS adaptee;
+
+  cfgGPRS_saveCfgGPRS_actionAdapter(cfgGPRS adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.saveCfgGPRS_actionPerformed(e);
+  }
+}
+

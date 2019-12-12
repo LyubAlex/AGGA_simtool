@@ -1,0 +1,33 @@
+package aiis;
+
+import aiis.*;
+import com.xj.anylogic.*;
+
+class Simulation extends SimulationExperiment {
+
+    public void runModel( aiis.model _root2 ) {
+      final aiis.model _root = _root2;
+      Engine.addStopCondition( _root._stopcond_Simulation_item_0 );
+      super.runModel( (ActiveObject)_root );
+    }
+
+    public void runExperiment() {
+      Engine.setSysVar( "HTOL", "0.01" );
+      Engine.setRealTimeScale( 1 );
+      Engine.setRealTimeMode( false );
+      aiis.model _root = new aiis.model();
+      runModel( _root );
+    }
+
+    public void setParameters( ActiveObject _root2 ) {
+      aiis.model _root = (aiis.model)_root2;
+      long index = Engine.getReplication();
+    }
+
+    public static void main( String[] args ) {
+      System.out.println( "Started..." );
+      new Simulation().run( args );
+      System.out.println( "Finished..." );
+    }
+
+  }

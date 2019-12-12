@@ -1,0 +1,56 @@
+package interfaceMod;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class loginWin extends JDialog {
+  BorderLayout borderLayout1 = new BorderLayout();
+  JPanel contentPane;
+  JPanel jPanel1 = new JPanel();
+  JButton jButton1 = new JButton();
+
+
+  public loginWin(JFrame frame, String title, boolean modal) {
+    super(frame, title, modal);
+
+  }
+
+  public loginWin() {
+    try {
+      jbInit();
+    }
+    catch(Exception e) {
+     e.printStackTrace();
+    }
+  }
+  private void jbInit() throws Exception {
+    contentPane = (JPanel) this.getContentPane();
+
+
+
+
+
+
+
+    jButton1.setText("jButton1");
+    jPanel1.setBackground(new Color(210, 255, 236));
+    contentPane.add(jPanel1, BorderLayout.CENTER);
+    jPanel1.add(jButton1, null);
+
+
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      Dimension frameSize = this.getSize();
+      if (frameSize.height > screenSize.height) {
+      frameSize.height = screenSize.height;
+      }
+       if (frameSize.width > screenSize.width) {
+      frameSize.width = screenSize.width;
+      }
+      this.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+      this.setVisible(false);
+
+
+  }
+
+
+}

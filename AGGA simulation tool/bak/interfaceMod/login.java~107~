@@ -1,0 +1,132 @@
+package interfaceMod;
+
+import javax.swing.*;
+import java.awt.*;
+import com.borland.jbcl.layout.*;
+import java.awt.event.*;
+
+public class login extends JDialog {
+
+  private Image img = getToolkit().getImage("C:\\1\\pause1.png");
+  XYLayout xYLayout1 = new XYLayout();
+  JPanel jPanel1 = new JPanel();
+  XYLayout xYLayout2 = new XYLayout();
+  JLabel jLabel1 = new JLabel();
+  JLabel jLabel2 = new JLabel();
+  JButton loginOk = new JButton();
+  JButton loginCancel = new JButton();
+  TextField fieldName = new TextField();
+  TextField fieldPassword = new TextField();
+
+  login(JFrame f, String s){
+
+    super(f, s, true);
+
+
+      try {
+        jbInit();
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+
+  }
+ /* public void paint (Graphics g){
+   g.drawImage(img,70,150,jPanel1);
+
+}*/
+
+
+  private void jbInit() throws Exception {
+
+
+  this.setSize(new Dimension(231, 157));
+  this.getContentPane().setBackground(new Color(210, 255, 236));
+    this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+    this.setResizable(false);
+    jPanel1.setLayout(xYLayout2);
+    jPanel1.setBackground(new Color(210, 255, 236));
+    jLabel1.setVerifyInputWhenFocusTarget(true);
+    jLabel1.setText("Ваше ФИО :");
+    jLabel2.setText("Пароль :");
+    jLabel2.setToolTipText("");
+    jLabel2.setVerifyInputWhenFocusTarget(true);
+    loginOk.setVerifyInputWhenFocusTarget(true);
+    loginOk.setText("OK");
+    loginOk.addActionListener(new login_loginOk_actionAdapter(this));
+    loginCancel.setText("Отмена");
+    loginCancel.addActionListener(new login_loginCancel_actionAdapter(this));
+
+
+
+    fieldName.setEditable(true);
+    fieldName.setText("");
+    fieldPassword.setText("");
+    fieldPassword.setEditable(true);
+    fieldPassword.setEchoChar('*');
+    this.getContentPane().add(jPanel1, BorderLayout.CENTER);
+    jPanel1.add(loginCancel,   new XYConstraints(129, 87, -1, -1));
+    jPanel1.add(jLabel1, new XYConstraints(25, 20, -1, -1));
+    jPanel1.add(jLabel2, new XYConstraints(43, 49, 58, -1));
+    jPanel1.add(loginOk, new XYConstraints(44, 87, 73, -1));
+    jPanel1.add(fieldName,    new XYConstraints(91, 18, 105, -1));
+    jPanel1.add(fieldPassword,  new XYConstraints(91, 47, 105, -1));
+
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+       Dimension frameSize = this.getSize();
+       if (frameSize.height > screenSize.height) {
+         frameSize.height = screenSize.height;
+       }
+       if (frameSize.width > screenSize.width) {
+         frameSize.width = screenSize.width;
+       }
+       this.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+       this.setVisible(false);
+
+
+  }
+
+
+
+
+  void loginOk_actionPerformed(ActionEvent e) {
+  String name = "avtor";
+  String password = "alex";
+
+  if (name.matches(fieldName.getText()) & password.matches(fieldPassword.getText()))
+     {this.dispose();}
+  else {
+     JOptionPane.showMessageDialog(this,"Вы ввели неверное имя или пароль!","Ошибка!",JOptionPane.ERROR_MESSAGE); }
+ }
+
+  void loginCancel_actionPerformed(ActionEvent e) {
+System.exit(0);
+
+  }
+
+
+
+}
+
+class login_loginOk_actionAdapter implements java.awt.event.ActionListener {
+  login adaptee;
+
+  login_loginOk_actionAdapter(login adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.loginOk_actionPerformed(e);
+  }
+}
+
+class login_loginCancel_actionAdapter implements java.awt.event.ActionListener {
+  login adaptee;
+
+  login_loginCancel_actionAdapter(login adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.loginCancel_actionPerformed(e);
+  }
+}
+

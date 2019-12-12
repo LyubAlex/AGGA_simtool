@@ -1,0 +1,234 @@
+package aiis;
+
+import com.xj.anylogic.animation.*;
+//import com.xj.anylogic.Engine;
+import java.awt.Color;
+import java.util.Vector;
+import java.util.Hashtable;
+import java.awt.Color;
+import com.xj.jama.Matrix;
+import com.xj.anylogic.*;
+import com.xj.anylogic.animation.*;
+import com.xj.random.*;
+
+import interfaceMod.*;
+import com.xj.anylogic.animation.ShapeText;
+import java.awt.*;
+
+
+public class _Group extends Group {
+
+  public void setup() {
+
+
+ //   setActiveObject( model.this );
+    super.setup();
+    setModelXform( 1, 0, 0 );
+    setSize( 900, 550 );
+    setOrigin( -320, -300 );
+    setFillColor(  new Color( 13823231 ) );
+    setFlippedY( false );
+
+    add( text7 );
+    text7.setShapeName( "text7" );
+    text7.setPos( -50, -130 );
+    text7.setFillColor( new Color( 0 ) );
+    text7.setLineWidth( 0 );
+    text7.setLineColor( null );
+    text7.setFont( "Tahoma", 12, java.awt.Font.PLAIN );
+    text7.setFontColor( new Color( 0 ) );
+
+    add( text8 );
+    text8.setShapeName( "text8" );
+    text8.setPos( -40, -110 );
+    text8.setFillColor( new Color( 0 ) );
+    text8.setLineWidth( 0 );
+    text8.setLineColor( null );
+    text8.setFont( "Tahoma", 12, java.awt.Font.PLAIN );
+    text8.setFontColor( new Color( 0 ) );
+
+    add( text );
+    text.setShapeName( "text" );
+    text.setPos( 20, -250 );
+    text.setFillColor( new Color( 0 ) );
+    text.setLineWidth( 0 );
+    text.setLineColor( null );
+    text.setFont( "Tahoma", 12, java.awt.Font.PLAIN );
+    text.setFontColor( new Color( 0 ) );
+
+    add( button3 );
+    button3.setShapeName( "button3" );
+    button3.setPos( -140, -280 );
+    button3.setFillColor( new Color( 13421772 ) );
+    button3.setSize( 140, 35 );
+    button3.setLineWidth( 1 );
+    button3.setLineColor( new Color( 0 ) );
+    button3.setText( "Настройка GSM" );
+    button3.setFont( "Tahoma", java.awt.Font.PLAIN, 12 );
+
+    add( button4 );
+    button4.setShapeName( "button4" );
+    button4.setPos( -300, -280 );
+    button4.setFillColor( new Color( 13421772 ) );
+    button4.setSize( 140, 35 );
+    button4.setLineWidth( 1 );
+    button4.setLineColor( new Color( 0 ) );
+    button4.setText( "Структура системы" );
+    button4.setFont( "Tahoma", java.awt.Font.PLAIN, 12 );
+
+    add( button5 );
+    button5.setShapeName( "button5" );
+    button5.setPos( -230, -50 );
+    button5.setFillColor( new Color( 13421772 ) );
+    button5.setSize( 80, 30 );
+    button5.setLineWidth( 1 );
+    button5.setLineColor( new Color( 0 ) );
+    button5.setText( "Выход" );
+    button5.setFont( "Tahoma", java.awt.Font.PLAIN, 12 );
+
+    add( button );
+    button.setShapeName( "button" );
+    button.setPos( -190, -190 );
+    button.setFillColor( new Color( 13421772 ) );
+    button.setSize( 80, 30 );
+    button.setLineWidth( 1 );
+    button.setLineColor( new Color( 0 ) );
+    button.setText( "Старт" );
+    button.setFont( "Tahoma", java.awt.Font.PLAIN, 12 );
+
+    add( button1 );
+    button1.setShapeName( "button1" );
+    button1.setPos( -90, -190 );
+    button1.setFillColor( new Color( 13421772 ) );
+    button1.setSize( 80, 30 );
+    button1.setLineWidth( 1 );
+    button1.setLineColor( new Color( 0 ) );
+    button1.setText( "Пауза" );
+    button1.setFont( "Tahoma", java.awt.Font.PLAIN, 12 );
+
+    add( button2 );
+    button2.setShapeName( "button2" );
+    button2.setPos( 10, -190 );
+    button2.setFillColor( new Color( 13421772 ) );
+    button2.setSize( 80, 30 );
+    button2.setLineWidth( 1 );
+    button2.setLineColor( new Color( 0 ) );
+    button2.setText( "Рестарт" );
+    button2.setFont( "Tahoma", java.awt.Font.PLAIN, 12 );
+  }
+
+  public void init() {
+    super.init();
+  }
+
+  public void update() {
+    super.update();
+   // text.setText(
+// _XJ_SECTION_BEGIN( ANI.Text.58 )
+//getTime()
+// _XJ_SECTION_END
+ //);
+  }
+
+    public ShapeButton button2 = new ShapeButton() {
+      public void action() {
+// _XJ_SECTION_BEGIN( ANI.Event.61 )
+Engine.restart();
+// _XJ_SECTION_END
+      }
+    };
+    public ShapeButton button1 = new ShapeButton() {
+      public void action() {
+// _XJ_SECTION_BEGIN( ANI.Event.60 )
+Engine.stop();
+// _XJ_SECTION_END
+      }
+    };
+    public ShapeButton button = new ShapeButton() {
+      public void action() {
+// _XJ_SECTION_BEGIN( ANI.Event.59 )
+Engine.run();
+// _XJ_SECTION_END
+      }
+    };
+    public ShapeButton button5 = new ShapeButton() {
+      public void action() {
+// _XJ_SECTION_BEGIN( ANI.Event.51 )
+Engine.terminate();
+//Engine.deleteEngine();
+// _XJ_SECTION_END
+      }
+    };
+    public ShapeButton button4 = new ShapeButton() {
+      public void action() {
+// _XJ_SECTION_BEGIN( ANI.Event.49 )
+
+
+if (button3.isEnable())
+{
+cfgSystem win2 = new cfgSystem();
+boolean packFrame = false;
+  if (packFrame) {
+      win2.pack();
+    }
+    else {
+      win2.validate();
+    }
+    //Center the window
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    Dimension frameSize = win2.getSize();
+    if (frameSize.height > screenSize.height) {
+      frameSize.height = screenSize.height;
+    }
+    if (frameSize.width > screenSize.width) {
+      frameSize.width = screenSize.width;
+    }
+    win2.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+    win2.setVisible(true);
+
+   // button4.setEnabled(false);
+    }
+// _XJ_SECTION_END
+      }
+    };
+    public ShapeButton button3 = new ShapeButton() {
+      public void action() {
+// _XJ_SECTION_BEGIN( ANI.Event.48 )
+
+
+if (button3.isEnable())
+{cfgGSM win1 = new cfgGSM();
+boolean packFrame = false;
+  if (packFrame) {
+      win1.pack();
+    }
+    else {
+      win1.validate();
+    }
+    //Center the window
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    Dimension frameSize = win1.getSize();
+    if (frameSize.height > screenSize.height) {
+      frameSize.height = screenSize.height;
+    }
+    if (frameSize.width > screenSize.width) {
+      frameSize.width = screenSize.width;
+    }
+    win1.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+    win1.setVisible(true);
+
+   // button3.setEnabled(false);
+    }
+//else if (button3.isEnable() == false){
+//cfgGSM.getFrames().clone();
+
+//}
+// _XJ_SECTION_END
+      }
+    };
+    public ShapeText text = new ShapeText();
+    public ShapeText text8 = new ShapeText();
+    public ShapeText text7 = new ShapeText();
+}
+
+

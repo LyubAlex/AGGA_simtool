@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <!--JBuilder Library Definition File-->
+  <fullname>Untitled</fullname>
+  <class>
+    <path>[../../libs/beandt.jar]</path>
+    <path>[../../libs/dx.jar]</path>
+    <path>[../../libs/jbcl.jar]</path>
+    <path>[../../libs/jcommon-1.0.12.jar]</path>
+    <path>[../../libs/jfreechart-1.0.9.jar]</path>
+    <path>[../../libs/xjanylogic5engine.jar]</path>
+  </class>
+  <lastmodsaved>1576054504430</lastmodsaved>
+</library>

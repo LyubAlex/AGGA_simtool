@@ -1,0 +1,34 @@
+[PropertyInfo]
+border1,Border,false,false, , ,false,<default>
+border2,Border,false,false, , ,false,<default>
+border3,Border,false,false, , ,false,<default>
+border4,Border,false,false, , ,false,<default>
+border5,Border,false,false, , ,false,<default>
+bSaveExit,JButton,false,false, , ,false,<default>
+chDopPar,Checkbox,false,false, , ,false,<default>
+chEnergy,Checkbox,false,false, , ,false,<default>
+chEvent,Checkbox,false,false, , ,false,<default>
+chPower,Checkbox,false,false, , ,false,<default>
+dataInterval,Object[],false,false, , ,false,<default>
+imageOK,ImageIcon,false,false, , ,false,<default>
+inputVrMod,JFormattedTextField,false,false, , ,false,<default>
+interReqData,Vector,false,false, , ,false,<default>
+intReqData,Matrix,false,false, , ,false,<default>
+jComboBox1,JComboBox,false,false, , ,false,<default>
+jPanel1,JPanel,false,false, , ,false,<default>
+jPanel2,JPanel,false,false, , ,false,<default>
+jPanel3,JPanel,false,false, , ,false,<default>
+labelVrMod,JLabel,false,false, , ,false,<default>
+labelVrMod1,JLabel,false,false, , ,false,<default>
+panel1,JPanel,false,false, , ,false,<default>
+titledBorder1,TitledBorder,false,false, , ,false,<default>
+titledBorder2,TitledBorder,false,false, , ,false,<default>
+xYLayout1,XYLayout,false,false, , ,false,<default>
+xYLayout2,XYLayout,false,false, , ,false,<default>
+xYLayout3,XYLayout,false,false, , ,false,<default>
+xYLayout5,XYLayout,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

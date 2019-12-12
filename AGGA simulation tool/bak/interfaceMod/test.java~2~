@@ -1,0 +1,25 @@
+package interfaceMod;
+
+import org.jfree.*;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.ChartFactory;
+
+
+public class test {
+  public test(){
+  DefaultPieDataset data = new DefaultPieDataset();
+    data.setValue("Category 1",43.2);
+
+     data.setValue("dfd",45.2);
+
+
+JFreeChart chart = ChartFactory.createPieChart(
+         "cccccc",
+         data,
+         true,
+           true,
+           false
+           );
+  }
+}

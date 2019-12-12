@@ -1,0 +1,89 @@
+
+An unexpected exception has been detected in native code outside the VM.
+Unexpected Signal : EXCEPTION_ACCESS_VIOLATION (0xc0000005) occurred at PC=0x2FF6F60
+Function=Java_sun_awt_windows_WColor_getDefaultColor+0x79AE
+Library=D:\JBuilderX\jdk1.4\jre\bin\awt.dll
+
+Current Java thread:
+	at sun.awt.windows.WComponentPeer.removeNativeDropTarget(Native Method)
+	at sun.awt.windows.WComponentPeer.removeDropTarget(WComponentPeer.java:657)
+	- locked <0x10681600> (a sun.awt.windows.WFramePeer)
+	at java.awt.dnd.DropTarget.removeNotify(DropTarget.java:481)
+	at java.awt.Component.removeNotify(Component.java:5550)
+	- locked <0x1050f5f8> (a java.awt.Component$AWTTreeLock)
+	at java.awt.Container.removeNotify(Container.java:2074)
+	- locked <0x1050f5f8> (a java.awt.Component$AWTTreeLock)
+	at javax.swing.JComponent.removeNotify(JComponent.java:4307)
+	at javax.swing.text.JTextComponent.removeNotify(JTextComponent.java:1337)
+	at java.awt.Container.removeAll(Container.java:794)
+	- locked <0x1050f5f8> (a java.awt.Component$AWTTreeLock)
+	at com.xj.anylogic.animation.AnimationPanel.destroy(AnimationPanel.java:393)
+	at com.xj.anylogic.Engine.closeAnimation(Engine.java:2141)
+	at com.xj.anylogic.Engine.doDestroyModel(Engine.java:1001)
+	at com.xj.anylogic.Engine.start(Engine.java:679)
+	- locked <0x1066dd58> (a java.lang.Object)
+	at aiis.model.go(model.java:31)
+	at interfaceMod.StartModeling.main(StartModeling.java:51)
+
+Dynamic libraries:
+0x00400000 - 0x00407000 	D:\JBuilderX\jdk1.4\bin\javaw.exe
+0x7C900000 - 0x7C9B1000 	D:\WINDOWS\system32\ntdll.dll
+0x7C800000 - 0x7C8F7000 	D:\WINDOWS\system32\kernel32.dll
+0x77DC0000 - 0x77E6C000 	D:\WINDOWS\system32\ADVAPI32.dll
+0x77E70000 - 0x77F01000 	D:\WINDOWS\system32\RPCRT4.dll
+0x7E360000 - 0x7E3F1000 	D:\WINDOWS\system32\USER32.dll
+0x77F10000 - 0x77F57000 	D:\WINDOWS\system32\GDI32.dll
+0x77C00000 - 0x77C58000 	D:\WINDOWS\system32\MSVCRT.dll
+0x76360000 - 0x7637D000 	D:\WINDOWS\system32\IMM32.DLL
+0x003A0000 - 0x003B9000 	D:\Program Files\AusLogics Visual Styler\ThemeHelper.dll
+0x77110000 - 0x7719B000 	D:\WINDOWS\system32\oleaut32.dll
+0x774D0000 - 0x7760D000 	D:\WINDOWS\system32\ole32.dll
+0x77BF0000 - 0x77BF8000 	D:\WINDOWS\system32\version.dll
+0x76BE0000 - 0x76BEB000 	D:\WINDOWS\system32\PSAPI.dll
+0x08000000 - 0x08136000 	D:\JBuilderX\jdk1.4\jre\bin\client\jvm.dll
+0x76B20000 - 0x76B4E000 	D:\WINDOWS\system32\WINMM.dll
+0x10000000 - 0x10007000 	D:\JBuilderX\jdk1.4\jre\bin\hpi.dll
+0x00390000 - 0x0039E000 	D:\JBuilderX\jdk1.4\jre\bin\verify.dll
+0x003C0000 - 0x003D8000 	D:\JBuilderX\jdk1.4\jre\bin\java.dll
+0x003E0000 - 0x003ED000 	D:\JBuilderX\jdk1.4\jre\bin\zip.dll
+0x02F80000 - 0x0308F000 	D:\JBuilderX\jdk1.4\jre\bin\awt.dll
+0x72FC0000 - 0x72FE6000 	D:\WINDOWS\system32\WINSPOOL.DRV
+0x5B260000 - 0x5B298000 	D:\WINDOWS\System32\uxtheme.dll
+0x03100000 - 0x03150000 	D:\JBuilderX\jdk1.4\jre\bin\fontmanager.dll
+0x73720000 - 0x73769000 	D:\WINDOWS\system32\ddraw.dll
+0x73B80000 - 0x73B86000 	D:\WINDOWS\system32\DCIMAN32.dll
+0x73900000 - 0x739D0000 	D:\WINDOWS\system32\D3DIM700.DLL
+0x039D0000 - 0x039DD000 	D:\Program Files\FlashGet\fgmgr.dll
+0x76380000 - 0x763C9000 	D:\WINDOWS\system32\comdlg32.dll
+0x77F60000 - 0x77FD6000 	D:\WINDOWS\system32\SHLWAPI.dll
+0x5D5B0000 - 0x5D64A000 	D:\WINDOWS\system32\COMCTL32.dll
+0x7C9C0000 - 0x7D1DA000 	D:\WINDOWS\system32\SHELL32.dll
+0x43310000 - 0x433DF000 	D:\WINDOWS\system32\WININET.dll
+0x039E0000 - 0x039E9000 	D:\WINDOWS\system32\Normaliz.dll
+0x43090000 - 0x430D5000 	D:\WINDOWS\system32\iertutil.dll
+0x773C0000 - 0x774C3000 	D:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll
+0x746E0000 - 0x7472C000 	D:\WINDOWS\system32\MSCTF.dll
+0x75310000 - 0x7533E000 	D:\WINDOWS\system32\msctfime.ime
+0x03BF0000 - 0x03FEF000 	D:\WINDOWS\Resources\themes\Luna\Luna.msstyles
+0x04030000 - 0x04052000 	D:\JBuilderX\jdk1.4\jre\bin\dcpr.dll
+0x76C80000 - 0x76CA8000 	D:\WINDOWS\system32\imagehlp.dll
+0x59C60000 - 0x59D01000 	D:\WINDOWS\system32\DBGHELP.dll
+
+Heap at VM Abort:
+Heap
+ def new generation   total 576K, used 517K [0x10010000, 0x100b0000, 0x104f0000)
+  eden space 512K,  95% used [0x10010000, 0x1008abd0, 0x10090000)
+  from space 64K,  41% used [0x10090000, 0x10096908, 0x100a0000)
+  to   space 64K,   0% used [0x100a0000, 0x100a0000, 0x100b0000)
+ tenured generation   total 3052K, used 2073K [0x104f0000, 0x107eb000, 0x14010000)
+   the space 3052K,  67% used [0x104f0000, 0x106f6618, 0x106f6800, 0x107eb000)
+ compacting perm gen  total 8960K, used 8710K [0x14010000, 0x148d0000, 0x18010000)
+   the space 8960K,  97% used [0x14010000, 0x14891968, 0x14891a00, 0x148d0000)
+
+Local Time = Mon Apr 07 12:28:20 2008
+Elapsed Time = 432
+#
+# The exception above was detected in native code outside the VM
+#
+# Java VM: Java HotSpot(TM) Client VM (1.4.2_01-b06 mixed mode)
+#

@@ -1,0 +1,1724 @@
+// GSM.java
+
+package aiis;
+
+import java.util.Vector;
+import java.util.Hashtable;
+import java.awt.Color;
+import com.xj.jama.Matrix;
+import com.xj.anylogic.*;
+import com.xj.anylogic.animation.*;
+import com.xj.random.*;
+
+
+public class GSM extends ActiveObject
+ {
+
+  public static void main( String[] args ) {
+    System.out.println( "...started..." );
+    try {
+      Engine.setRoot( new GSM() );
+    } catch ( Throwable ex ) {
+      Engine.traceException( ex );
+      Engine.setError( "Exception during model root object creation: " + ex );
+    }
+    Engine.start( args );
+    System.out.println( "...finished..." );
+  }
+
+  public void onEngineCreate() {
+  }
+
+  public String getType() {
+    return "aiis.GSM";
+  }
+
+  protected void getEquations() {
+    addFE( _ref_SNR, new DoubleFunction() {
+      public double value() { return todouble( 
+// _XJ_SECTION_BEGIN( AO.Equation.0.SNR )
+DistrUniform.sample(2,12)
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "SNR = DistrUniform.sample(2,12)"; }
+    }, false, null );
+    addFE( _ref_verBlok, new DoubleFunction() {
+      public double value() { return todouble( 
+// _XJ_SECTION_BEGIN( AO.Equation.33.verBlok )
+modelErlang(kolChannelBS)
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "verBlok = modelErlang(kolChannelBS)"; }
+    }, false, new VariableRef[]{ _ref_kolChannelBS } );
+    addFE( _ref_intZayavok, new DoubleFunction() {
+      public double value() { return todouble( 
+// _XJ_SECTION_BEGIN( AO.Equation.70.intZayavok )
+DistrPoisson.sample(3)
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "intZayavok = DistrPoisson.sample(3)"; }
+    }, false, null );
+    addFE( _ref_A, new DoubleFunction() {
+      public double value() { return todouble( 
+// _XJ_SECTION_BEGIN( AO.Equation.107.A )
+(kolMS*intZayavok*timeObs)/3600
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "A = (kolMS*intZayavok*timeObs)/3600"; }
+    }, false, new VariableRef[]{ _ref_kolMS, _ref_intZayavok, _ref_timeObs } );
+    addFE( _ref_timeObs, new DoubleFunction() {
+      public double value() { return todouble( 
+// _XJ_SECTION_BEGIN( AO.Equation.144.timeObs )
+DistrExponential.sample(120)
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "timeObs = DistrExponential.sample(120)"; }
+    }, false, null );
+  }
+
+  public void create() {
+    createTimeOut = new Timer_createTimeOut();
+    createTimeOut.setName( "createTimeOut" );
+    _ref_timeTransfer.setup( this, "timeTransfer", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.timeTransfer )
+    timeTransfer = 0
+;
+// _XJ_SECTION_END
+    _ref_timeTransferI.setup( this, "timeTransferI", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.timeTransferI )
+    timeTransferI = 0
+;
+// _XJ_SECTION_END
+    _ref_kolEndGSMmir.setup( this, "kolEndGSMmir", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.kolEndGSMmir )
+    kolEndGSMmir = 0
+;
+// _XJ_SECTION_END
+    _ref_kolEndGSMset.setup( this, "kolEndGSMset", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.kolEndGSMset )
+    kolEndGSMset = 0
+;
+// _XJ_SECTION_END
+    _ref_endGSM.setup( this, "endGSM", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.endGSM )
+    endGSM = false
+;
+// _XJ_SECTION_END
+    _ref_idGSM.setup( this, "idGSM", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.idGSM )
+    idGSM = 0
+;
+// _XJ_SECTION_END
+    _ref_timeScale.setup( this, "timeScale", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.timeScale )
+    timeScale = 60
+;
+// _XJ_SECTION_END
+    _ref_timeOutFromMIR.setup( this, "timeOutFromMIR", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.timeOutFromMIR )
+    timeOutFromMIR = 0
+;
+// _XJ_SECTION_END
+    _ref_timeOutFromSET.setup( this, "timeOutFromSET", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.timeOutFromSET )
+    timeOutFromSET = 0
+;
+// _XJ_SECTION_END
+    _ref_bitrate.setup( this, "bitrate", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.bitrate )
+    bitrate = 0
+;
+// _XJ_SECTION_END
+    _ref_timeWaitCalling.setup( this, "timeWaitCalling", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.timeWaitCalling )
+    timeWaitCalling = 0
+;
+// _XJ_SECTION_END
+    _ref_timeService.setup( this, "timeService", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.timeService )
+    timeService = 0
+;
+// _XJ_SECTION_END
+    _ref_BER.setup( this, "BER", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.BER )
+    BER = 0
+;
+// _XJ_SECTION_END
+    _ref_SNR.setup( this, "SNR", true );
+    _ref_ID.setup( this, "ID", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.ID )
+    ID = 0
+;
+// _XJ_SECTION_END
+    _ref_transferData.setup( this, "transferData", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.transferData )
+    transferData = 0
+;
+// _XJ_SECTION_END
+    _ref_currentCounter.setup( this, "currentCounter", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.currentCounter )
+    currentCounter = 0
+;
+// _XJ_SECTION_END
+    _ref_statusCalling.setup( this, "statusCalling", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.statusCalling )
+    statusCalling = false
+;
+// _XJ_SECTION_END
+    _ref_kolRepeat.setup( this, "kolRepeat", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.kolRepeat )
+    kolRepeat = 0
+;
+// _XJ_SECTION_END
+    _ref_statusBER.setup( this, "statusBER", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.statusBER )
+    statusBER = false
+;
+// _XJ_SECTION_END
+    _ref_kolBlok.setup( this, "kolBlok", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.kolBlok )
+    kolBlok = 0
+;
+// _XJ_SECTION_END
+    _ref_timeWaitAccess.setup( this, "timeWaitAccess", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.timeWaitAccess )
+    timeWaitAccess = 0
+;
+// _XJ_SECTION_END
+    _ref_verBlok.setup( this, "verBlok", true );
+    _ref_kolChannelBS.setup( this, "kolChannelBS", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.kolChannelBS )
+    kolChannelBS = Math.round(DistrUniform.sample(16,20))
+;
+// _XJ_SECTION_END
+    _ref_intZayavok.setup( this, "intZayavok", true );
+    _ref_currentVer.setup( this, "currentVer", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.currentVer )
+    currentVer = 0
+;
+// _XJ_SECTION_END
+    _ref_kolMS.setup( this, "kolMS", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.kolMS )
+    kolMS = 80
+;
+// _XJ_SECTION_END
+    _ref_A.setup( this, "A", true );
+    _ref_timeObs.setup( this, "timeObs", true );
+    _ref_kolNeudach.setup( this, "kolNeudach", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.kolNeudach )
+    kolNeudach = 0
+;
+// _XJ_SECTION_END
+    _ref_kolEndGSM.setup( this, "kolEndGSM", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.kolEndGSM )
+    kolEndGSM = 0
+;
+// _XJ_SECTION_END
+    GSM = new Type_GSM();
+    portOut = new Port();
+    portOut.setup( "portOut", this );
+    portIn = new Port();
+    portIn.setup( "portIn", this );
+  }
+
+  public void destroy() {
+    GSM = null;
+    portOut = null;
+    portIn = null;
+    super.destroy();
+  }
+
+  protected void startup() {
+    startThread( GSM, "GSM" );
+// _XJ_SECTION_BEGIN( AO.Startup )
+//startThread("modelGSMSNR");
+//startThread("modelGSMEnd");
+;
+// _XJ_SECTION_END
+  }
+
+  public static class _Type_lookupTable_BERvsSNR extends LookupTable { 
+    public _Type_lookupTable_BERvsSNR() {
+      super( 
+    "BERvsSNR",    LookupTable.SPLINE,
+    LookupTable.EXTRAPOLATE, 0.0,
+    new double[]{ 0, 2, 4, 6, 8, 10 },
+    new double[]{ 0.5, 0.16, 0.02, 0.001, 0.00003, 0.0000003 } );
+    }
+  }
+  public static _Type_lookupTable_BERvsSNR BERvsSNR = new _Type_lookupTable_BERvsSNR();
+  public static double BERvsSNR( double x ) {
+    return BERvsSNR.lookup( x );
+  }
+  public static Matrix BERvsSNR( Matrix x ) {
+    return BERvsSNR.lookup( x );
+  }
+  public static HyperArray BERvsSNR( HyperArray x ) {
+    return BERvsSNR.lookup( x );
+  }
+  public static class _Type_lookupTable_CSthroughput extends LookupTable { 
+    public _Type_lookupTable_CSthroughput() {
+      super( 
+    "CSthroughput",    LookupTable.SPLINE,
+    LookupTable.EXTRAPOLATE, 0.0,
+    new double[]{ 3, 6, 8, 11, 16, 20 },
+    new double[]{ 1500, 4500, 8000, 9600, 9600, 9600 } );
+    }
+  }
+  public static _Type_lookupTable_CSthroughput CSthroughput = new _Type_lookupTable_CSthroughput();
+  public static double CSthroughput( double x ) {
+    return CSthroughput.lookup( x );
+  }
+  public static Matrix CSthroughput( Matrix x ) {
+    return CSthroughput.lookup( x );
+  }
+  public static HyperArray CSthroughput( HyperArray x ) {
+    return CSthroughput.lookup( x );
+  }
+
+  // Class parameters
+  public static void set_parVerUstGSM( 
+// _XJ_SECTION_BEGIN( AO.ParameterType.0 )
+double
+// _XJ_SECTION_END
+      _value ) {
+    parVerUstGSM = _value;
+  }
+
+  public static double get_parVerUstGSM() {
+    return parVerUstGSM;
+  }
+
+  public static 
+// _XJ_SECTION_BEGIN( AO.ParameterType.0 )
+double
+// _XJ_SECTION_END
+ parVerUstGSM = 
+// _XJ_SECTION_BEGIN( AO.ParameterValue.0 )
+90
+// _XJ_SECTION_END
+;
+  public static void set_parVerEndGSM( 
+// _XJ_SECTION_BEGIN( AO.ParameterType.1 )
+double
+// _XJ_SECTION_END
+      _value ) {
+    parVerEndGSM = _value;
+  }
+
+  public static double get_parVerEndGSM() {
+    return parVerEndGSM;
+  }
+
+  public static 
+// _XJ_SECTION_BEGIN( AO.ParameterType.1 )
+double
+// _XJ_SECTION_END
+ parVerEndGSM = 
+// _XJ_SECTION_BEGIN( AO.ParameterValue.1 )
+2
+// _XJ_SECTION_END
+;
+  public static void set_parVrEndGSM( 
+// _XJ_SECTION_BEGIN( AO.ParameterType.2 )
+double
+// _XJ_SECTION_END
+      _value ) {
+    parVrEndGSM = _value;
+  }
+
+  public static double get_parVrEndGSM() {
+    return parVrEndGSM;
+  }
+
+  public static 
+// _XJ_SECTION_BEGIN( AO.ParameterType.2 )
+double
+// _XJ_SECTION_END
+ parVrEndGSM = 
+// _XJ_SECTION_BEGIN( AO.ParameterValue.2 )
+3
+// _XJ_SECTION_END
+;
+  public static void set_parVrUstGSM( 
+// _XJ_SECTION_BEGIN( AO.ParameterType.3 )
+double
+// _XJ_SECTION_END
+      _value ) {
+    parVrUstGSM = _value;
+  }
+
+  public static double get_parVrUstGSM() {
+    return parVrUstGSM;
+  }
+
+  public static 
+// _XJ_SECTION_BEGIN( AO.ParameterType.3 )
+double
+// _XJ_SECTION_END
+ parVrUstGSM = 
+// _XJ_SECTION_BEGIN( AO.ParameterValue.3 )
+10
+// _XJ_SECTION_END
+;
+  public static void set_timeWave( 
+// _XJ_SECTION_BEGIN( AO.ParameterType.4 )
+double
+// _XJ_SECTION_END
+      _value ) {
+    timeWave = _value;
+  }
+
+  public static double get_timeWave() {
+    return timeWave;
+  }
+
+  public static 
+// _XJ_SECTION_BEGIN( AO.ParameterType.4 )
+double
+// _XJ_SECTION_END
+ timeWave = 
+// _XJ_SECTION_BEGIN( AO.ParameterValue.4 )
+0.180
+// _XJ_SECTION_END
+;
+
+  public void setParams( double parVerUstGSM, double parVerEndGSM, double parVrEndGSM, double parVrUstGSM, double timeWave ) {
+    set_parVerUstGSM( parVerUstGSM );
+    set_parVerEndGSM( parVerEndGSM );
+    set_parVrEndGSM( parVrEndGSM );
+    set_parVrUstGSM( parVrUstGSM );
+    set_timeWave( timeWave );
+  }
+
+  // Structure objects
+public double timeTransfer;
+  public VariableRefDouble _ref_timeTransfer = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { timeTransfer = (double)_value; }
+    public double getDoubleValue() { return (double)timeTransfer; } };
+public double timeTransferI;
+  public VariableRefDouble _ref_timeTransferI = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { timeTransferI = (double)_value; }
+    public double getDoubleValue() { return (double)timeTransferI; } };
+public double kolEndGSMmir;
+  public VariableRefDouble _ref_kolEndGSMmir = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { kolEndGSMmir = (double)_value; }
+    public double getDoubleValue() { return (double)kolEndGSMmir; } };
+public double kolEndGSMset;
+  public VariableRefDouble _ref_kolEndGSMset = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { kolEndGSMset = (double)_value; }
+    public double getDoubleValue() { return (double)kolEndGSMset; } };
+public boolean endGSM;
+  public VariableRefDouble _ref_endGSM = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { endGSM = _value != 0 ? true : false; }
+    public double getDoubleValue() { return endGSM ? 1.0 : 0.0; } };
+public double idGSM;
+  public VariableRefDouble _ref_idGSM = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { idGSM = (double)_value; }
+    public double getDoubleValue() { return (double)idGSM; } };
+public double timeScale;
+  public VariableRefDouble _ref_timeScale = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { timeScale = (double)_value; }
+    public double getDoubleValue() { return (double)timeScale; } };
+public double timeOutFromMIR;
+  public VariableRefDouble _ref_timeOutFromMIR = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { timeOutFromMIR = (double)_value; }
+    public double getDoubleValue() { return (double)timeOutFromMIR; } };
+public double timeOutFromSET;
+  public VariableRefDouble _ref_timeOutFromSET = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { timeOutFromSET = (double)_value; }
+    public double getDoubleValue() { return (double)timeOutFromSET; } };
+public double bitrate;
+  public VariableRefDouble _ref_bitrate = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { bitrate = (double)_value; }
+    public double getDoubleValue() { return (double)bitrate; } };
+public double timeWaitCalling;
+  public VariableRefDouble _ref_timeWaitCalling = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { timeWaitCalling = (double)_value; }
+    public double getDoubleValue() { return (double)timeWaitCalling; } };
+public double timeService;
+  public VariableRefDouble _ref_timeService = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { timeService = (double)_value; }
+    public double getDoubleValue() { return (double)timeService; } };
+public double BER;
+  public VariableRefDouble _ref_BER = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { BER = (double)_value; }
+    public double getDoubleValue() { return (double)BER; } };
+public double SNR;
+  public VariableRefDouble _ref_SNR = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { SNR = (double)_value; }
+    public double getDoubleValue() { return (double)SNR; } };
+public int ID;
+  public VariableRefDouble _ref_ID = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { ID = (int)_value; }
+    public double getDoubleValue() { return (double)ID; } };
+public double transferData;
+  public VariableRefDouble _ref_transferData = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { transferData = (double)_value; }
+    public double getDoubleValue() { return (double)transferData; } };
+public int currentCounter;
+  public VariableRefDouble _ref_currentCounter = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { currentCounter = (int)_value; }
+    public double getDoubleValue() { return (double)currentCounter; } };
+public boolean statusCalling;
+  public VariableRefDouble _ref_statusCalling = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { statusCalling = _value != 0 ? true : false; }
+    public double getDoubleValue() { return statusCalling ? 1.0 : 0.0; } };
+public int kolRepeat;
+  public VariableRefDouble _ref_kolRepeat = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { kolRepeat = (int)_value; }
+    public double getDoubleValue() { return (double)kolRepeat; } };
+public boolean statusBER;
+  public VariableRefDouble _ref_statusBER = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { statusBER = _value != 0 ? true : false; }
+    public double getDoubleValue() { return statusBER ? 1.0 : 0.0; } };
+public int kolBlok;
+  public VariableRefDouble _ref_kolBlok = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { kolBlok = (int)_value; }
+    public double getDoubleValue() { return (double)kolBlok; } };
+public double timeWaitAccess;
+  public VariableRefDouble _ref_timeWaitAccess = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { timeWaitAccess = (double)_value; }
+    public double getDoubleValue() { return (double)timeWaitAccess; } };
+public double verBlok;
+  public VariableRefDouble _ref_verBlok = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { verBlok = (double)_value; }
+    public double getDoubleValue() { return (double)verBlok; } };
+public double kolChannelBS;
+  public VariableRefDouble _ref_kolChannelBS = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { kolChannelBS = (double)_value; }
+    public double getDoubleValue() { return (double)kolChannelBS; } };
+public double intZayavok;
+  public VariableRefDouble _ref_intZayavok = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { intZayavok = (double)_value; }
+    public double getDoubleValue() { return (double)intZayavok; } };
+public double currentVer;
+  public VariableRefDouble _ref_currentVer = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { currentVer = (double)_value; }
+    public double getDoubleValue() { return (double)currentVer; } };
+public double kolMS;
+  public VariableRefDouble _ref_kolMS = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { kolMS = (double)_value; }
+    public double getDoubleValue() { return (double)kolMS; } };
+public double A;
+  public VariableRefDouble _ref_A = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { A = (double)_value; }
+    public double getDoubleValue() { return (double)A; } };
+public double timeObs;
+  public VariableRefDouble _ref_timeObs = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { timeObs = (double)_value; }
+    public double getDoubleValue() { return (double)timeObs; } };
+public double kolNeudach;
+  public VariableRefDouble _ref_kolNeudach = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { kolNeudach = (double)_value; }
+    public double getDoubleValue() { return (double)kolNeudach; } };
+public double kolEndGSM;
+  public VariableRefDouble _ref_kolEndGSM = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { kolEndGSM = (double)_value; }
+    public double getDoubleValue() { return (double)kolEndGSM; } };
+  public Port portOut;
+  public Port portIn;
+  Timer_createTimeOut createTimeOut = null;
+  class Timer_createTimeOut extends StaticTimer {
+    Timer_createTimeOut() {
+      super( GSM.this );
+    }
+    public void action() {
+// _XJ_SECTION_BEGIN( ST.Action.createTimeOut )
+GSM.fireEvent("nextStep");
+// _XJ_SECTION_END
+    }
+  }
+
+// Group class for group _IconGroup
+public class _IconGroup extends Group {
+
+  public void setup() {
+    setActiveObject( GSM.this );
+    super.setup();
+    setSize( 70, 42 );
+    setOrigin( -35, -20 );
+
+    add( _shape_ );
+    _shape_.setShapeName( "_shape_" );
+    _shape_.setPos( -27, -17 );
+    _shape_.setFillColor( new Color( 12632256 ) );
+    _shape_.setSize( 60, 40 );
+    _shape_.setLineWidth( 0 );
+    _shape_.setLineColor( null );
+
+    add( _shape_rectangle );
+    _shape_rectangle.setShapeName( "_shape_rectangle" );
+    _shape_rectangle.setPos( -30, -20 );
+    _shape_rectangle.setFillColor( new Color( 16231006 ) );
+    _shape_rectangle.setSize( 60, 40 );
+    _shape_rectangle.setLineWidth( 1 );
+    _shape_rectangle.setLineColor( new Color( 16093485 ) );
+
+    add( _shape_text );
+    _shape_text.setShapeName( "_shape_text" );
+    _shape_text.setPos( -14, -9 );
+    _shape_text.setFillColor( new Color( 0 ) );
+    _shape_text.setLineWidth( 0 );
+    _shape_text.setLineColor( null );
+    _shape_text.setText( "GSM" );
+    _shape_text.setFont( "Tahoma", 12, java.awt.Font.PLAIN );
+    _shape_text.setFontColor( new Color( 0 ) );
+
+    add( _shape_portIn );
+    _shape_portIn.setShapeName( "_shape_portIn" );
+    _shape_portIn.setPos( -30, 0 );
+    _shape_portIn.setFillColor( new Color( 16777215 ) );
+
+    add( _shape_portOut );
+    _shape_portOut.setShapeName( "_shape_portOut" );
+    _shape_portOut.setPos( 30, 0 );
+    _shape_portOut.setFillColor( new Color( 16777215 ) );
+  }
+
+  public void init() {
+    super.init();
+  }
+
+  public void update() {
+    super.update();
+  }
+
+    public ShapePort _shape_portOut = new ShapePort();
+    public ShapePort _shape_portIn = new ShapePort();
+    public ShapeText _shape_text = new ShapeText();
+    public ShapeRect _shape_rectangle = new ShapeRect();
+    public ShapeRect _shape_ = new ShapeRect();
+}
+
+  public _IconGroup icon = null;
+  public Group createIcon() {
+    return icon != null ? icon : ( icon = new _IconGroup() );
+  }
+
+// Group class for group _StructureGroup
+public class _StructureGroup extends Group {
+
+  public void setup() {
+    setScale( 0.8 );
+    setActiveObject( GSM.this );
+    super.setup();
+    setSize( 1280, 891 );
+    setOrigin( -280, -170 );
+
+    add( _shape_textBox1_10 );
+    _shape_textBox1_10.setShapeName( "_shape_textBox1_10" );
+    _shape_textBox1_10.setPos( 0, -170 );
+    _shape_textBox1_10.setFillColor( new Color( 16777152 ) );
+    _shape_textBox1_10.setSize( 500, 100 );
+    _shape_textBox1_10.setFontColor( new Color( 0 ) );
+    _shape_textBox1_10.setText( "kolEndGSM - количество внезапно разорванных соединений всего\nkolEndGSMSet - количество внезапно разорванных соединений во время опроса СЭТ\nkolEndGSMMir - количество внезапно разорванных соединений во время опроса МИР\n" );
+
+    add( _shape_textBox2_16 );
+    _shape_textBox2_16.setShapeName( "_shape_textBox2_16" );
+    _shape_textBox2_16.setPos( 430, -10 );
+    _shape_textBox2_16.setFillColor( new Color( 16777152 ) );
+    _shape_textBox2_16.setSize( 570, 300 );
+    _shape_textBox2_16.setFontColor( new Color( 0 ) );
+    _shape_textBox2_16.setText( "Общая задержка в канале GSM при распространении в прямом и обратном направлениях, вызванная обработкой сигнала, кодированием/декодированием речи, канальным кодированием и т.д., составляет около 180 мс." );
+
+    add( _shape_textBox3_18 );
+    _shape_textBox3_18.setShapeName( "_shape_textBox3_18" );
+    _shape_textBox3_18.setPos( -280, 70 );
+    _shape_textBox3_18.setFillColor( new Color( 16777152 ) );
+    _shape_textBox3_18.setSize( 200, 170 );
+    _shape_textBox3_18.setFontColor( new Color( 0 ) );
+    _shape_textBox3_18.setText( "FER-вероятность ошибки в кадре(1-2%)\n" );
+
+    add( _shape_textBox4_20 );
+    _shape_textBox4_20.setShapeName( "_shape_textBox4_20" );
+    _shape_textBox4_20.setPos( 40, 490 );
+    _shape_textBox4_20.setFillColor( new Color( 16777152 ) );
+    _shape_textBox4_20.setSize( 220, 200 );
+    _shape_textBox4_20.setFontColor( new Color( 0 ) );
+    _shape_textBox4_20.setText( "Модель Эрланга-вероятность блокировки\n" );
+
+    add( _shape_textBox5_29 );
+    _shape_textBox5_29.setShapeName( "_shape_textBox5_29" );
+    _shape_textBox5_29.setPos( -130, 460 );
+    _shape_textBox5_29.setFillColor( new Color( 16777152 ) );
+    _shape_textBox5_29.setSize( 140, 180 );
+    _shape_textBox5_29.setFontColor( new Color( 0 ) );
+    _shape_textBox5_29.setText( "Собираемая статистика\n" );
+
+    add( _object_GSM );
+    _object_GSM.setShapeName( "_object_GSM" );
+    _object_GSM.setPos( -150, 0 );
+    _object_GSM.setSize( 550, 720 );
+    _object_GSM.setName( "GSM" );
+    _object_GSM.setNameOffset( 10, 10 );
+
+    add( _shape_portIn );
+    _shape_portIn.setShapeName( "_shape_portIn" );
+    _shape_portIn.setPos( -150, 360 );
+    _shape_portIn.setFillColor( new Color( 16777215 ) );
+    _shape_portIn.setName( "portIn" );
+    _shape_portIn.setNameOffset( 10, 0 );
+
+    add( _shape_portOut );
+    _shape_portOut.setShapeName( "_shape_portOut" );
+    _shape_portOut.setPos( 400, 360 );
+    _shape_portOut.setFillColor( new Color( 16777215 ) );
+    _shape_portOut.setName( "portOut" );
+    _shape_portOut.setNameOffset( 10, 0 );
+
+    add( _shape_GSM );
+    _shape_GSM.setShapeName( "_shape_GSM" );
+    _shape_GSM.setPos( 350, 20 );
+    _shape_GSM.setName( "GSM" );
+    _shape_GSM.setNameOffset( 10, 0 );
+
+    add( _shape_kolEndGSM );
+    _shape_kolEndGSM.setShapeName( "_shape_kolEndGSM" );
+    _shape_kolEndGSM.setPos( -90, 400 );
+    _shape_kolEndGSM.setFillColor( new Color( 10526975 ) );
+    _shape_kolEndGSM.setStateVariable( true );
+    _shape_kolEndGSM.setName( "kolEndGSM" );
+    _shape_kolEndGSM.setNameOffset( 10, 0 );
+
+    add( _shape_kolNeudach );
+    _shape_kolNeudach.setShapeName( "_shape_kolNeudach" );
+    _shape_kolNeudach.setPos( -110, 600 );
+    _shape_kolNeudach.setFillColor( new Color( 10526975 ) );
+    _shape_kolNeudach.setStateVariable( true );
+    _shape_kolNeudach.setName( "kolNeudach" );
+    _shape_kolNeudach.setNameOffset( 10, 0 );
+
+    add( _shape_timeObs );
+    _shape_timeObs.setShapeName( "_shape_timeObs" );
+    _shape_timeObs.setPos( 80, 580 );
+    _shape_timeObs.setFillColor( new Color( 10526975 ) );
+    _shape_timeObs.setStateVariable( true );
+    _shape_timeObs.setName( "timeObs" );
+    _shape_timeObs.setNameOffset( 10, 0 );
+
+    add( _shape_A );
+    _shape_A.setShapeName( "_shape_A" );
+    _shape_A.setPos( 80, 600 );
+    _shape_A.setFillColor( new Color( 10526975 ) );
+    _shape_A.setStateVariable( true );
+    _shape_A.setName( "A" );
+    _shape_A.setNameOffset( 10, 0 );
+
+    add( _shape_kolMS );
+    _shape_kolMS.setShapeName( "_shape_kolMS" );
+    _shape_kolMS.setPos( 80, 620 );
+    _shape_kolMS.setFillColor( new Color( 10526975 ) );
+    _shape_kolMS.setStateVariable( true );
+    _shape_kolMS.setName( "kolMS" );
+    _shape_kolMS.setNameOffset( 10, 0 );
+
+    add( _shape_currentVer );
+    _shape_currentVer.setShapeName( "_shape_currentVer" );
+    _shape_currentVer.setPos( 150, 640 );
+    _shape_currentVer.setFillColor( new Color( 10526975 ) );
+    _shape_currentVer.setStateVariable( true );
+    _shape_currentVer.setName( "currentVer" );
+    _shape_currentVer.setNameOffset( 10, 0 );
+
+    add( _shape_intZayavok );
+    _shape_intZayavok.setShapeName( "_shape_intZayavok" );
+    _shape_intZayavok.setPos( 150, 580 );
+    _shape_intZayavok.setFillColor( new Color( 10526975 ) );
+    _shape_intZayavok.setStateVariable( true );
+    _shape_intZayavok.setName( "intZayavok" );
+    _shape_intZayavok.setNameOffset( 10, 0 );
+
+    add( _shape_kolChannelBS );
+    _shape_kolChannelBS.setShapeName( "_shape_kolChannelBS" );
+    _shape_kolChannelBS.setPos( 150, 600 );
+    _shape_kolChannelBS.setFillColor( new Color( 10526975 ) );
+    _shape_kolChannelBS.setStateVariable( true );
+    _shape_kolChannelBS.setName( "kolChannelBS" );
+    _shape_kolChannelBS.setNameOffset( 10, 0 );
+
+    add( _shape_verBlok );
+    _shape_verBlok.setShapeName( "_shape_verBlok" );
+    _shape_verBlok.setPos( 150, 620 );
+    _shape_verBlok.setFillColor( new Color( 10526975 ) );
+    _shape_verBlok.setStateVariable( true );
+    _shape_verBlok.setName( "verBlok" );
+    _shape_verBlok.setNameOffset( 10, 0 );
+
+    add( _shape_timeWaitAccess );
+    _shape_timeWaitAccess.setShapeName( "_shape_timeWaitAccess" );
+    _shape_timeWaitAccess.setPos( -120, 660 );
+    _shape_timeWaitAccess.setFillColor( new Color( 10526975 ) );
+    _shape_timeWaitAccess.setStateVariable( true );
+    _shape_timeWaitAccess.setName( "timeWaitAccess" );
+    _shape_timeWaitAccess.setNameOffset( 10, 0 );
+
+    add( _shape_kolBlok );
+    _shape_kolBlok.setShapeName( "_shape_kolBlok" );
+    _shape_kolBlok.setPos( -110, 520 );
+    _shape_kolBlok.setFillColor( new Color( 10526975 ) );
+    _shape_kolBlok.setStateVariable( true );
+    _shape_kolBlok.setName( "kolBlok" );
+    _shape_kolBlok.setNameOffset( 10, 0 );
+
+    add( _shape_statusBER );
+    _shape_statusBER.setShapeName( "_shape_statusBER" );
+    _shape_statusBER.setPos( 300, 460 );
+    _shape_statusBER.setFillColor( new Color( 10526975 ) );
+    _shape_statusBER.setStateVariable( true );
+    _shape_statusBER.setName( "statusBER" );
+    _shape_statusBER.setNameOffset( 10, 0 );
+
+    add( _shape_kolRepeat );
+    _shape_kolRepeat.setShapeName( "_shape_kolRepeat" );
+    _shape_kolRepeat.setPos( -110, 540 );
+    _shape_kolRepeat.setFillColor( new Color( 10526975 ) );
+    _shape_kolRepeat.setStateVariable( true );
+    _shape_kolRepeat.setName( "kolRepeat" );
+    _shape_kolRepeat.setNameOffset( 10, 0 );
+
+    add( _shape_statusCalling );
+    _shape_statusCalling.setShapeName( "_shape_statusCalling" );
+    _shape_statusCalling.setPos( -30, 140 );
+    _shape_statusCalling.setFillColor( new Color( 10526975 ) );
+    _shape_statusCalling.setStateVariable( true );
+    _shape_statusCalling.setName( "statusCalling" );
+    _shape_statusCalling.setNameOffset( 10, 0 );
+
+    add( _shape_currentCounter );
+    _shape_currentCounter.setShapeName( "_shape_currentCounter" );
+    _shape_currentCounter.setPos( -30, 160 );
+    _shape_currentCounter.setFillColor( new Color( 10526975 ) );
+    _shape_currentCounter.setStateVariable( true );
+    _shape_currentCounter.setName( "currentCounter" );
+    _shape_currentCounter.setNameOffset( 10, 0 );
+
+    add( _shape_transferData );
+    _shape_transferData.setShapeName( "_shape_transferData" );
+    _shape_transferData.setPos( 300, 380 );
+    _shape_transferData.setFillColor( new Color( 10526975 ) );
+    _shape_transferData.setStateVariable( true );
+    _shape_transferData.setName( "transferData" );
+    _shape_transferData.setNameOffset( 10, 0 );
+
+    add( _shape_ID );
+    _shape_ID.setShapeName( "_shape_ID" );
+    _shape_ID.setPos( -30, 60 );
+    _shape_ID.setFillColor( new Color( 10526975 ) );
+    _shape_ID.setStateVariable( true );
+    _shape_ID.setName( "ID" );
+    _shape_ID.setNameOffset( 10, 0 );
+
+    add( _shape_SNR );
+    _shape_SNR.setShapeName( "_shape_SNR" );
+    _shape_SNR.setPos( 300, 410 );
+    _shape_SNR.setFillColor( new Color( 10526975 ) );
+    _shape_SNR.setStateVariable( true );
+    _shape_SNR.setName( "SNR" );
+    _shape_SNR.setNameOffset( 10, 0 );
+
+    add( _shape_BER );
+    _shape_BER.setShapeName( "_shape_BER" );
+    _shape_BER.setPos( 300, 440 );
+    _shape_BER.setFillColor( new Color( 10526975 ) );
+    _shape_BER.setStateVariable( true );
+    _shape_BER.setName( "BER" );
+    _shape_BER.setNameOffset( 10, 0 );
+
+    add( _shape_timeService );
+    _shape_timeService.setShapeName( "_shape_timeService" );
+    _shape_timeService.setPos( -110, 560 );
+    _shape_timeService.setFillColor( new Color( 10526975 ) );
+    _shape_timeService.setStateVariable( true );
+    _shape_timeService.setName( "timeService" );
+    _shape_timeService.setNameOffset( 10, 0 );
+
+    add( _shape_timeWaitCalling );
+    _shape_timeWaitCalling.setShapeName( "_shape_timeWaitCalling" );
+    _shape_timeWaitCalling.setPos( -120, 680 );
+    _shape_timeWaitCalling.setFillColor( new Color( 10526975 ) );
+    _shape_timeWaitCalling.setStateVariable( true );
+    _shape_timeWaitCalling.setName( "timeWaitCalling" );
+    _shape_timeWaitCalling.setNameOffset( 10, 0 );
+
+    add( _shape_bitrate );
+    _shape_bitrate.setShapeName( "_shape_bitrate" );
+    _shape_bitrate.setPos( 300, 490 );
+    _shape_bitrate.setFillColor( new Color( 10526975 ) );
+    _shape_bitrate.setStateVariable( true );
+    _shape_bitrate.setName( "bitrate" );
+    _shape_bitrate.setNameOffset( 10, 0 );
+
+    add( _shape_timeOutFromSET );
+    _shape_timeOutFromSET.setShapeName( "_shape_timeOutFromSET" );
+    _shape_timeOutFromSET.setPos( 280, 630 );
+    _shape_timeOutFromSET.setFillColor( new Color( 10526975 ) );
+    _shape_timeOutFromSET.setStateVariable( true );
+    _shape_timeOutFromSET.setName( "timeOutFromSET" );
+    _shape_timeOutFromSET.setNameOffset( 10, 0 );
+
+    add( _shape_timeOutFromMIR );
+    _shape_timeOutFromMIR.setShapeName( "_shape_timeOutFromMIR" );
+    _shape_timeOutFromMIR.setPos( 280, 650 );
+    _shape_timeOutFromMIR.setFillColor( new Color( 10526975 ) );
+    _shape_timeOutFromMIR.setStateVariable( true );
+    _shape_timeOutFromMIR.setName( "timeOutFromMIR" );
+    _shape_timeOutFromMIR.setNameOffset( 10, 0 );
+
+    add( _shape_timeScale );
+    _shape_timeScale.setShapeName( "_shape_timeScale" );
+    _shape_timeScale.setPos( 320, 300 );
+    _shape_timeScale.setFillColor( new Color( 10526975 ) );
+    _shape_timeScale.setStateVariable( true );
+    _shape_timeScale.setName( "timeScale" );
+    _shape_timeScale.setNameOffset( 10, 0 );
+
+    add( _shape_idGSM );
+    _shape_idGSM.setShapeName( "_shape_idGSM" );
+    _shape_idGSM.setPos( 250, 140 );
+    _shape_idGSM.setFillColor( new Color( 10526975 ) );
+    _shape_idGSM.setStateVariable( true );
+    _shape_idGSM.setName( "idGSM" );
+    _shape_idGSM.setNameOffset( 10, 0 );
+
+    add( _shape_endGSM );
+    _shape_endGSM.setShapeName( "_shape_endGSM" );
+    _shape_endGSM.setPos( 270, 60 );
+    _shape_endGSM.setFillColor( new Color( 10526975 ) );
+    _shape_endGSM.setStateVariable( true );
+    _shape_endGSM.setName( "endGSM" );
+    _shape_endGSM.setNameOffset( 10, 0 );
+
+    add( _shape_kolEndGSMset );
+    _shape_kolEndGSMset.setShapeName( "_shape_kolEndGSMset" );
+    _shape_kolEndGSMset.setPos( -90, 420 );
+    _shape_kolEndGSMset.setFillColor( new Color( 10526975 ) );
+    _shape_kolEndGSMset.setStateVariable( true );
+    _shape_kolEndGSMset.setName( "kolEndGSMset" );
+    _shape_kolEndGSMset.setNameOffset( 10, 0 );
+
+    add( _shape_kolEndGSMmir );
+    _shape_kolEndGSMmir.setShapeName( "_shape_kolEndGSMmir" );
+    _shape_kolEndGSMmir.setPos( -90, 440 );
+    _shape_kolEndGSMmir.setFillColor( new Color( 10526975 ) );
+    _shape_kolEndGSMmir.setStateVariable( true );
+    _shape_kolEndGSMmir.setName( "kolEndGSMmir" );
+    _shape_kolEndGSMmir.setNameOffset( 10, 0 );
+
+    add( _shape_timeTransferI );
+    _shape_timeTransferI.setShapeName( "_shape_timeTransferI" );
+    _shape_timeTransferI.setPos( -120, 700 );
+    _shape_timeTransferI.setFillColor( new Color( 10526975 ) );
+    _shape_timeTransferI.setStateVariable( true );
+    _shape_timeTransferI.setName( "timeTransferI" );
+    _shape_timeTransferI.setNameOffset( 10, 0 );
+
+    add( _shape_timeTransfer );
+    _shape_timeTransfer.setShapeName( "_shape_timeTransfer" );
+    _shape_timeTransfer.setPos( -110, 580 );
+    _shape_timeTransfer.setFillColor( new Color( 10526975 ) );
+    _shape_timeTransfer.setStateVariable( true );
+    _shape_timeTransfer.setName( "timeTransfer" );
+    _shape_timeTransfer.setNameOffset( 10, 0 );
+
+    add( _shape_createTimeOut );
+    _shape_createTimeOut.setShapeName( "_shape_createTimeOut" );
+    _shape_createTimeOut.setPos( -40, 260 );
+    _shape_createTimeOut.setName( "createTimeOut" );
+    _shape_createTimeOut.setNameOffset( 10, 0 );
+  }
+
+  public void init() {
+    super.init();
+  }
+
+  public void update() {
+    super.update();
+  }
+
+    public ShapeTimer _shape_createTimeOut = new ShapeTimer();
+    public ShapeVar _shape_timeTransfer = new ShapeVar();
+    public ShapeVar _shape_timeTransferI = new ShapeVar();
+    public ShapeVar _shape_kolEndGSMmir = new ShapeVar();
+    public ShapeVar _shape_kolEndGSMset = new ShapeVar();
+    public ShapeVar _shape_endGSM = new ShapeVar();
+    public ShapeVar _shape_idGSM = new ShapeVar();
+    public ShapeVar _shape_timeScale = new ShapeVar();
+    public ShapeVar _shape_timeOutFromMIR = new ShapeVar();
+    public ShapeVar _shape_timeOutFromSET = new ShapeVar();
+    public ShapeVar _shape_bitrate = new ShapeVar();
+    public ShapeVar _shape_timeWaitCalling = new ShapeVar();
+    public ShapeVar _shape_timeService = new ShapeVar();
+    public ShapeVar _shape_BER = new ShapeVar();
+    public ShapeVar _shape_SNR = new ShapeVar();
+    public ShapeVar _shape_ID = new ShapeVar();
+    public ShapeVar _shape_transferData = new ShapeVar();
+    public ShapeVar _shape_currentCounter = new ShapeVar();
+    public ShapeVar _shape_statusCalling = new ShapeVar();
+    public ShapeVar _shape_kolRepeat = new ShapeVar();
+    public ShapeVar _shape_statusBER = new ShapeVar();
+    public ShapeVar _shape_kolBlok = new ShapeVar();
+    public ShapeVar _shape_timeWaitAccess = new ShapeVar();
+    public ShapeVar _shape_verBlok = new ShapeVar();
+    public ShapeVar _shape_kolChannelBS = new ShapeVar();
+    public ShapeVar _shape_intZayavok = new ShapeVar();
+    public ShapeVar _shape_currentVer = new ShapeVar();
+    public ShapeVar _shape_kolMS = new ShapeVar();
+    public ShapeVar _shape_A = new ShapeVar();
+    public ShapeVar _shape_timeObs = new ShapeVar();
+    public ShapeVar _shape_kolNeudach = new ShapeVar();
+    public ShapeVar _shape_kolEndGSM = new ShapeVar();
+    public ShapeStatechart _shape_GSM = new ShapeStatechart();
+    public ShapePort _shape_portOut = new ShapePort();
+    public ShapePort _shape_portIn = new ShapePort();
+    public ShapeBounds _object_GSM = new ShapeBounds();
+    public ShapeComment _shape_textBox5_29 = new ShapeComment();
+    public ShapeComment _shape_textBox4_20 = new ShapeComment();
+    public ShapeComment _shape_textBox3_18 = new ShapeComment();
+    public ShapeComment _shape_textBox2_16 = new ShapeComment();
+    public ShapeComment _shape_textBox1_10 = new ShapeComment();
+}
+
+  public _StructureGroup structure = null;
+  public Group createStructure() {
+    return structure != null ? structure : ( structure = new _StructureGroup() );
+  }
+
+// _XJ_SECTION_BEGIN( AO.Code )
+Vector VrOprosaGSM = new Vector();
+Vector avTimeSET = new Vector();
+Vector avTimeMIR = new Vector(); 
+
+ boolean connect,disconnect = false;
+boolean nextGsmChannel,allGsmChannel = false;
+int indexChannel = 1;
+
+boolean AllCounter,oprosSET,oprosMIR = false;
+
+boolean estSlot, netSlot,repeatFrame,transferOk = false; 
+double modelErlang(double n)
+{ 
+  double res=0;
+ double sum=0;
+  long j=1;
+  for (int i=1;i<=n;i++)
+    {
+     j=j*i;
+     sum=sum+Math.pow(A,i)/j;
+    }
+ res=(Math.pow(A,n)/j)/(sum);
+ return res;   
+}
+
+public void modelGSMSNR(){
+while(true)
+{
+ SNR=DistrUniform.sample(2,12);
+ delay(1);
+ }
+}
+
+public void modelGSMEnd(){
+model m = (model)getOwner();
+while(true)
+{
+ 
+    if (endGSM)
+    {
+     if (currentCounter==1)
+     {
+      m.sETGSM.item(ID).oprosAlgoritm.stop();
+      m.sETGSM.item(ID).oprosAlgoritm.startup();
+     kolEndGSMset++;
+      }
+     else if (currentCounter==2)
+     {
+      m.mIRGSM.item(ID).oprosAlgoritm.stop();
+      m.mIRGSM.item(ID).oprosAlgoritm.startup();
+      kolEndGSMmir++;
+     }
+     m.gSM.item(ID).GSM.fireEvent("stopGSM");
+     kolEndGSM++;
+     endGSM=false;
+    }
+ 
+delay(1/timeScale); //в GPRS контроль отношения сигнал шум дважды в 240 мс
+ }
+ };
+// _XJ_SECTION_END
+// Class inner statecharts
+// Statechart Type_GSM
+public Type_GSM GSM;
+class Type_GSM extends Statechart {
+
+  public static final short transition26 = 6;
+  public static final short transition25 = 7;
+  public static final short transition21 = 8;
+  public static final short transition20 = 9;
+  public static final short transition14 = 10;
+  public static final short transition19 = 11;
+  public static final short transition8 = 12;
+  public static final short transition13 = 13;
+  public static final short transition12 = 14;
+  public static final short transition11 = 15;
+  public static final short transition10 = 16;
+  public static final short transition9 = 17;
+  public static final short transition3 = 18;
+  public static final short transition4 = 19;
+  public static final short transition7 = 20;
+  public static final short transition5 = 21;
+  public static final short transition2 = 22;
+  public static final short transition24 = 23;
+  public static final short transition23 = 24;
+  public static final short transition22 = 25;
+  public static final short transition18 = 26;
+  public static final short transition17 = 27;
+  public static final short transition16 = 28;
+  public static final short transition15 = 29;
+  public static final short transition6 = 30;
+  public static final short transition1 = 31;
+  public static final short transition = 32;
+  public static final short Д___уп____р_д_ = 33;
+  public static final short _____р_п_р_дачи__адра = 34;
+  public static final short Е__ь__л__ = 35;
+  public static final short О_ида_и_ = 36;
+  public static final short Н____л__а = 37;
+  public static final short __р_дача_да____ = 38;
+  public static final short __дир__а_и__да____ = 39;
+  public static final short Вр_м__ра_пр___ра___и___иг_ала = 40;
+  public static final short О_ида_и__п_д___р_д__и_ = 41;
+  public static final short Жда_ь = 42;
+  public static final short Разр______ди___и_ = 43;
+  public static final short Н_удач____д_з___ = 45;
+  public static final short У__а___л__и_____ди___и_ = 46;
+  public static final short GSM__пр_ш___ = 47;
+  public static final short Сл_ду__и___а_ал_GSM = 48;
+  public static final short _р___дура_д_з___а = 49;
+  public static final short Начал_ = 50;
+
+  protected Node[] getNodes() { return new Node[]{
+    new Node( 111, eInitialMarker, "pointer1", 44, -1, 33 ),
+    new Node( 4, eInitialMarker, "pointer", -1, -1, 50 ),
+    new Node( 99, eDynamicChoice, "branch", 44 ),
+    new Node( 89, eDynamicChoice, "branch1", 44 ),
+    new Node( 79, eDynamicChoice, "branch5", -1 ),
+    new Node( 50, eDynamicChoice, "branch3", -1 ),
+    new Node( 121, eTransition, "transition26", -1, 44, 48 ),
+    new Node( 120, eTransition, "transition25", 44, 41, 2 ),
+    new Node( 119, eTransition, "transition21", 44, 40, 38 ),
+    new Node( 116, eTransition, "transition20", -1, 42, 4 ),
+    new Node( 114, eTransition, "transition14", -1, 43, 48 ),
+    new Node( 112, eTransition, "transition19", -1, 44, 43 ),
+    new Node( 109, eTransition, "transition8", 44, 35, 39 ),
+    new Node( 108, eTransition, "transition13", 44, 34, 33 ),
+    new Node( 107, eTransition, "transition12", 44, 33, 3 ),
+    new Node( 105, eTransition, "transition11", 44, 2, 33 ),
+    new Node( 100, eTransition, "transition10", 44, 2, 34 ),
+    new Node( 98, eTransition, "transition9", 44, 38, 41 ),
+    new Node( 90, eTransition, "transition3", 44, 3, 35 ),
+    new Node( 91, eTransition, "transition4", 44, 3, 37 ),
+    new Node( 92, eTransition, "transition7", 44, 36, 3 ),
+    new Node( 93, eTransition, "transition5", 44, 37, 36 ),
+    new Node( 87, eTransition, "transition2", 44, 39, 40 ),
+    new Node( 84, eTransition, "transition24", -1, 46, 44 ),
+    new Node( 83, eTransition, "transition23", -1, 45, 42 ),
+    new Node( 82, eTransition, "transition22", -1, 4, 45 ),
+    new Node( 58, eTransition, "transition18", -1, 47, 50 ),
+    new Node( 57, eTransition, "transition17", -1, 5, 47 ),
+    new Node( 55, eTransition, "transition16", -1, 5, 49 ),
+    new Node( 49, eTransition, "transition15", -1, 48, 5 ),
+    new Node( 27, eTransition, "transition6", -1, 4, 46 ),
+    new Node( 21, eTransition, "transition1", -1, 49, 4 ),
+    new Node( 6, eTransition, "transition", -1, 50, 5 ),
+    new Node( 106, eState, "Доступ к среде", 44 ),
+    new Node( 102, eState, "Повтор передачи кадра", 44 ),
+    new Node( 94, eState, "Есть слот", 44 ),
+    new Node( 95, eState, "Ожидание", 44 ),
+    new Node( 96, eState, "Нет слота", 44 ),
+    new Node( 86, eState, "Передача данных", 44 ),
+    new Node( 85, eState, "Кодирование данных", 44 ),
+    new Node( 117, eState, "Время распространения сигнала", 44 ),
+    new Node( 118, eState, "Ожидание подтверждения", 44 ),
+    new Node( 115, eState, "Ждать", -1 ),
+    new Node( 113, eState, "Разрыв соединения", -1 ),
+    new Node( 110, eState, "", -1 ),
+    new Node( 81, eState, "Неудачный дозвон", -1 ),
+    new Node( 80, eState, "Установление соединения", -1 ),
+    new Node( 56, eState, "GSM опрошены", -1 ),
+    new Node( 47, eState, "Следующий канал GSM", -1 ),
+    new Node( 7, eState, "Процедура дозвона", -1 ),
+    new Node( 2, eState, "Начало", -1 ),
+  }; }
+  protected void calculate( int node, int codeType ) {
+    switch ( node ) {
+// Branch State: branch
+      case 2: switch ( codeType ) {
+        case eAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.99.Action )
+BER=BERvsSNR(SNR);
+statusBER=randomTrue(BER);
+if (statusBER)
+{
+repeatFrame=true;
+}
+else if (statusBER==false)
+{
+transferOk=true;
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Branch State: branch1
+      case 3: switch ( codeType ) {
+        case eAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.89.Action )
+
+currentVer =Math.round(verBlok*100);
+
+if (currentVer > 0)
+{
+ 
+ if (randomTrue(currentVer/100))
+    { netSlot=true;}
+ else
+    {      estSlot=true;
+    
+    }
+}
+else
+{
+
+estSlot=true;}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Branch State: branch5
+      case 4: switch ( codeType ) {
+        case eAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.79.Action )
+if (randomTrue(parVerUstGSM/100)){
+connect=true;
+}
+else
+{disconnect=true;}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Branch State: branch3
+      case 5: switch ( codeType ) {
+        case eAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.50.Action )
+//if (indexChannel <= (model.parKolMasGSM.size())/2)
+if (indexChannel <= 1)
+{nextGsmChannel = true;}
+else 
+{allGsmChannel = true;}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Transition: transition26
+      case 6: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent( 
+// _XJ_SECTION_BEGIN( SC.GSM.121.Trigger )
+"stopGSM"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition25
+      case 7: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent( 
+// _XJ_SECTION_BEGIN( SC.GSM.120.Trigger )
+"nextStep"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition21
+      case 8: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent( 
+// _XJ_SECTION_BEGIN( SC.GSM.119.Trigger )
+"nextStep"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition14
+      case 10: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent( 
+// _XJ_SECTION_BEGIN( SC.GSM.114.Trigger )
+"nextStep"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition19
+      case 11: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent( 
+// _XJ_SECTION_BEGIN( SC.GSM.112.Trigger )
+"callEND"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition13
+      case 13: switch ( codeType ) {
+        case eAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.108.Action )
+model m = (model)getOwner();
+
+for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
+{
+ if (ID==i)
+   {
+    if (currentCounter==1)
+       {
+         if (timeTransferI>=20)
+           {
+           m.sETGSM.item(i).openCloseChannel = false;
+           m.sETGSM.item(i).avTimeSETGSM=m.sETGSM.item(i).avTimeSETGSM+timeTransferI;
+           m.sETGSM.item(i).oprosAlgoritm.fireEvent("receiveData");
+               
+           m.gSM.item(i).timeTransferI=0;
+           }
+         else 
+           {
+               m.sETGSM.item(i).avTimeSETGSM=m.sETGSM.item(i).avTimeSETGSM+timeTransferI;
+           m.sETGSM.item(i).oprosAlgoritm.fireEvent("receiveData");
+           m.gSM.item(i).timeTransferI=0;
+           }
+
+        }
+    else if (currentCounter==2)
+       {
+        m.mIRGSM.item(i).oprosAlgoritm.fireEvent("receiveData");
+         m.mIRGSM.item(i).avTimeMIRGSM=m.mIRGSM.item(i).avTimeMIRGSM+timeTransferI;
+          m.gSM.item(i).timeTransferI=0;
+       }
+   }
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Transition: transition12
+      case 14: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent( 
+// _XJ_SECTION_BEGIN( SC.GSM.107.Trigger )
+"sendData"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition11
+      case 15: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.GSM.105.Guard )
+transferOk
+// _XJ_SECTION_END
+          ); break;
+        case eAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.105.Action )
+transferOk=false;
+model m = (model)getOwner();
+
+for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
+{
+ if (ID==i)
+   {
+    if (currentCounter==1)
+       {
+              if (timeTransferI>=20)
+           {
+           m.sETGSM.item(i).openCloseChannel = false;
+           m.sETGSM.item(i).oprosAlgoritm.fireEvent("receiveData");
+           m.sETGSM.item(i).avTimeSETGSM=m.sETGSM.item(i).avTimeSETGSM+timeTransferI;
+           m.gPRS.item(i).timeTransferI=0;
+           
+           }
+         else 
+           {
+           m.sETGSM.item(i).avTimeSETGSM=m.sETGSM.item(i).avTimeSETGSM+timeTransferI;
+           m.sETGSM.item(i).oprosAlgoritm.fireEvent("receiveData");
+           m.gSM.item(i).timeTransferI=0;
+           }
+        }
+    else if (currentCounter==2)
+       {
+        m.mIRGSM.item(i).oprosAlgoritm.fireEvent("receiveData");
+        m.mIRGSM.item(i).avTimeMIRGSM=m.mIRGSM.item(i).avTimeMIRGSM+timeTransferI;
+          m.gSM.item(i).timeTransferI=0;
+       }
+   }
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Transition: transition10
+      case 16: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.GSM.100.Guard )
+repeatFrame
+// _XJ_SECTION_END
+          ); break;
+        case eAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.100.Action )
+repeatFrame=false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Transition: transition9
+      case 17: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent( 
+// _XJ_SECTION_BEGIN( SC.GSM.98.Trigger )
+"nextStep"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition3
+      case 18: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.GSM.90.Guard )
+estSlot
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition4
+      case 19: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.GSM.91.Guard )
+netSlot
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition2
+      case 22: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent( 
+// _XJ_SECTION_BEGIN( SC.GSM.87.Trigger )
+"nextStep"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition24
+      case 23: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent( 
+// _XJ_SECTION_BEGIN( SC.GSM.84.Trigger )
+"nextStep"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition22
+      case 25: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.GSM.82.Guard )
+disconnect
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition17
+      case 27: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.GSM.57.Guard )
+allGsmChannel
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition16
+      case 28: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.GSM.55.Guard )
+nextGsmChannel
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition6
+      case 30: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.GSM.27.Guard )
+connect
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition
+      case 32: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent( 
+// _XJ_SECTION_BEGIN( SC.GSM.6.Trigger )
+"startGSM"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// State: Повтор передачи кадра
+      case 34: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.102.EntryAction )
+//createTimeOut.restart(((transferData/bitrate)+timeWave)/timeScale);
+//createTimeOut.restart((transferData/bitrate)+timeWave);
+createTimeOut.restart(0);
+timeTransfer=timeTransfer+((transferData/bitrate)+timeWave);
+timeTransferI=timeTransferI+((transferData/bitrate)+timeWave);
+;
+// _XJ_SECTION_END
+          } break;
+        case eExitAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.102.ExitAction )
+kolRepeat++;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Есть слот
+      case 35: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.94.EntryAction )
+bitrate=9600;
+timeTransfer=timeTransfer+timeWaitAccess;
+timeTransferI=timeTransferI+timeWaitAccess;
+timeWaitAccess=0;
+;
+// _XJ_SECTION_END
+          } break;
+        case eExitAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.94.ExitAction )
+estSlot=false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Ожидание
+      case 36: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.95.EntryAction )
+timeWaitAccess=timeWaitAccess+1;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Нет слота
+      case 37: switch ( codeType ) {
+        case eExitAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.96.ExitAction )
+netSlot=false;
+kolBlok++;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Передача данных
+      case 38: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.86.EntryAction )
+//createTimeOut.restart((transferData/bitrate)/timeScale);
+createTimeOut.restart(0);
+//createTimeOut.restart(transferData/bitrate);
+timeTransfer=timeTransfer+(transferData/bitrate);
+timeTransferI=timeTransferI+(transferData/bitrate);
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Кодирование данных
+      case 39: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.85.EntryAction )
+if (currentCounter==1)
+    {
+     timeTransfer=timeTransfer+timeOutFromSET;
+     timeTransferI=timeTransferI+timeOutFromSET;
+    }
+else if (currentCounter==2)
+    {
+     timeTransfer=timeTransfer+timeOutFromMIR;
+      timeTransferI=timeTransferI+timeOutFromSET;
+    }
+ double timeCode;
+timeCode=uniform(0.06,0.08);
+//createTimeOut.restart(timeCode/timeScale);
+createTimeOut.restart(0);
+//createTimeOut.restart(timeCode);
+timeTransfer=timeTransfer+timeCode;
+timeTransferI=timeTransferI+timeCode;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Время распространения сигнала
+      case 40: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.117.EntryAction )
+//createTimeOut.restart(timeWave/timeScale);
+//createTimeOut.restart(timeWave);
+createTimeOut.restart(0);
+timeTransfer=timeTransfer+timeWave;
+timeTransferI=timeTransferI+timeWave;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Ожидание подтверждения
+      case 41: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.118.EntryAction )
+//createTimeOut.restart(timeWave/timeScale);
+createTimeOut.restart(0);
+//createTimeOut.restart(timeWave);
+timeTransfer=timeTransfer+timeWave;
+timeTransferI=timeTransferI+timeWave;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Ждать
+      case 42: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.115.EntryAction )
+timeWaitCalling=timeWaitCalling+1;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Разрыв соединения
+      case 43: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.113.EntryAction )
+//createTimeOut.restart(parVrEndGSM/timeScale);
+createTimeOut.restart(0);
+//createTimeOut.restart(parVrEndGSM);
+;
+// _XJ_SECTION_END
+          } break;
+        case eExitAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.113.ExitAction )
+timeService=timeService+parVrEndGSM;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: 
+      case 44: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.110.EntryAction )
+endGSM=randomTrue(parVerEndGSM/100);
+idGSM = this.getCurrentState();
+;
+// _XJ_SECTION_END
+          } break;
+        case eExitAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.110.ExitAction )
+if (endGSM){
+ model m = (model)getOwner();
+ if (currentCounter==1)
+   {
+     m.sETGSM.item(ID).oprosAlgoritm.stop();
+     m.sETGSM.item(ID).oprosAlgoritm.startup();
+     kolEndGSMset++;
+   }
+     else if (currentCounter==2)
+   {
+     m.mIRGSM.item(ID).oprosAlgoritm.stop();
+     m.mIRGSM.item(ID).oprosAlgoritm.startup();
+     kolEndGSMmir++;
+   }
+     m.gSM.item(ID).GSM.fireEvent("stopGSM");
+     kolEndGSM++;
+     endGSM=false;
+     }
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Неудачный дозвон
+      case 45: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.81.EntryAction )
+kolNeudach++;
+;
+// _XJ_SECTION_END
+          } break;
+        case eExitAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.81.ExitAction )
+disconnect=false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Установление соединения
+      case 46: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.80.EntryAction )
+//createTimeOut.restart(parVrUstGSM/timeScale);
+createTimeOut.restart(0);
+//createTimeOut.restart(parVrUstGSM);
+;
+// _XJ_SECTION_END
+          } break;
+        case eExitAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.80.ExitAction )
+statusCalling=true;
+
+model m = (model)getOwner();
+for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
+{
+ if (ID==i)
+   {
+    if (currentCounter==1)
+       {
+        m.sETGSM.item(i).oprosAlgoritm.fireEvent("callOK");
+       }
+    else if (currentCounter==2)
+       {
+        m.mIRGSM.item(i).oprosAlgoritm.fireEvent("callOK");
+       }
+   }
+}
+timeService=timeService+(parVrUstGSM+timeWaitCalling);
+timeWaitCalling=0;
+connect = false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: GSM опрошены
+      case 47: switch ( codeType ) {
+        case eExitAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.56.ExitAction )
+allGsmChannel = false;
+indexChannel =1;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Следующий канал GSM
+      case 48: switch ( codeType ) {
+        case eEntryAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.47.EntryAction )
+model.kolFinishGSM++;
+if (model.kolFinishGSM==(model.parKolMasGSM.size())/2)
+{model.finishAllGSM=true;}
+
+
+statusCalling=false;
+indexChannel++;
+;
+// _XJ_SECTION_END
+          } break;
+        case eExitAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.47.ExitAction )
+timeTransfer=timeTransfer+timeService;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Процедура дозвона
+      case 49: switch ( codeType ) {
+        case eExitAction: { 
+// _XJ_SECTION_BEGIN( SC.GSM.7.ExitAction )
+nextGsmChannel = false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+    }
+  }
+
+} // end of the Type_GSM statechart
+}

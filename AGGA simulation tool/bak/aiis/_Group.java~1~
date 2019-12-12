@@ -1,0 +1,6 @@
+package aiis;
+
+public class createWin {
+  public createWin() {
+  }
+}

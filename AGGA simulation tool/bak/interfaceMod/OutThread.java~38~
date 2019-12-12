@@ -1,0 +1,56 @@
+package interfaceMod;
+
+import com.xj.anylogic.Engine;
+import javax.swing.JFrame;
+import javax.swing.JFormattedTextField;
+import java.awt.Color;
+import org.jfree.ui.RefineryUtilities;
+import javax.swing.JDialog;
+
+public class OutThread extends Thread {
+
+
+ private JFormattedTextField textField;
+ private animation fr;
+  OutThread(JFormattedTextField text ,animation frame){fr=frame;textField=text;}
+
+  public void run() {
+
+     RefineryUtilities.centerFrameOnScreen(fr); fr.setVisible(true);
+
+   fr.anim1.setVisible(false);
+   fr.anim2.setVisible(true);
+
+   while(Engine.isRunning())
+  {
+
+
+    try
+    {
+      if (Engine.isRunning()){
+         if (fr.anim1.isVisible()==true & fr.anim2.isVisible()==false)
+         {
+          fr.anim1.setVisible(false);
+          fr.anim2.setVisible(true);
+         }
+         else if (fr.anim1.isVisible()==false & fr.anim2.isVisible()==true)
+         {fr.anim2.setVisible(false);
+         fr.anim1.setVisible(true);
+         }
+
+
+       textField.setValue(new Integer((int)Engine.getTime()));
+
+         }
+
+    else {fr.dispose();}
+    Thread.sleep(200);
+    }
+        catch(InterruptedException e){}
+
+  }
+ textField.setValue(new Integer((((int)Engine.getTime())/((int)aiis.model.parVrModD*24))*100));
+//textField.setValue(new Double((int)Engine.getTime()));
+
+  }
+}

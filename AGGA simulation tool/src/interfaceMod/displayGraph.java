@@ -1,0 +1,200 @@
+package interfaceMod;
+
+import javax.swing.*;
+import java.awt.*;
+import com.borland.jbcl.layout.*;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.chart.plot.PlotOrientation;
+import java.awt.image.BufferedImage;
+import javax.swing.border.*;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultIntervalCategoryDataset;
+import org.jfree.chart.labels.CategoryToolTipGenerator;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.AbstractCategoryItemLabelGenerator;
+import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import java.text.NumberFormat;
+import java.util.Vector;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.AbstractCategoryItemRenderer;
+import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
+import org.jfree.chart.renderer.category.CategoryItemRendererState;
+import java.awt.geom.Rectangle2D;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.ui.TextAnchor;
+
+public class displayGraph extends JFrame {
+
+  JFreeChart  chart1=null;
+
+  ImageIcon image1;
+  Border border1;
+  TitledBorder titledBorder1;
+  XYLayout xYLayout2 = new XYLayout();
+  XYLayout xYLayout1 = new XYLayout();
+  JLabel jLabel1 = new JLabel();
+  Border border2;
+  JLabel jLabel2 = new JLabel();
+  Border border3;
+
+  static  class  LabelGenerator  extends  AbstractCategoryItemLabelGenerator implements  CategoryItemLabelGenerator  {
+   public  LabelGenerator()
+  {
+   super("",  NumberFormat.getInstance());
+  }
+
+public  String  generateLabel(CategoryDataset  dataset, int  series, int  category)
+{
+String  result  =  null;
+Number  value  =  dataset.getValue(series,  category);
+result  =  value.toString();
+return  result;
+}
+
+}
+
+
+
+
+
+public displayGraph(Vector vecData) {
+try {
+  CategoryDataset  dataset  =  createDataset(vecData);
+  chart1  =  createChart(dataset);
+  jbInit();
+
+}
+catch (Exception ex) {
+}
+  }
+
+  private  static  CategoryDataset  createDataset(Vector v)  {
+  DefaultCategoryDataset  dataset  =  new  DefaultCategoryDataset();
+    for(int i =0;i<v.size();i++)
+    {
+   dataset.setValue(((Number)v.elementAt(i)).doubleValue(),"1",""+i);
+
+    }
+  return  dataset;
+  }
+
+
+
+  private  static  JFreeChart  createChart(CategoryDataset  dataset)  {
+
+  JFreeChart  chart  =  ChartFactory.createBarChart3D(
+  "Объём переданных данных",	//  chart  title
+  "ssss",	//  domain  axis  label
+  "Value",	//  range  axis  label
+  dataset,	//  data
+  PlotOrientation.VERTICAL,
+  true,
+  true,
+  false	//  URLs?
+  );
+
+    chart.setBackgroundPaint(Color.lightGray);
+    CategoryPlot  plot  =  chart.getCategoryPlot();
+    plot.setBackgroundPaint(Color.lightGray);
+    plot.setDomainGridlinePaint(Color.white);
+    plot.setRangeGridlinePaint(Color.white);
+    BarRenderer  renderer1  = (BarRenderer)  plot.getRenderer();
+    renderer1.setSeriesPaint(0,Color.BLUE);
+    renderer1.setPositiveItemLabelPosition(new ItemLabelPosition());
+    // renderer1.setPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.TOP_CENTER));
+
+    /*NumberAxis  rangeAxis  =  (NumberAxis)  plot.getRangeAxis();
+    rangeAxis.setUpperMargin(0.15);*/
+    CategoryItemRenderer  renderer  =  plot.getRenderer();
+
+    renderer.setItemLabelGenerator(new  LabelGenerator());
+    //renderer.setBaseNegativeItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.CENTER_LEFT));
+    renderer.setToolTipGenerator(new StandardCategoryToolTipGenerator("444444", NumberFormat.getInstance()));
+
+    renderer.setItemLabelsVisible(true);
+
+
+
+
+
+    return  chart;
+
+  }
+
+  void jbInit() throws Exception {
+    border1 = new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151));
+    titledBorder1 = new TitledBorder("");
+    border2 = new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151));
+    border3 = new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151));
+    this.getContentPane().setLayout(xYLayout1);
+
+
+
+    XYSeries series = new XYSeries("Average Size");
+    jLabel1.setBorder(border2);
+    jLabel1.setText("");
+
+    jLabel2.setBorder(border3);
+    this.getContentPane().setBackground(SystemColor.window);
+    xYLayout1.setWidth(644);
+    xYLayout1.setHeight(371);
+    series.add(20.0, 10.0);
+    series.add(40.0, 20.0);
+    series.add(70.0, 50.0);
+    this.getContentPane().add(jLabel1, new XYConstraints(13, 17, 292, 206));
+    this.getContentPane().add(jLabel2, new XYConstraints(326, 17, 289, 206));
+    XYDataset xyDataset = new XYSeriesCollection(series);
+    JFreeChart chart = ChartFactory.createXYLineChart
+    ("Интервалы опроса",  // Title
+                  "Height",           // X-Axis label
+                  "Weight",           // Y-Axis label
+                  xyDataset,          // Dataset
+                 PlotOrientation.VERTICAL,
+                  false,                // Show legend
+                  true,
+                  true
+                 );
+
+
+chart.setBackgroundPaint(new Color(234,230,224));
+BufferedImage testImage = chart.createBufferedImage(289,206);
+jLabel1.setIcon(new ImageIcon(testImage));
+
+//chart1.setBackgroundPaint(chart.getBackgroundPaint());
+
+chart1.setBackgroundPaint(new Color(234,230,224));
+BufferedImage testImage1 = chart1.createBufferedImage(289,206);
+jLabel2.setIcon(new ImageIcon(testImage1));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+
+
+
+
+}

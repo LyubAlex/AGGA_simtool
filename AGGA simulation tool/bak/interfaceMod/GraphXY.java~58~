@@ -1,0 +1,54 @@
+package interfaceMod;
+
+import org.jfree.*;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeriesCollection;
+
+
+public class GraphXY {
+ public static void main(String[] args) {
+
+   XYSeries series = new XYSeries("Average Size");
+series.add(20.0, 10.0);
+series.add(40.0, 20.0);
+series.add(70.0, 50.0);
+XYDataset xyDataset = new XYSeriesCollection(series);
+  // org.jfree.chart.plot.PlotOrientation.HORIZONTAL
+JFreeChart chart = ChartFactory.createXYAreaChart
+        ("Sample XY Chart",  // Title
+                      "Height",           // X-Axis label
+                      "Weight",           // Y-Axis label
+                      xyDataset,          // Dataset
+                     org.jfree.chart.plot.PlotOrientation.HORIZONTAL,
+                      true,                // Show legend
+                      true,
+                      true
+                     );
+
+
+  DefaultPieDataset data1 = new DefaultPieDataset();
+    data1.setValue("Category 1",75);
+data1.setValue("dcscds",123);
+     data1.setValue("dfd",25);
+// JFreeChart chart = ChartFactory.createXYLineChart("","","",,,true,true,true);
+
+JFreeChart chart1 = ChartFactory.createPieChart(
+         "cccccc",
+         data1,
+         true,
+           true,
+           false
+           );
+ ChartFrame frame = new ChartFrame("test",chart);
+
+
+
+  frame.pack();
+  frame.setVisible(true);
+   }
+}

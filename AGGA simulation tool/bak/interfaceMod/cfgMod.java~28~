@@ -1,0 +1,39 @@
+package interfaceMod;
+
+import java.awt.*;
+import javax.swing.JDialog;
+
+public class cfgMod extends JDialog {
+
+  public cfgMod() {
+    enableEvents(AWTEvent.WINDOW_EVENT_MASK);
+    try {
+      jbInit();
+
+    }
+    catch(Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  //Component initialization
+  private void jbInit() throws Exception  {
+ this.setSize(new Dimension(302, 325));
+ Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+   Dimension frameSize = this.getSize();
+   if (frameSize.height > screenSize.height) {
+     frameSize.height = screenSize.height;
+   }
+   if (frameSize.width > screenSize.width) {
+     frameSize.width = screenSize.width;
+   }
+   this.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+   this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    this.setModal(true);
+    this.setTitle("Параметры моделирования");
+    this.setVisible(true);
+
+
+  }
+
+  }
