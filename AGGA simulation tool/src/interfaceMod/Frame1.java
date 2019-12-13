@@ -1046,12 +1046,6 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
       jLabel8.setText("MIR С-01 - ");
       bCfgGSM.setToolTipText("GSM CSD settings");
 
-
-
-
-
-
-
       this.repaint();
 
       lang = true;
