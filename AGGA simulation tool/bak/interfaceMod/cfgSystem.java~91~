@@ -13,34 +13,49 @@ import aiis.*;
 import java.util.Vector;
 
 
+/**
+ * <p>Title: </p>
+ * <p>Description: </p>
+ * <p>Copyright: Copyright (c) 2008</p>
+ * <p>Company: </p>
+ * @author not attributable
+ * @version 1.0
+ */
 public class cfgSystem extends JDialog {
+ // XYLayout xYLayout1 = new XYLayout();
+/* int cfgKolGSM;
+
+
+int cfgKolGPRS;
+
+Vector cfgTranGSM;
+Vector cfgTranGPRS;*/
 
  public int interKolGSM = 0;
  public int interKolGPRS = 0;
  public int interKolRADIO = 0;
 
-public String msg = "Введите данные: тип канала и кол-во счётчиков!";
-public String alert = "Внимание!!!";
-
+// public Vector tranGSM = new Vector(10,10);
+// public Vector tranGPRS = new Vector(10,10);
 
  public Vector tranGSM = new Vector();
  public Vector tranRADIO = new Vector();
  public Vector tranGPRS = new Vector();
- ImageIcon imageDeleteI;
- ImageIcon imageExitWin;
- ImageIcon imageDeleteAll;
- ImageIcon imageCreate;
- JPanel contentPane;
- JScrollPane jScrollPane1 = new JScrollPane();
- JPanel jPanel1 = new JPanel();
- XYLayout xYLayout1 = new XYLayout();
- JPanel jPanel2 = new JPanel();
- TitledBorder titledBorder1;
- JLabel jLabelTypeChannel = new JLabel();
- XYLayout xYLayout2 = new XYLayout();
- JLabel jLabelTypeCh = new JLabel();
- JLabel jLabelSET = new JLabel();
- JFormattedTextField inputKolSET = new JFormattedTextField();
+  ImageIcon imageDeleteI;
+  ImageIcon imageExitWin;
+   ImageIcon  imageDeleteAll;
+    ImageIcon  imageCreate;
+  JPanel contentPane;
+  JScrollPane jScrollPane1 = new JScrollPane();
+  JPanel jPanel1 = new JPanel();
+  XYLayout xYLayout1 = new XYLayout();
+  JPanel jPanel2 = new JPanel();
+  TitledBorder titledBorder1;
+  JLabel jLabelTypeChannel = new JLabel();
+  XYLayout xYLayout2 = new XYLayout();
+  JLabel jLabelTypeCh = new JLabel();
+  JLabel jLabelSET = new JLabel();
+  JFormattedTextField inputKolSET = new JFormattedTextField();
 
   JButton createChannel = new JButton();
   XYLayout xYLayout3 = new XYLayout();
@@ -89,8 +104,11 @@ imageCreate = new ImageIcon(interfaceMod.Frame1.class.getResource("create.png"))
        contentPane.setBackground(new Color(210, 236, 255));
        contentPane.setFont(new java.awt.Font("MS Outlook", 0, 11));
     contentPane.setPreferredSize(new Dimension(254, 231));
+    //this.setForeground(Color.red);
     this.setResizable(false);
        this.setSize(new Dimension(262, 282));
+       //this.setTitle("Структура системы");
+      // this.setVisible(true);
        jPanel1.setLayout(xYLayout1);
        jPanel1.setBackground(new Color(210, 236, 255));
        jPanel1.setBorder(null);
@@ -111,6 +129,11 @@ imageCreate = new ImageIcon(interfaceMod.Frame1.class.getResource("create.png"))
        jLabelTypeChannel.setText("Тип канала:");
 
 
+
+
+
+
+
        jLabelTypeCh.setText("Тип счётчиков и их количество:");
        jLabelTypeCh.setFont(new java.awt.Font("Arial", 0, 11));
        jLabelSET.setText("СЭТ-4ТМ.02");
@@ -119,6 +142,9 @@ imageCreate = new ImageIcon(interfaceMod.Frame1.class.getResource("create.png"))
        inputKolSET.setValue(new Integer(0));
        inputKolSET.setDebugGraphicsOptions(0);
        inputKolSET.setHorizontalAlignment(SwingConstants.CENTER);
+     //  inputKolSET.setText("0");
+
+
 
        createChannel.setFont(new java.awt.Font("Arial", 0, 11));
     createChannel.setToolTipText("Создать канал");
@@ -285,12 +311,7 @@ if (tranGSM.isEmpty() == true & tranGPRS.isEmpty() == true)
 
 
    if (flGSM.getState() == false & flGPRS.getState() == false & flRADIO.getState() == false)
-{
-
-     JOptionPane.showMessageDialog(this, msg, alert, JOptionPane.WARNING_MESSAGE);
-
-
-   }
+{JOptionPane.showMessageDialog(this,"Введите данные: тип канала и кол-во счётчиков!","Внимание!!!",JOptionPane.WARNING_MESSAGE);}
 else{
      if (flGSM.getState()){
 

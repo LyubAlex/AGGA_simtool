@@ -37,11 +37,6 @@ public class Frame1 extends JFrame {
   graphGSMTime  graphGSMVr  =  null;
 
   boolean lang = false;
-  public String msgRus = "Введите данные: тип канала и кол-во счётчиков!";
-  public String msgEng = "Specify channel type and counters number!";
-
-  public String alEng = "Attention!";
-  public String alRus = "Внимание!!!";
 
   cfgSystem exCfgSystem = new cfgSystem(this, "Структура системы", true);
   cfgGSM exCfgGSM = new cfgGSM(this, "Параметры канала GSM", true);
@@ -959,47 +954,14 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
   }
 
   void bOption1_actionPerformed(ActionEvent e) {
-
     if (lang == false)
     {
       bOption1.setIcon(imageEng);
-      //--------------------------------------------------------------//
       exCfgSystem.setTitle("System's structure");
-      exCfgSystem.titledBorder1.setTitle("System configuration");
-      exCfgSystem.jLabelTypeChannel.setText("Channel type:");
-      exCfgSystem.jLabelTypeCh.setText("Counters type and quantity:");
-      exCfgSystem.jLabelSET.setText("SEТ-4ТМ.02");
-      exCfgSystem.createChannel.setToolTipText("Create a channel");
-      exCfgSystem.jLabelitogo.setText("All channels:");
-      exCfgSystem.jLabelMIR.setText("MIR-С01");
-      exCfgSystem.bResetiChannel.setToolTipText("Cancel the last input");
-      exCfgSystem.bResetAllChannel.setToolTipText("Reset the configuration");
-      exCfgSystem.flRADIO.setLabel("   Radio");
-      exCfgSystem.exitButton.setToolTipText("Close");
-
-      exCfgSystem.msg = msgEng;
-      exCfgSystem.alert = alEng;
-      //--------------------------------------------------------------//
-
 
       exCfgGSM.setTitle("GSM settings");
       exCfgGPRS.setTitle("GPRS settings");
-
-      //--------------------------------------------------------------//
       exDcfgMod.setTitle("Simulation settings");
-      exDcfgMod.titledBorder1.setTitle("Set parameters");
-      exDcfgMod.titledBorder2.setTitle("Requested parameters");
-      exDcfgMod.labelVrMod.setText("Simulation time, days");
-      exDcfgMod.bSaveExit.setText("Save");
-      exDcfgMod.chPower.setLabel("Daily power slices");
-      exDcfgMod.chEnergy.setLabel("Daily energy");
-      exDcfgMod.chDopPar.setLabel("Additional parameters");
-      exDcfgMod.chEvent.setLabel("Event logs");
-      exDcfgMod.labelVrMod1.setText("Period of counters polling");
-      //--------------------------------------------------------------//
-
-
-
       exCfgCounter.setTitle("Counters parameters");
       exAnimation.setTitle("Simulation in process");
 
@@ -1016,35 +978,6 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
       this.jMenuHelpAbout.setText("About AGGA");
       bCfgSys.setToolTipText("System structure specification");
 
-      bPause.setToolTipText("Pause");
-      bRestart.setToolTipText("Restart simulation");
-      bRun.setToolTipText("Start simulation");
-      jMenu1.setText("Settings");
-      bOption.setToolTipText("Simulation settings");
-      bOption1.setToolTipText("Language of interface");
-      bCfgCounter.setToolTipText("Counters parameters");
-      bCfgGPRS.setToolTipText("GPRS settings");
-      jSystemStructure.setText("System's structure");
-      jMenuItem2.setText("GSM CSD settings");
-      jMenuItem3.setText("GPRS settings");
-      jMenuItem4.setText("Counters parameters");
-
-      jLabel1.setText("Mean number of repeated transmissions for a channel:");
-      bShowGrGPRS.setToolTipText("Transmitted data volume for each channel:");
-      jLabel2.setText("Total data volume for GPRS channels, Kb:");
-
-      bShowGrGPRSVr.setToolTipText("Mean polling time of a channel");
-      bShowGrGPRSSET.setToolTipText("Mean polling time of a counter in a channel ");
-      bShowGrGSMSET.setToolTipText("Mean polling time of a counter in a channel ");
-      bShowGrGSMVr.setToolTipText("Mean polling time of a channel");
-
-      jLabel3.setText("Mean number of connection failures, pcs:");
-      jLabel4.setText("Mean number of failed calls, pcs:");
-      jLabel5.setText("SEТ4ТМ.02 - ");
-      jLabel6.setText("MIR С-01 - ");
-      jLabel7.setText("SEТ4ТМ.02 - ");
-      jLabel8.setText("MIR С-01 - ");
-      bCfgGSM.setToolTipText("GSM CSD settings");
 
 
 
@@ -1059,41 +992,10 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
     else
     {
         bOption1.setIcon(imageRus);
-        //--------------------------------------------------------------//
         exCfgSystem.setTitle("Структура системы");
-        exCfgSystem.titledBorder1.setTitle("Конфигурация системы");
-        exCfgSystem.jLabelTypeChannel.setText("Тип канала:");
-        exCfgSystem.jLabelTypeCh.setText("Тип счётчиков и их количество:");
-        exCfgSystem.jLabelSET.setText("СЭТ-4ТМ.02");
-        exCfgSystem.createChannel.setToolTipText("Создать канал");
-        exCfgSystem.jLabelitogo.setText("Всего каналов:");
-        exCfgSystem.jLabelMIR.setText("МИР-С01");
-        exCfgSystem.bResetiChannel.setToolTipText("Отменить предыдущий ввод");
-        exCfgSystem.bResetAllChannel.setToolTipText("Сбросить конфигурацию");
-        exCfgSystem.flRADIO.setLabel("   Радиоканал");
-        exCfgSystem.exitButton.setToolTipText("Закрыть");
-
-        exCfgSystem.msg = msgRus;
-        exCfgSystem.alert = alRus;
-        //--------------------------------------------------------------//
-
         exCfgGSM.setTitle("Параметры канала GSM");
         exCfgGPRS.setTitle("Параметры канала GPRS");
-
-        //--------------------------------------------------------------//
         exDcfgMod.setTitle("Параметры моделирования");
-        exDcfgMod.titledBorder1.setTitle("Задание параметров");
-        exDcfgMod.titledBorder2.setTitle("Опрашиваемые параметры");
-        exDcfgMod.labelVrMod.setText("Длительность моделирования, кол-во дней");
-        exDcfgMod.bSaveExit.setText("Сохранить");
-        exDcfgMod.chPower.setLabel("Срезы мощности за сутки");
-        exDcfgMod.chEnergy.setLabel("Энергия за сутки");
-        exDcfgMod.chDopPar.setLabel("Дополнительный параметры");
-        exDcfgMod.chEvent.setLabel("Журналы событий");
-        exDcfgMod.labelVrMod1.setText("Период опроса счётчиков");
-        //--------------------------------------------------------------//
-
-
         exCfgCounter.setTitle("Параметры счетчика");
         exAnimation.setTitle("Процесс моделирования");
 
@@ -1106,47 +1008,13 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
         this.jPanel4.setBorder(border3);
         this.jPanel5.setBorder(border4);
 
+
         this.jMenuFile.setText("Файл");
         this.jMenuFileExit.setText("Выйти");
         this.jMenuHelp.setText("Справка");
         this.jMenuHelpAbout.setText("О программе AGGA 1.0");
 
         bCfgSys.setToolTipText("Задание структура системы");
-
-
-        bPause.setToolTipText("Приостановить выполнение");
-        bRestart.setToolTipText("Перезагрузить модель");
-        bRun.setToolTipText("Начать моделирование");
-        jMenu1.setText("Настройки");
-        bOption.setToolTipText("Настройки моделирования");
-        bOption1.setToolTipText("Выбор языка интерфейса");
-        bCfgCounter.setToolTipText("Параметры счетчиков");
-        bCfgGPRS.setToolTipText("Настройка каналов GPRS");
-        jSystemStructure.setText("Структура системы");
-        jMenuItem2.setText("Параметры GSM CSD");
-        jMenuItem3.setText("Параметры GPRS");
-        jMenuItem4.setText("Параметры счётчиков");
-        jLabel1.setText("Средее количество повторных передач на канал:");
-        bShowGrGPRS.setToolTipText("Объём переданных данных по каждому каналу");
-        jLabel2.setText("Общий объём переданных данных по GPRS каналам, Кбайт:");
-        bShowGrGPRSVr.setToolTipText("Среднее значение опроса одного канала");
-        bShowGrGPRSSET.setToolTipText("Среднее значение опроса одного счетчика в канале ");
-        bShowGrGSMSET.setToolTipText("Среднее значение опроса одного счетчика в канале ");
-        bShowGrGSMVr.setToolTipText("Среднее значение опроса одного канала");
-        jLabel3.setText("Среднее количество разрывов соединения, шт:");
-        jLabel4.setText("Среднее количество неудачных дозвонов, шт:");
-        jLabel5.setText("СЭТ4ТМ.02 - ");
-        jLabel6.setText("МИР С-01 - ");
-        jLabel7.setText("СЭТ4ТМ.02 - ");
-        jLabel8.setText("МИР С-01 - ");
-        bCfgGSM.setToolTipText("Настройка каналов GSM CSD");
-
-
-
-
-
-
-
 
         this.repaint();
 

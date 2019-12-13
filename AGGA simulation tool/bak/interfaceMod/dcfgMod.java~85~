@@ -63,6 +63,7 @@ public class dcfgMod extends JDialog {
     titledBorder1 = new TitledBorder(border1,"Задание параметров");
     border2 = BorderFactory.createEtchedBorder(Color.white,new Color(147, 178, 165));
     titledBorder2 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Опрашиваемые параметры");
+    //border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры счётчиков");
     border4 = BorderFactory.createEmptyBorder();
     border5 = BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151));
     panel1.setLayout(xYLayout1);

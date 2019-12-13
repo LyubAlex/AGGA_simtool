@@ -37,11 +37,6 @@ public class Frame1 extends JFrame {
   graphGSMTime  graphGSMVr  =  null;
 
   boolean lang = false;
-  public String msgRus = "Введите данные: тип канала и кол-во счётчиков!";
-  public String msgEng = "Specify channel type and counters number!";
-
-  public String alEng = "Attention!";
-  public String alRus = "Внимание!!!";
 
   cfgSystem exCfgSystem = new cfgSystem(this, "Структура системы", true);
   cfgGSM exCfgGSM = new cfgGSM(this, "Параметры канала GSM", true);
@@ -959,36 +954,21 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
   }
 
   void bOption1_actionPerformed(ActionEvent e) {
-
     if (lang == false)
     {
       bOption1.setIcon(imageEng);
-      //--------------------------------------------------------------//
       exCfgSystem.setTitle("System's structure");
-      exCfgSystem.titledBorder1.setTitle("System configuration");
-      exCfgSystem.jLabelTypeChannel.setText("Channel type:");
-      exCfgSystem.jLabelTypeCh.setText("Counters type and quantity:");
-      exCfgSystem.jLabelSET.setText("SEТ-4ТМ.02");
-      exCfgSystem.createChannel.setToolTipText("Create a channel");
-      exCfgSystem.jLabelitogo.setText("All channels:");
-      exCfgSystem.jLabelMIR.setText("MIR-С01");
-      exCfgSystem.bResetiChannel.setToolTipText("Cancel the last input");
-      exCfgSystem.bResetAllChannel.setToolTipText("Reset the configuration");
-      exCfgSystem.flRADIO.setLabel("   Radio");
-      exCfgSystem.exitButton.setToolTipText("Close");
-
-      exCfgSystem.msg = msgEng;
-      exCfgSystem.alert = alEng;
-      //--------------------------------------------------------------//
-
 
       exCfgGSM.setTitle("GSM settings");
       exCfgGPRS.setTitle("GPRS settings");
 
-      //--------------------------------------------------------------//
       exDcfgMod.setTitle("Simulation settings");
       exDcfgMod.titledBorder1.setTitle("Set parameters");
       exDcfgMod.titledBorder2.setTitle("Requested parameters");
+
+//border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры счётчиков");
+//exDcfgMod.jPanel4.setBorder(border3);
+
       exDcfgMod.labelVrMod.setText("Simulation time, days");
       exDcfgMod.bSaveExit.setText("Save");
       exDcfgMod.chPower.setLabel("Daily power slices");
@@ -996,7 +976,7 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
       exDcfgMod.chDopPar.setLabel("Additional parameters");
       exDcfgMod.chEvent.setLabel("Event logs");
       exDcfgMod.labelVrMod1.setText("Period of counters polling");
-      //--------------------------------------------------------------//
+
 
 
 
@@ -1059,31 +1039,17 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
     else
     {
         bOption1.setIcon(imageRus);
-        //--------------------------------------------------------------//
         exCfgSystem.setTitle("Структура системы");
-        exCfgSystem.titledBorder1.setTitle("Конфигурация системы");
-        exCfgSystem.jLabelTypeChannel.setText("Тип канала:");
-        exCfgSystem.jLabelTypeCh.setText("Тип счётчиков и их количество:");
-        exCfgSystem.jLabelSET.setText("СЭТ-4ТМ.02");
-        exCfgSystem.createChannel.setToolTipText("Создать канал");
-        exCfgSystem.jLabelitogo.setText("Всего каналов:");
-        exCfgSystem.jLabelMIR.setText("МИР-С01");
-        exCfgSystem.bResetiChannel.setToolTipText("Отменить предыдущий ввод");
-        exCfgSystem.bResetAllChannel.setToolTipText("Сбросить конфигурацию");
-        exCfgSystem.flRADIO.setLabel("   Радиоканал");
-        exCfgSystem.exitButton.setToolTipText("Закрыть");
-
-        exCfgSystem.msg = msgRus;
-        exCfgSystem.alert = alRus;
-        //--------------------------------------------------------------//
-
         exCfgGSM.setTitle("Параметры канала GSM");
         exCfgGPRS.setTitle("Параметры канала GPRS");
 
-        //--------------------------------------------------------------//
         exDcfgMod.setTitle("Параметры моделирования");
         exDcfgMod.titledBorder1.setTitle("Задание параметров");
         exDcfgMod.titledBorder2.setTitle("Опрашиваемые параметры");
+
+        //border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры счётчиков");
+        //exDcfgMod.jPanel4.setBorder(border3);
+
         exDcfgMod.labelVrMod.setText("Длительность моделирования, кол-во дней");
         exDcfgMod.bSaveExit.setText("Сохранить");
         exDcfgMod.chPower.setLabel("Срезы мощности за сутки");
@@ -1091,7 +1057,7 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
         exDcfgMod.chDopPar.setLabel("Дополнительный параметры");
         exDcfgMod.chEvent.setLabel("Журналы событий");
         exDcfgMod.labelVrMod1.setText("Период опроса счётчиков");
-        //--------------------------------------------------------------//
+
 
 
         exCfgCounter.setTitle("Параметры счетчика");

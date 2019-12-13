@@ -19,10 +19,6 @@ public class cfgSystem extends JDialog {
  public int interKolGPRS = 0;
  public int interKolRADIO = 0;
 
-public String msg = "¬ведите данные: тип канала и кол-во счЄтчиков!";
-public String alert = "¬нимание!!!";
-
-
  public Vector tranGSM = new Vector();
  public Vector tranRADIO = new Vector();
  public Vector tranGPRS = new Vector();
@@ -285,12 +281,7 @@ if (tranGSM.isEmpty() == true & tranGPRS.isEmpty() == true)
 
 
    if (flGSM.getState() == false & flGPRS.getState() == false & flRADIO.getState() == false)
-{
-
-     JOptionPane.showMessageDialog(this, msg, alert, JOptionPane.WARNING_MESSAGE);
-
-
-   }
+{JOptionPane.showMessageDialog(this,"¬ведите данные: тип канала и кол-во счЄтчиков!","¬нимание!!!",JOptionPane.WARNING_MESSAGE);}
 else{
      if (flGSM.getState()){
 

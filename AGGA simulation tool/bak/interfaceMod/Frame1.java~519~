@@ -37,11 +37,6 @@ public class Frame1 extends JFrame {
   graphGSMTime  graphGSMVr  =  null;
 
   boolean lang = false;
-  public String msgRus = "Введите данные: тип канала и кол-во счётчиков!";
-  public String msgEng = "Specify channel type and counters number!";
-
-  public String alEng = "Attention!";
-  public String alRus = "Внимание!!!";
 
   cfgSystem exCfgSystem = new cfgSystem(this, "Структура системы", true);
   cfgGSM exCfgGSM = new cfgGSM(this, "Параметры канала GSM", true);
@@ -959,7 +954,6 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
   }
 
   void bOption1_actionPerformed(ActionEvent e) {
-
     if (lang == false)
     {
       bOption1.setIcon(imageEng);
@@ -976,9 +970,6 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
       exCfgSystem.bResetAllChannel.setToolTipText("Reset the configuration");
       exCfgSystem.flRADIO.setLabel("   Radio");
       exCfgSystem.exitButton.setToolTipText("Close");
-
-      exCfgSystem.msg = msgEng;
-      exCfgSystem.alert = alEng;
       //--------------------------------------------------------------//
 
 
@@ -1072,9 +1063,6 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
         exCfgSystem.bResetAllChannel.setToolTipText("Сбросить конфигурацию");
         exCfgSystem.flRADIO.setLabel("   Радиоканал");
         exCfgSystem.exitButton.setToolTipText("Закрыть");
-
-        exCfgSystem.msg = msgRus;
-        exCfgSystem.alert = alRus;
         //--------------------------------------------------------------//
 
         exCfgGSM.setTitle("Параметры канала GSM");
