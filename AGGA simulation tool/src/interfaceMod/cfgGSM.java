@@ -6,21 +6,10 @@ import javax.swing.*;
 import com.borland.jbcl.layout.*;
 import javax.swing.border.*;
 
-
-/**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2008</p>
- * <p>Company: </p>
- * @author not attributable
- * @version 1.0
- */
-
 public class cfgGSM extends JDialog {
 
-
-ImageIcon imageOK;
-JPanel contentPane;
+  ImageIcon imageOK;
+  JPanel contentPane;
   JScrollPane jScrollPane1 = new JScrollPane();
   JPanel jPanel1 = new JPanel();
   XYLayout xYLayout1 = new XYLayout();
@@ -71,13 +60,8 @@ JPanel contentPane;
 
   //Component initialization
   private void jbInit() throws Exception  {
-
     titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Показатели качества канала связи");
-
-
-
-imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
-
+    imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
     contentPane = (JPanel) this.getContentPane();
     border1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"");
     border2 = BorderFactory.createEtchedBorder(Color.white,new Color(147, 165, 178));
@@ -85,16 +69,10 @@ imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
     border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры соты");
     contentPane.setBackground(new Color(210, 236, 255));
     contentPane.setFont(new java.awt.Font("MS Outlook", 0, 11));
-    //this.setForeground(Color.red);
     this.setSize(new Dimension(350, 452));
-    //this.setTitle("Параметры канала GSM");
-        this.setModal(true);
+    this.setModal(true);
     this.setResizable(false);
 
-
-
-
-       // this.setVisible(true);
     jPanel1.setLayout(xYLayout1);
     jPanel1.setBackground(new Color(210, 236, 255));
     jPanel1.setBorder(null);
@@ -113,15 +91,12 @@ imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
     jLabelVerUst.setFont(new java.awt.Font("Arial", 0, 11));
     jLabelVerUst.setText("Вероятность установления соединения, %");
 
-
-
     saveCfgGSM.setFont(new java.awt.Font("Arial", 0, 11));
     saveCfgGSM.setIcon(imageOK);
     saveCfgGSM.setText("Сохранить");
     saveCfgGSM.addActionListener(new cfgGSM_saveCfgGSM_actionAdapter(this));
 
     inputVerGSM.setValue(new Integer(95));
-
     inputVerGSM.setDebugGraphicsOptions(0);
     inputVerGSM.setHorizontalAlignment(SwingConstants.CENTER);
     jLabelVrUst.setText("Время установления соединения, с");
@@ -204,9 +179,6 @@ imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
       }
       this.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
       this.setVisible(false);
-
-
-
   }
 
  void setHighQuality (){
@@ -230,79 +202,65 @@ void setLowQuality (){
   inputVrEndGSM.setValue(new Integer(2));
 }
 
+void saveCfgGSM_actionPerformed(ActionEvent e) {
+  Number valueh1 = (Number)inputVerGSM.getValue();
+  double valueVerGSM = valueh1.doubleValue();
+  aiis.model.set_parVerUstGSM(valueVerGSM);
 
-  //Overridden so we can exit when window is closed
-  /*protected void processWindowEvent(WindowEvent e) {
-    super.processWindowEvent(e);
-    if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-      System.exit(0);
-    }
-  }*/
+  Number valueh2 = (Number)inputVrGSM.getValue();
+  double valueVrGSM = valueh2.doubleValue();
+  aiis.model.set_parVrUstGSM(valueVrGSM);
 
-  void saveCfgGSM_actionPerformed(ActionEvent e) {
-//jLabel1.setText(inputVer.getText());
-   Number valueh1 = (Number)inputVerGSM.getValue();
-   double valueVerGSM = valueh1.doubleValue();
- aiis.model.set_parVerUstGSM(valueVerGSM);
+  Number valueh3 = (Number)inputVerEndGSM.getValue();
+  double valueVerEndGSM = valueh3.doubleValue();
+  aiis.model.set_parVerEndGSM(valueVerEndGSM);
 
-   Number valueh2 = (Number)inputVrGSM.getValue();
-   double valueVrGSM = valueh2.doubleValue();
- aiis.model.set_parVrUstGSM(valueVrGSM);
+  Number valueh4 = (Number)inputVrEndGSM.getValue();
+  double valueVrEndGSM = valueh4.doubleValue();
+  aiis.model.set_parVrEndGSM(valueVrEndGSM);
 
-   Number valueh3 = (Number)inputVerEndGSM.getValue();
-   double valueVerEndGSM = valueh3.doubleValue();
- aiis.model.set_parVerEndGSM(valueVerEndGSM);
+  Number valueh5 = (Number)inHBS.getValue();
+  double valueHBS = valueh5.doubleValue();
+  aiis.model.set_parHBSGSM(valueHBS);
 
-   Number valueh4 = (Number)inputVrEndGSM.getValue();
-   double valueVrEndGSM = valueh4.doubleValue();
- aiis.model.set_parVrEndGSM(valueVrEndGSM);
-
- Number valueh5 = (Number)inHBS.getValue();
-    double valueHBS = valueh5.doubleValue();
-        aiis.model.set_parHBSGSM(valueHBS);
-
-        Number valueh6 = (Number)inHMS.getValue();
-           double valueHMS = valueh6.doubleValue();
-               aiis.model.set_parHMSGSM(valueHMS);
+  Number valueh6 = (Number)inHMS.getValue();
+  double valueHMS = valueh6.doubleValue();
+  aiis.model.set_parHMSGSM(valueHMS);
 
    Number valueh7 = (Number)inDistance.getValue();
    double valueDis = valueh7.doubleValue();
    aiis.model.set_parDGSM(valueDis);
 
-this.dispose();// скрывание окна настроек параметров
+   this.dispose();// скрыть окно настроек параметров
   }
 
-  void jNormalLevel_actionPerformed(ActionEvent e) {
-    if (jHighLevel.isSelected() | jLowLevel.isSelected()){
-      jHighLevel.setSelected(false);
-      jLowLevel.setSelected(false);
-      jNormalLevel.setSelected(true);
-      setNormalQuality();
+void jNormalLevel_actionPerformed(ActionEvent e) {
+  if (jHighLevel.isSelected() | jLowLevel.isSelected()){
+    jHighLevel.setSelected(false);
+    jLowLevel.setSelected(false);
+    jNormalLevel.setSelected(true);
+    setNormalQuality();
     }
-      else{
-        jNormalLevel.setSelected(true);
-        setNormalQuality();
+  else{
+    jNormalLevel.setSelected(true);
+    setNormalQuality();
       }
-
   }
-
-  void jHighLevel_actionPerformed(ActionEvent e) {
-if (jNormalLevel.isSelected() | jLowLevel.isSelected()){
-  jNormalLevel.setSelected(false);
-  jLowLevel.setSelected(false);
-  jHighLevel.setSelected(true);
-  setHighQuality();
-}
+void jHighLevel_actionPerformed(ActionEvent e) {
+  if (jNormalLevel.isSelected() | jLowLevel.isSelected()){
+    jNormalLevel.setSelected(false);
+    jLowLevel.setSelected(false);
+    jHighLevel.setSelected(true);
+    setHighQuality();
+  }
   else{
     jHighLevel.setSelected(true);
     setHighQuality();
   }
-
-
 }
 
-  void jLowLevel_actionPerformed(ActionEvent e) {
-    if (jNormalLevel.isSelected() | jHighLevel.isSelected()){
+void jLowLevel_actionPerformed(ActionEvent e) {
+  if (jNormalLevel.isSelected() | jHighLevel.isSelected()){
       jNormalLevel.setSelected(false);
       jHighLevel.setSelected(false);;
       jLowLevel.setSelected(true);
@@ -312,10 +270,7 @@ if (jNormalLevel.isSelected() | jLowLevel.isSelected()){
         jLowLevel.setSelected(true);
         setLowQuality();
       }
-
   }
-
-
 }
 
 class cfgGSM_saveCfgGSM_actionAdapter implements java.awt.event.ActionListener {

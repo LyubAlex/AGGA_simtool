@@ -15,8 +15,11 @@ public class cfgCounter extends JDialog {
                    new Integer(9600)
                };
 
-ImageIcon imageOK;
-               ImageIcon imageExitWin;
+  public String msg = "Задайте тип счётчика!";
+  public String alert = "Внимание!!!";
+
+  ImageIcon imageOK;
+  ImageIcon imageExitWin;
   BorderLayout borderLayout1 = new BorderLayout();
   JPanel jPanel1 = new JPanel();
   XYLayout xYLayout1 = new XYLayout();
@@ -60,9 +63,8 @@ ImageIcon imageOK;
     border4 = BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151));
     this.getContentPane().setLayout(borderLayout1);
 
-imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
+    imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
     imageExitWin = new ImageIcon(interfaceMod.Frame1.class.getResource("exitWin.png"));
- //setVisible(true);
     jPanel1.setLayout(xYLayout1);
     this.setSize(new Dimension(258, 337));
     jPanel2.setBackground(new Color(210, 236, 255));
@@ -177,7 +179,9 @@ this.dispose();
   void bSaveCfg_actionPerformed(ActionEvent e) {
     if (selectSET.getState()==false & selectMIR.getState()==false)
       {
-        JOptionPane.showMessageDialog(this,"Задайте тип счётчика!","Внимание!!!",JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this,msg,alert,JOptionPane.WARNING_MESSAGE);
+
+
       }
       else if (selectSET.getState()==true)
       {

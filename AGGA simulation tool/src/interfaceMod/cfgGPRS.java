@@ -22,22 +22,20 @@ public class cfgGPRS extends JDialog {
                      new String("CS3"),
                      new String("CS4"),
                };
-  Object[] dataClass = {new String("Класс 1"),
-                        new String("Класс 2"),
-                        new String("Класс 3"),
-                        new String("Класс 4"),
-                        new String("Класс 5"),
-                        new String("Класс 6"),
-                        new String("Класс 7"),
-                        new String("Класс 8"),
-                        new String("Класс 9"),
-                        new String("Класс 10"),
+  Object[] dataClass = {new String("Class 1"),
+                        new String("Class 2"),
+                        new String("Class 3"),
+                        new String("Class 4"),
+                        new String("Class 5"),
+                        new String("Class 6"),
+                        new String("Class 7"),
+                        new String("Class 8"),
+                        new String("Class 9"),
+                        new String("Class 10"),
                           };
 
-
-
-ImageIcon imageOK;
-JPanel contentPane;
+  ImageIcon imageOK;
+  JPanel contentPane;
   JScrollPane jScrollPane1 = new JScrollPane();
   JPanel jPanel1 = new JPanel();
   XYLayout xYLayout1 = new XYLayout();
@@ -52,7 +50,6 @@ JPanel contentPane;
   Border border1;
   XYLayout xYLayout3 = new XYLayout();
   Border border2;
-  TitledBorder titledBorder2;
   JComboBox jSelectCS = new JComboBox(dataCS);
   JComboBox jSelectClass = new JComboBox(dataClass);
   JLabel jLabelVrEnd1 = new JLabel();
@@ -83,7 +80,6 @@ JPanel contentPane;
     //enableEvents(AWTEvent.WINDOW_EVENT_MASK);
     try {
       jbInit();
-
     }
     catch(Exception e) {
      // e.printStackTrace();
@@ -99,28 +95,23 @@ JPanel contentPane;
     contentPane = (JPanel) this.getContentPane();
     border1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"");
     border2 = BorderFactory.createEtchedBorder(Color.white,new Color(147, 165, 178));
-    titledBorder2 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры каналов GPRS");
+
     border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры соты");
     contentPane.setBackground(new Color(210, 236, 255));
     contentPane.setFont(new java.awt.Font("MS Outlook", 0, 11));
-    //this.setForeground(Color.red);
     this.setSize(new Dimension(342, 437));
-    //this.setTitle("Параметры канала GSM");
     this.setModal(true);
     this.setResizable(false);
 
-
-// установки по умолчанию (CS2 и Класс 10)
+    // установки по умолчанию (CS2 и Класс 10)
     jSelectCS.setSelectedIndex(1);
     jSelectClass.setSelectedIndex(9);
-   inHBS.setValue(new Double(30.0));
-   inHMS.setValue(new Double(2.0));
-   inKolCh.setValue(new Double(3.0));
-   inMaxMS.setValue(new Double(20.0));
-   inMinMS.setValue(new Double(1.0));
+    inHBS.setValue(new Double(30.0));
+    inHMS.setValue(new Double(2.0));
+    inKolCh.setValue(new Double(3.0));
+    inMaxMS.setValue(new Double(20.0));
+    inMinMS.setValue(new Double(1.0));
     inDistance.setValue(new Double(5.0));
-    //slotReceive.setValue(new Integer(4));
-  //  slotSend.setValue(new Integer(2));
 
     jPanel1.setLayout(xYLayout1);
     jPanel1.setBackground(new Color(210, 236, 255));
@@ -140,10 +131,6 @@ JPanel contentPane;
     jLabelVerUst.setFont(new java.awt.Font("Arial", 0, 11));
     jLabelVerUst.setText("Схема кодирования (CS)");
 
-
-
-
-
     jLabelVrUst.setText("Класс приёмо-передающих устройств");
     jLabelVrUst.setFont(new java.awt.Font("Arial", 0, 11));
 
@@ -160,12 +147,10 @@ JPanel contentPane;
     slotReceive.setEditable(true);
     slotReceive.setEnabled(false);
     slotReceive.setHorizontalAlignment(SwingConstants.CENTER);
-   // slotReceive.setText("");
-   slotReceive.setValue(new Integer(4));
+    slotReceive.setValue(new Integer(4));
     slotSend.setEditable(true);
     slotSend.setEnabled(false);
     slotSend.setHorizontalAlignment(SwingConstants.CENTER);
-   // slotSend.setText("");
     slotSend.setValue(new Integer(2));
     jSelectClass.addActionListener(new cfgGPRS_jSelectClass_actionAdapter(this));
     saveCfgGPRS.setFont(new java.awt.Font("Arial", 0, 11));
@@ -182,12 +167,10 @@ JPanel contentPane;
     jLabel3.setText("Высота МС, м");
 
     inHBS.setHorizontalAlignment(SwingConstants.CENTER);
-
-
     inHMS.setHorizontalAlignment(SwingConstants.CENTER);
 
-    jLabel4.setText("Количество частотных каналов БС, шт.");
-    jLabel5.setText("Количество частотных каналов БС, шт.");
+    //jLabel4.setText("Количество частотных каналов БС, шт.");
+    //jLabel5.setText("Количество частотных каналов БС, шт.");
     jLabel6.setText("Расстояние от БС до МС, км");
     inDistance.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -237,9 +220,6 @@ JPanel contentPane;
       }
       this.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
       this.setVisible(false);
-
-
-
   }
 
   void jSelectClass_actionPerformed(ActionEvent e) {
@@ -300,25 +280,25 @@ else if (jSelectClass.getSelectedIndex()==9)
 
   void saveCfgGPRS_actionPerformed(ActionEvent e) {
 
-      Number valueh1 = (Number)slotSend.getValue();
-  double valueSlotSend = valueh1.doubleValue();
-  aiis.model.set_parMaxKolSlotUP(valueSlotSend);
+   Number valueh1 = (Number)slotSend.getValue();
+   double valueSlotSend = valueh1.doubleValue();
+   aiis.model.set_parMaxKolSlotUP(valueSlotSend);
 
-  Number valueh2 = (Number)slotReceive.getValue();
+   Number valueh2 = (Number)slotReceive.getValue();
    double valueSlotReceive = valueh2.doubleValue();
    aiis.model.set_parMaxKolSlotDOWN(valueSlotReceive);
 
    Number valueh3 = (Number)inKolCh.getValue();
-double valueKolCh = valueh3.doubleValue();
-    aiis.model.set_parKolFCh(valueKolCh);
+   double valueKolCh = valueh3.doubleValue();
+   aiis.model.set_parKolFCh(valueKolCh);
 
-    Number valueh4 = (Number)inHBS.getValue();
-    double valueHBS = valueh4.doubleValue();
-        aiis.model.set_parHBS(valueHBS);
+   Number valueh4 = (Number)inHBS.getValue();
+   double valueHBS = valueh4.doubleValue();
+   aiis.model.set_parHBS(valueHBS);
 
-        Number valueh5 = (Number)inHMS.getValue();
-           double valueHMS = valueh5.doubleValue();
-               aiis.model.set_parHMS(valueHMS);
+   Number valueh5 = (Number)inHMS.getValue();
+   double valueHMS = valueh5.doubleValue();
+   aiis.model.set_parHMS(valueHMS);
 
    Number valueh6 = (Number)inDistance.getValue();
    double valueDis = valueh6.doubleValue();
@@ -350,29 +330,8 @@ double valueKolCh = valueh3.doubleValue();
    aiis.model.parCSforGPRS=4;
  }
 
-
-
-
 this.dispose();
   }
-
-
-
-
-
-  //Overridden so we can exit when window is closed
-  /*protected void processWindowEvent(WindowEvent e) {
-    super.processWindowEvent(e);
-    if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-      System.exit(0);
-    }
-  }*/
-
-
-
-
-
-
 
 }
 

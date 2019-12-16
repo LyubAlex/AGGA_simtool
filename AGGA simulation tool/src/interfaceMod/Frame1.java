@@ -40,6 +40,9 @@ public class Frame1 extends JFrame {
   public String msgRus = "Введите данные: тип канала и кол-во счётчиков!";
   public String msgEng = "Specify channel type and counters number!";
 
+  public String msgEng1 = "Specify counter type!";
+  public String msgRus1 = "Задайте тип счётчика!";
+
   public String alEng = "Attention!";
   public String alRus = "Внимание!!!";
 
@@ -552,7 +555,7 @@ bOption.setEnabled(true);
     jPanel6.add(jLabel8, new XYConstraints(126, 0, 67, 22));
     jPanel3.add(bShowGrGPRSSET,  new XYConstraints(77, 59, 32, 32));
     jPanel3.add(bShowGrGPRS, new XYConstraints(0, 59, 32, 32));
-    jPanel3.add(bShowGrGPRSVr,  new XYConstraints(37, 59, 32, 32));
+    jPanel3.add(bShowGrGPRSVr,   new XYConstraints(37, 59, 32, 32));
     jPanel1.add(jButton1,    new XYConstraints(8, 231, -1, -1));
     jPanel1.add(jButton2,   new XYConstraints(8, 261, -1, -1));
     jPanel1.add(jPanel7,               new XYConstraints(11, 11, 51, 175));
@@ -767,7 +770,18 @@ Engine.setRealTimeMode( true );
 
   void bShowGrGPRS_actionPerformed(ActionEvent e) {
     if (transferDataGPRS.size() == 0 ) {
-       JOptionPane.showMessageDialog(this,"Данных по GPRS каналу нет!","Внимание!!!",JOptionPane.WARNING_MESSAGE);
+      if (lang == true)
+      {
+        JOptionPane.showMessageDialog(this, "There are no GPRS statistics!",
+                                      "Attention!!!",
+                                      JOptionPane.WARNING_MESSAGE);
+      }
+      else {
+        JOptionPane.showMessageDialog(this, "Данных по GPRS каналу нет!",
+                                      "Внимание!!!",
+                                      JOptionPane.WARNING_MESSAGE);
+      }
+
     }
      else {
 
@@ -820,7 +834,19 @@ exCfgSystem.show();
 
   void bShowGrGPRSVr_actionPerformed(ActionEvent e) {
     if (transferVrGPRS.size() == 0) {
-    JOptionPane.showMessageDialog(this,"Данных по GPRS каналу нет!","Внимание!!!",JOptionPane.WARNING_MESSAGE);
+      if (lang == true)
+     {
+       JOptionPane.showMessageDialog(this, "There are no GPRS statistics!",
+                                     "Attention!!!",
+                                     JOptionPane.WARNING_MESSAGE);
+     }
+     else
+     {
+       JOptionPane.showMessageDialog(this, "Данных по GPRS каналу нет!",
+                             "Внимание!!!",
+                             JOptionPane.WARNING_MESSAGE);
+     }
+
  }
   else {
 
@@ -834,13 +860,37 @@ exCfgSystem.show();
 
   void bShowGrGPRSSET_actionPerformed(ActionEvent e) {
    if (transferTimeSETGPRS.size() == 0 & transferTimeMIRGPRS.size()==0) {
-      JOptionPane.showMessageDialog(this,"Данных по GPRS каналу нет!","Внимание!!!",JOptionPane.WARNING_MESSAGE);
+     if (lang == true)
+    {
+      JOptionPane.showMessageDialog(this, "There are no GPRS statistics!",
+                                    "Attention!!!",
+                                    JOptionPane.WARNING_MESSAGE);
+    }
+    else
+    {
+      JOptionPane.showMessageDialog(this, "Данных по GPRS каналу нет!",
+                            "Внимание!!!",
+                            JOptionPane.WARNING_MESSAGE);
+    }
    }
     else {
      if (graphGPRSSET == null) {
+
+       if (lang == false)
+       {
         graphGPRSSET = new graphCounterGPRS(
             "Среднее значение времени опроса одного счётчика",
             transferTimeSETGPRS, transferTimeMIRGPRS);
+
+       }
+       else
+       {
+         graphGPRSSET = new graphCounterGPRS(
+
+              "Mean polling time of a counter",
+              transferTimeSETGPRS, transferTimeMIRGPRS);
+
+       }
         graphGPRSSET.pack();
         RefineryUtilities.centerFrameOnScreen(graphGPRSSET);
         graphGPRSSET.setVisible(true);
@@ -856,7 +906,18 @@ exCfgSystem.show();
 
   void bShowGrGSMSET_actionPerformed(ActionEvent e) {
     if (transferTimeSETGSM.size() == 0 & transferTimeMIRGSM.size()==0) {
-    JOptionPane.showMessageDialog(this,"Данных по GSM каналу нет!","Внимание!!!",JOptionPane.WARNING_MESSAGE);
+      if (lang == true)
+      {
+        JOptionPane.showMessageDialog(this, "There are no GSM statistics!",
+                                      "Attention!!!",
+                                      JOptionPane.WARNING_MESSAGE);
+      }
+      else {
+        JOptionPane.showMessageDialog(this, "Данных по GSM каналу нет!",
+                                      "Внимание!!!",
+                                      JOptionPane.WARNING_MESSAGE);
+      }
+
  }
   else {
 
@@ -872,7 +933,18 @@ exCfgSystem.show();
 
   void bShowGrGSMVr_actionPerformed(ActionEvent e) {
     if (transferVrGSM.size() == 0) {
-     JOptionPane.showMessageDialog(this,"Данных по GSM каналу нет!","Внимание!!!",JOptionPane.WARNING_MESSAGE);
+      if (lang == true)
+      {
+        JOptionPane.showMessageDialog(this, "There are no GSM statistics!",
+                                      "Attention!!!",
+                                      JOptionPane.WARNING_MESSAGE);
+      }
+      else {
+        JOptionPane.showMessageDialog(this, "Данных по GSM каналу нет!",
+                                      "Внимание!!!",
+                                      JOptionPane.WARNING_MESSAGE);
+      }
+
   }
    else {
 
@@ -976,14 +1048,45 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
       exCfgSystem.bResetAllChannel.setToolTipText("Reset the configuration");
       exCfgSystem.flRADIO.setLabel("   Radio");
       exCfgSystem.exitButton.setToolTipText("Close");
-
       exCfgSystem.msg = msgEng;
       exCfgSystem.alert = alEng;
       //--------------------------------------------------------------//
 
-
+      //--------------------------------------------------------------//
       exCfgGSM.setTitle("GSM settings");
+      exCfgGSM.titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(165, 163, 151)), "QoS indicators");
+      exCfgGSM.titledBorder2 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(165, 163, 151)), "Quality level of the service");
+      exCfgGSM.border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(165, 163, 151)), "Parameters of the cell");
+      exCfgGSM.jLabelVerUst.setText("Probability of a successful connection, %");
+      exCfgGSM.saveCfgGSM.setText("Save");
+      exCfgGSM.jLabelVrUst.setText("Connection establishing time, sec");
+      exCfgGSM.jLabelVerEnd.setText("Probability of an unintentional disconnection, %");
+      exCfgGSM.jLabelVrEnd.setText("\uF02D\tDisconnection time of the established connection, sec");
+      exCfgGSM.jHighLevel.setText("High level");
+      exCfgGSM.jNormalLevel.setText("Normal level");
+      exCfgGSM.jLowLevel.setText("Low level");
+      exCfgGSM.jLabel2.setText("BS hight, m");
+      exCfgGSM.jLabel6.setText("BS-MS distance, km");
+      exCfgGSM.jLabel3.setText("MS hight, m");
+      //--------------------------------------------------------------//
+
+      //--------------------------------------------------------------//
       exCfgGPRS.setTitle("GPRS settings");
+      exCfgGPRS.jPanel2.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"GPRS channels parameters"));
+      exCfgGPRS.panelSignal.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Parameters of the cell"));
+      exCfgGPRS.jLabelVerUst.setText("Coding scheme(CS)");
+      exCfgGPRS.jLabelVrUst.setText("Multislot class");
+      exCfgGPRS.jLabelVerEnd.setText("Number of timeslots:");
+      exCfgGPRS.jLabelVrEnd.setText("downlink");
+      exCfgGPRS.jLabelVrEnd1.setText("  uplink");
+      exCfgGPRS.saveCfgGPRS.setText("Save");
+      exCfgGPRS.jLabel1.setText("Number of frequency channels in BS, pcs.");
+      exCfgGPRS.jLabel2.setText("BS hight, m");
+      exCfgGPRS.jLabel3.setText("MS hight, m");
+      exCfgGPRS.jLabel6.setText("Distance between BS and MS, km");
+      exCfgGPRS.jLabel7.setText("Max number of active MS, pcs.");
+      exCfgGPRS.jLabel8.setText("Min number of active MS, pcs.");
+      //--------------------------------------------------------------//
 
       //--------------------------------------------------------------//
       exDcfgMod.setTitle("Simulation settings");
@@ -1001,6 +1104,22 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
 
 
       exCfgCounter.setTitle("Counters parameters");
+      border2 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Counters parameters");
+      exCfgCounter.jPanel2.setBorder(border2);
+      border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Counter model");
+      exCfgCounter.jPanel3.setBorder(border3);
+      exCfgCounter.jLabel1.setText("Datarate, bps");
+      exCfgCounter.jLabel2.setText("Maximum timeout");
+      exCfgCounter.selectMIR.setLabel("MIR С-01");
+      exCfgCounter.selectSET.setLabel("SET-4ТМ.02");
+      exCfgCounter.bExit.setText("Exit");
+      exCfgCounter.bSaveCfg.setText("Save");
+      exCfgCounter.jLabel3.setText("Probability of no response, %");
+      exCfgCounter.jLabel4.setText("of response, msec");
+      exCfgCounter.msg = msgEng1;
+      exCfgCounter.alert = alEng;
+      //--------------------------------------------------------------//
+
       exAnimation.setTitle("Simulation in process");
 
       this.titledBorder1.setTitle("GPRS statistics");
@@ -1046,6 +1165,12 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
       jLabel8.setText("MIR С-01 - ");
       bCfgGSM.setToolTipText("GSM CSD settings");
 
+
+
+
+
+
+
       this.repaint();
 
       lang = true;
@@ -1066,13 +1191,45 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
         exCfgSystem.bResetAllChannel.setToolTipText("Сбросить конфигурацию");
         exCfgSystem.flRADIO.setLabel("   Радиоканал");
         exCfgSystem.exitButton.setToolTipText("Закрыть");
-
         exCfgSystem.msg = msgRus;
         exCfgSystem.alert = alRus;
         //--------------------------------------------------------------//
 
+        //--------------------------------------------------------------//
         exCfgGSM.setTitle("Параметры канала GSM");
+        exCfgGSM.titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Показатели качества канала связи");
+        exCfgGSM.titledBorder2 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(165, 163, 151)), "Уровень качества связи");
+        exCfgGSM.border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)), "Параметры соты");
+        exCfgGSM.jLabelVerUst.setText("Вероятность установления соединения, %");
+        exCfgGSM.saveCfgGSM.setText("Сохранить");
+        exCfgGSM.jLabelVrUst.setText("Время установления соединения, с");
+        exCfgGSM.jLabelVerEnd.setText("Вероятность непреднамеренного разрыва соединения, %");
+        exCfgGSM.jLabelVrEnd.setText("\uF02D\tВремя разъединения установленного соединения, с");
+        exCfgGSM.jHighLevel.setText("Высокий уровень");
+        exCfgGSM.jNormalLevel.setText("Нормальный уровень");
+        exCfgGSM.jLowLevel.setText("Низкий уровень");
+        exCfgGSM.jLabel2.setText("Высота БС, м");
+        exCfgGSM.jLabel6.setText("Расстояние от БС до МС, км");
+        exCfgGSM.jLabel3.setText("Высота МС, м");
+        //--------------------------------------------------------------//
+
+        //--------------------------------------------------------------//
         exCfgGPRS.setTitle("Параметры канала GPRS");
+        exCfgGPRS.jPanel2.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры каналов GPRS"));
+        exCfgGPRS.panelSignal.setBorder(new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры соты"));
+        exCfgGPRS.jLabelVerUst.setText("Схема кодирования (CS)");
+        exCfgGPRS.jLabelVrUst.setText("Класс приёмо-передающих устройств");
+        exCfgGPRS.jLabelVerEnd.setText("Количество слотов:");
+        exCfgGPRS.jLabelVrEnd.setText("на приём");
+        exCfgGPRS.jLabelVrEnd1.setText("на передачу");
+        exCfgGPRS.saveCfgGPRS.setText("Сохранить");
+        exCfgGPRS.jLabel1.setText("Количество частотных каналов БС, шт.");
+        exCfgGPRS.jLabel2.setText("Высота БС, м");
+        exCfgGPRS.jLabel3.setText("Высота МС, м");
+        exCfgGPRS.jLabel6.setText("Расстояние от БС до МС, км");
+        exCfgGPRS.jLabel7.setText("Максимальное кол-во активных МС, шт.");
+        exCfgGPRS.jLabel8.setText("Минимальное кол-во активных МС, шт.");
+        //--------------------------------------------------------------//
 
         //--------------------------------------------------------------//
         exDcfgMod.setTitle("Параметры моделирования");
@@ -1087,8 +1244,25 @@ JOptionPane.showMessageDialog(this,"Здесь ничего вводить не надо!","Внимание!!!"
         exDcfgMod.labelVrMod1.setText("Период опроса счётчиков");
         //--------------------------------------------------------------//
 
-
+        //--------------------------------------------------------------//
         exCfgCounter.setTitle("Параметры счетчика");
+        border2 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры счетчика");
+        exCfgCounter.jPanel2.setBorder(border2);
+        border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Тип счетчика");
+        exCfgCounter.jPanel3.setBorder(border3);
+        exCfgCounter.jLabel1.setText("Скорость обмена данными, бит/с");
+        exCfgCounter.jLabel2.setText("Максимальное значение таймаута");
+        exCfgCounter.selectMIR.setLabel("МИР С-01");
+        exCfgCounter.selectSET.setLabel("СЭТ-4ТМ.02");
+        exCfgCounter.bExit.setText("Выйти");
+        exCfgCounter.bSaveCfg.setText("Сохранить");
+        exCfgCounter.jLabel3.setText("Вероятность отсутствия ответа,%");
+        exCfgCounter.jLabel4.setText("ответа, мсек.");
+        exCfgCounter.msg = msgRus1;
+        exCfgCounter.alert = alRus;
+        //--------------------------------------------------------------//
+
+
         exAnimation.setTitle("Процесс моделирования");
 
         this.titledBorder1.setTitle("Статистика по GPRS");

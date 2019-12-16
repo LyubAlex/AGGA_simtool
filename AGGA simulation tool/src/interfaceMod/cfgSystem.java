@@ -19,9 +19,8 @@ public class cfgSystem extends JDialog {
  public int interKolGPRS = 0;
  public int interKolRADIO = 0;
 
-public String msg = "¬ведите данные: тип канала и кол-во счЄтчиков!";
-public String alert = "¬нимание!!!";
-
+ public String msg = "¬ведите данные: тип канала и кол-во счЄтчиков!";
+ public String alert = "¬нимание!!!";
 
  public Vector tranGSM = new Vector();
  public Vector tranRADIO = new Vector();
