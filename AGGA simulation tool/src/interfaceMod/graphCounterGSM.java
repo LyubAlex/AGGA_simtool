@@ -1,6 +1,5 @@
-
-
 package interfaceMod;
+
 import javax.swing.JFrame;
 import org.jfree.chart.labels.AbstractCategoryItemLabelGenerator;
 import org.jfree.chart.labels.CategoryItemLabelGenerator;
@@ -16,23 +15,10 @@ import java.awt.Font;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
-import javax.swing.JPanel;
-import org.jfree.ui.RefineryUtilities;
 import org.jfree.chart.plot.PlotOrientation;
-//import com.lowagie.text.Font;
 import java.util.Vector;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.plot.CombinedDomainCategoryPlot;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.axis.CategoryLabelPositions;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.CombinedRangeCategoryPlot;
-import org.jfree.chart.renderer.category.BarRenderer3D;
 import org.jfree.chart.labels.ItemLabelPosition;
-import org.jfree.chart.labels.ItemLabelAnchor;
-import org.jfree.ui.TextAnchor;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
@@ -45,39 +31,21 @@ public  LabelGenerator(double  threshold)
 {
   super("",  NumberFormat.getInstance()); this.threshold  =  threshold;
 }
-/*  public  String  generateLabel(CategoryDataset  dataset, int  series, int  category)
-  {
-  String  result  =  null;
-  Number  value  =  dataset.getValue(series,  category);
-  if  (value  !=  null)
-  {
-    double  v  =  value.doubleValue();
-    if  (v  >  this.threshold)
-    {
-      result  =  value.toString();    //  could  apply  formatting  here
-    }
-  }
-return  result;
-}*/
+
 public  String  generateLabel(CategoryDataset  dataset, int  series, int  category)
 {
 String  result  =  null;
 Number  value  =  dataset.getValue(series,  category);
 result  =  value.toString();
-
 return  result;
 }
-
 }
 
-public graphCounterGSM(String  title,Vector v,Vector v1)  {
+public graphCounterGSM(String  title,Vector v,Vector v1, String charttitle, String axisY, String axisX, String nameSET, String nameMIR)  {
 super(title);
-
-
-CategoryDataset  dataset  =  createDataset(v,v1);
-JFreeChart  chart  =  createChart(dataset);
+CategoryDataset  dataset  =  createDataset(v,v1, nameSET, nameMIR);
+JFreeChart  chart  =  createChart(dataset, charttitle, axisY, axisX);
 ChartPanel  chartPanel  =  new  ChartPanel(chart);
-//chartPanel.setDisplayToolTips(true);
 if (v.size()==1)
 {
   chartPanel.setPreferredSize(new  Dimension(400,400));
@@ -92,39 +60,32 @@ chartPanel.setPreferredSize(new  Dimension((v.size()*150),400));
 setContentPane(chartPanel);
 }
 
-private  static  CategoryDataset  createDataset(Vector v,Vector v1)  {
+private  static  CategoryDataset  createDataset(Vector v,Vector v1, String nameSET, String nameMIR)  {
 
 DefaultCategoryDataset  dataset  =  new  DefaultCategoryDataset();
     for(int i =0;i<v.size();i++)
     {
       double a = ((Number)v.elementAt(i)).doubleValue();
  double b=Math.round(a*1000);
-      dataset.setValue((b/1000),"CЭТ-4ТМ.02",""+(i+1));
+      dataset.setValue((b/1000),nameSET,""+(i+1));
     }
     for(int i =0;i<v1.size();i++)
     {
       double a = ((Number)v1.elementAt(i)).doubleValue();
  double b=Math.round(a*1000);
-      dataset.setValue((b/1000),"МИР С-01",""+(i+1));
+      dataset.setValue((b/1000), nameMIR ,""+(i+1));
     }
-
-
   return  dataset;
   }
 
-
-
-
-
-
-
-private  static  JFreeChart  createChart(CategoryDataset  dataset)  {
-
-
+private  static  JFreeChart  createChart(CategoryDataset  dataset, String charttitle, String axisY, String axisX)  {
 JFreeChart  chart  =  ChartFactory.createBarChart3D(
-"Среднее значение времени опроса одного счетчика в канале",	//  chart  title
-"Канал GSM CSD",	//  domain  axis  label
-"Время, минут",	//  range  axis  label
+//"Среднее значение времени опроса одного счетчика в канале",	//  chart  title
+charttitle,
+//"Канал GSM CSD",	//  domain  axis  label
+axisX,
+//"Время, минут",	//  range  axis  label
+axisY,
 dataset,	//  data
 PlotOrientation.VERTICAL,
 true,
@@ -132,34 +93,24 @@ true,
 false	//  URLs?
 );
   chart.setBackgroundPaint(Color.white);
-    chart.getTitle().setFont(new Font("Arial",  Font.PLAIN,  12));
+  chart.getTitle().setFont(new Font("Arial",  Font.PLAIN,  12));
   CategoryPlot  plot  =  chart.getCategoryPlot();
   plot.setBackgroundPaint(Color.lightGray);
   plot.setDomainGridlinePaint(Color.white);
   plot.setRangeGridlinePaint(Color.white);
   LegendTitle legend=chart.getLegend();
-    legend.setHorizontalAlignment(HorizontalAlignment.LEFT);
-    legend.setPosition(RectangleEdge.RIGHT);
-
+  legend.setHorizontalAlignment(HorizontalAlignment.LEFT);
+  legend.setPosition(RectangleEdge.RIGHT);
   BarRenderer  rendererBar  = (BarRenderer)  plot.getRenderer();
- rendererBar.setSeriesPaint(0,new Color(43,223,223));
+  rendererBar.setSeriesPaint(0,new Color(43,223,223));
   rendererBar.setItemLabelFont(new Font("Arial",  Font.BOLD,  12));
   rendererBar.setPositiveItemLabelPosition(new ItemLabelPosition());
-//rendererBar.setPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER));
   NumberAxis  rangeAxis  =  (NumberAxis)  plot.getRangeAxis();
   rangeAxis.setUpperMargin(0.15);
-
   CategoryItemRenderer  renderer  =  plot.getRenderer();
- // renderer.setToolTipGenerator(new StandardCategoryToolTipGenerator("444444", NumberFormat.getInstance()));
   renderer.setItemLabelGenerator(new  LabelGenerator(30));
   renderer.setItemLabelsVisible(true);
-
   return  chart;
-
 }
-
-
-
-
 }
 

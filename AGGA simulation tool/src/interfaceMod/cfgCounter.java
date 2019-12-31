@@ -6,7 +6,6 @@ import com.borland.jbcl.layout.*;
 import javax.swing.border.*;
 import java.awt.event.*;
 
-
 public class cfgCounter extends JDialog {
 
   Object[] data = {new Integer(1200),
@@ -83,7 +82,7 @@ public class cfgCounter extends JDialog {
     jPanel3.setBorder(border3);
     jPanel3.setLayout(xYLayout2);
     selectSET.setBackground(new Color(210, 236, 255));
-    selectSET.setLabel("—›“-4“Ã.02");
+    selectSET.setLabel("—›“-4“Ã");
     selectSET.addItemListener(new cfgCounter_selectSET_itemAdapter(this));
     jPanel4.setBackground(new Color(210, 236, 255));
     jPanel4.setBorder(border4);
@@ -300,7 +299,3 @@ class cfgCounter_bExit_actionAdapter implements java.awt.event.ActionListener {
     adaptee.bExit_actionPerformed(e);
   }
 }
-
-
-
-

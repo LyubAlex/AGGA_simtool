@@ -1,24 +1,25 @@
-// model.java
-
 package aiis;
 
 import java.util.Vector;
-import java.util.Hashtable;
 import java.awt.Color;
 import com.xj.jama.Matrix;
 import com.xj.anylogic.*;
 import com.xj.anylogic.animation.*;
-import com.xj.random.*;
 
-
-// _XJ_SECTION_BEGIN( AO.Import )
 import interfaceMod.*;
 import com.xj.anylogic.*;
 import java.awt.*;
 import javax.swing.*;
-// _XJ_SECTION_END
+
 public class model extends ActiveObject
  {
+   public boolean s1 =  false;
+
+   String msgRus1 = "Моделирование закончено. Вывести результаты на экран?";
+   String alertRus1  = "Внимание!";
+
+   String msgEng1 = "The simulation is finished. Would you like to display the results?";
+   String alertEng1  = "Attention!";
 
   public static void go( String[] args ) {
     System.out.println( "...started..." );
@@ -842,7 +843,9 @@ Engine.restart();
     }
   }
   Timer_timerTimeEnd timerTimeEnd = null;
-  class Timer_timerTimeEnd extends StaticTimer {
+ public class Timer_timerTimeEnd extends StaticTimer {
+
+
     Timer_timerTimeEnd() {
       super( model.this );
     }
@@ -857,8 +860,16 @@ if (parVrMod ==0)
 {
 Engine.stop();
 collectionStat();
+  int n;
+if(langmodel == false){
+  n = JOptionPane.showConfirmDialog(Engine.getAnimation(),msgRus1,alertRus1,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
 
-int n = JOptionPane.showConfirmDialog(Engine.getAnimation(),"Моделирование закончено. Вывести результаты на экран?","Внимание!!!",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+}
+else {
+  n = JOptionPane.showConfirmDialog(Engine.getAnimation(),msgEng1,alertEng1,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+}
+
+
 switch(n){
 case JOptionPane.YES_OPTION: outputResult();break;
 case JOptionPane.NO_OPTION: breakResult(); break;
@@ -1408,6 +1419,7 @@ public class _StructureGroup extends Group {
 public static Vector kolDataGPRS = new Vector();
 public static double allDataGPRS=0;
 
+public static boolean langmodel = false;
 
 public static boolean finishAllGSM=false;
 public static int kolFinishGSM=0;

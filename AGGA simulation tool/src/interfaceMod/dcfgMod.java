@@ -108,6 +108,7 @@ public class dcfgMod extends JDialog {
     labelVrMod1.setFont(new java.awt.Font("Arial", 0, 11));
     labelVrMod1.setText("Период опроса счётчиков");
     jComboBox1.setEnabled(false);
+    jComboBox1.addActionListener(new dcfgMod_jComboBox1_actionAdapter(this));
     getContentPane().add(panel1);
     jPanel1.add(labelVrMod, new XYConstraints(19, 5, -1, -1));
     jPanel3.add(chEvent, new XYConstraints(6, 0, 140, -1));
@@ -201,6 +202,10 @@ else
 
   }
 
+  void jComboBox1_actionPerformed(ActionEvent e) {
+
+  }
+
 
 
 }
@@ -257,5 +262,16 @@ class dcfgMod_chDopPar_itemAdapter implements java.awt.event.ItemListener {
   }
   public void itemStateChanged(ItemEvent e) {
     adaptee.chDopPar_itemStateChanged(e);
+  }
+}
+
+class dcfgMod_jComboBox1_actionAdapter implements java.awt.event.ActionListener {
+  dcfgMod adaptee;
+
+  dcfgMod_jComboBox1_actionAdapter(dcfgMod adaptee) {
+    this.adaptee = adaptee;
+  }
+  public void actionPerformed(ActionEvent e) {
+    adaptee.jComboBox1_actionPerformed(e);
   }
 }

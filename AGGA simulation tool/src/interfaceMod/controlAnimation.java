@@ -1,15 +1,9 @@
 package interfaceMod;
 
 import com.xj.anylogic.Engine;
-import javax.swing.JFrame;
-import javax.swing.JFormattedTextField;
-import java.awt.Color;
-import org.jfree.ui.RefineryUtilities;
-import javax.swing.JDialog;
 
 public class controlAnimation extends Thread {
   private animation fr;
-
   controlAnimation(animation frame){fr=frame;}
 
   public void run() {
@@ -18,23 +12,14 @@ public class controlAnimation extends Thread {
   {
     try
     {
-
 if (Engine.isRunning()==false)
 {
   fr.dispose();
-
   //this.destroy();
-
-
 }
-
     Thread.sleep(1);
     }
         catch(InterruptedException e){}
-
   }
-
-
-
   }
 }

@@ -4,18 +4,12 @@ import javax.swing.UIManager;
 import java.awt.*;
 
 import aiis.*;
-import com.xj.anylogic.Engine;
-import javax.swing.JDialog;
 public class StartModeling {
   boolean packFrame = false;
 
   //Construct the application
   public StartModeling(String [] ar1) {
     Frame1 frame = new Frame1();
-    //JDialog loginWin = new login(frame,"Окно входа");
-    //loginWin.show();
-    //Validate frames that have preset sizes
-    //Pack frames that have useful preferred size info, e.g. from their layout
     if (packFrame) {
       frame.pack();
     }

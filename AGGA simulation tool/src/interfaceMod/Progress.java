@@ -9,7 +9,7 @@ import com.xj.anylogic.animation.*;
 public class Progress extends JFrame {
   Progress() {
 super("...Progress");
-    final ProgressMonitor mon = new ProgressMonitor(this,"Идёт процесс моделирования","Осталось",0,(int)aiis.model.parVrModD*24);
+    final ProgressMonitor mon = new ProgressMonitor(this,"Идёт процесс моделирования!!!!!!!!!!!!!!!","Осталось",0,(int)aiis.model.parVrModD*24);
 
     Runnable runnable = new Runnable(){
 
@@ -62,11 +62,6 @@ default:}*/
     };
 Thread thread = new Thread(runnable);
     thread.start();
-
-//this.setSize(400,400);
-  //  this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //setVisible(true);
-
     this.setResizable(false);
     try {
       jbInit();
@@ -78,26 +73,6 @@ Thread thread = new Thread(runnable);
   private void jbInit() throws Exception {
     this.setResizable(false);
     this.setFocusable(true);
-
-  //  this.setFocusable(true);
   }
 }
-
-
-
-/*    for (int i = 1;i<(int)aiis.model.parVrMod;i++){
-    try{
-      mon.setNote("Выполнено  "+Math.round((Engine.getTime()/(int)aiis.model.parVrMod)*100)+"%");
-      mon.setProgress((int)Engine.getTime());
-
-      if (mon.isCanceled()){
-      // mon.setProgress(1000000);
-       //Engine.stop();
-       mon.close();
-       break;
-      }
-      Thread.sleep(100);
-    } catch(InterruptedException e){}
-  }*/
-
 

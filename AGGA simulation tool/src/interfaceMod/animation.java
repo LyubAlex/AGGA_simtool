@@ -3,19 +3,15 @@ package interfaceMod;
 import javax.swing.*;
 import java.awt.*;
 import com.borland.jbcl.layout.*;
-
 import javax.swing.border.*;
 import java.awt.event.*;
 import com.xj.anylogic.Engine;
 
-
 public class animation extends JDialog {
-
-
-ImageIcon imageOK;
+  ImageIcon imageOK;
   ImageIcon imageWait1;
   ImageIcon imageWait2;
-               ImageIcon imageExitWin;
+  ImageIcon imageExitWin;
   BorderLayout borderLayout1 = new BorderLayout();
   JPanel jPanel1 = new JPanel();
   XYLayout xYLayout1 = new XYLayout();
@@ -44,22 +40,16 @@ ImageIcon imageOK;
 
   void jbInit() throws Exception {
     border1 = new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(165, 163, 151));
-    border2 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Параметры счётчика");
-    border3 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Тип счётчика");
     border4 = BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151));
     this.getContentPane().setLayout(borderLayout1);
-
- imageWait1 = new ImageIcon(interfaceMod.Frame1.class.getResource("wait1.png"));
- imageWait2 = new ImageIcon(interfaceMod.Frame1.class.getResource("wait2.png"));
-imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
+    imageWait1 = new ImageIcon(interfaceMod.Frame1.class.getResource("wait1.png"));
+    imageWait2 = new ImageIcon(interfaceMod.Frame1.class.getResource("wait2.png"));
+    imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
     imageExitWin = new ImageIcon(interfaceMod.Frame1.class.getResource("exitWin.png"));
- //setVisible(true);
     jPanel1.setLayout(xYLayout1);
     this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
     this.setResizable(false);
     this.setSize(new Dimension(277, 148));
-
-
 
     jLabel1.setText("Идёт процесс моделирования!");
     jButton1.setText("Отмена");
@@ -67,7 +57,6 @@ imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
     jLabel3.setText("Подождите!");
     anim1.setIcon(imageWait1);
     anim2.setIcon(imageWait2);
-    //anim2.setVisible(false);
     jLabel4.setText("Выполнено:");
     statusBar.setEnabled(true);
     statusBar.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -80,21 +69,11 @@ imageOK = new ImageIcon(interfaceMod.Frame1.class.getResource("ok.png"));
     jPanel1.add(jButton1, new XYConstraints(114, 82, -1, -1));
     jPanel1.add(jLabel4,     new XYConstraints(98, 55, -1, -1));
     jPanel1.add(statusBar,     new XYConstraints(170, 54, -1, -1));
-
-
-
-
-
-//setTitle("Процесс моделирования");
-//setModal(true);
-//setVisible(true);
   }
 
   void selectSET_itemStateChanged(ItemEvent e) {
 
 }
-
-
   void bExit_actionPerformed(ActionEvent e) {
 this.dispose();
   }
@@ -103,12 +82,6 @@ this.dispose();
     Engine.stop();
     dispose();
   }
-
-
-
-
-
-
 }
 
 class animation_jButton1_actionAdapter implements java.awt.event.ActionListener {
@@ -121,8 +94,3 @@ class animation_jButton1_actionAdapter implements java.awt.event.ActionListener 
     adaptee.jButton1_actionPerformed(e);
   }
 }
-
-
-
-
-
