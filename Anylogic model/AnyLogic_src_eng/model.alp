@@ -440,8 +440,26 @@ return i;
 <Equation/></Variable>
 <Statechart ID="4" Name="GPRS" Pos="180 20" NamePos="190 20">
 <Items>
-<Initial ID="4" Name="pointer" Target="30" Points="-20 -210 -20 -180"/>
-<ChoicePoint ID="58" Name="branch1" Pos="-90 -130" InCables="66 41" OutCables="62 61">
+<Initial ID="1" Name="pointer" Target="26" Points="-90 -280 -90 -250"/>
+<ChoicePoint ID="3" Name="branch" Pos="-150 140" InCables="5" OutCables="14 15">
+<Action><![CDATA[
+if (verRepeat<=0)
+{statusFER=false;}
+else if (verRepeat>=1)
+{statusFER=true;}
+else
+{statusFER=randomTrue(verRepeat);}
+
+if (statusFER)
+{
+repeatFrame=true;
+}
+else if (statusFER==false)
+{
+transferOk=true;
+}
+]]></Action></ChoicePoint>
+<ChoicePoint ID="2" Name="branch1" Pos="-160 -200" InCables="9 18" OutCables="11 12">
 <Action><![CDATA[
 currentVer =Math.round(verBlok*100);
 if (currentVer > 0)
@@ -460,39 +478,20 @@ estSlot=true;}
 
 
 ]]></Action></ChoicePoint>
-<ChoicePoint ID="50" Name="branch" Pos="-80 210" InCables="75" OutCables="56 53">
-<Action><![CDATA[
-if (verRepeat<=0)
-{statusFER=false;}
-else if (verRepeat>=1)
-{statusFER=true;}
-else
-{statusFER=randomTrue(verRepeat);}
-
-if (statusFER)
-{
-repeatFrame=true;
-}
-else if (statusFER==false)
-{
-transferOk=true;
-}
-]]></Action></ChoicePoint>
-<Transition ID="77" Name="transition14" Source="76" Target="74" Points="-80 140 -80 160" Type="1"/>
-<Transition ID="75" Name="transition13" Source="74" Target="50" Points="-80 180 -80 199.5" Type="1">
+<Transition ID="5" Name="transition13" Source="20" Target="3" Points="-150 110 -150 129.5" Type="1">
 <Trigger><![CDATA["nextStep"]]></Trigger></Transition>
-<Transition ID="71" Name="transition12" Source="73" Target="72" Points="-80 -20 -80 0" Type="1">
+<Transition ID="6" Name="transition12" Source="21" Target="22" Points="-150 -90 -150 -70" Type="1">
 <Trigger><![CDATA["nextStep"]]></Trigger></Transition>
-<Transition ID="69" Name="transition10" Source="72" Target="48" Points="-80 20 -80 40" Type="1"/>
-<Transition ID="68" Name="transition9" Source="59" Target="73" Points="-160 -70 -160 -60 -80 -60 -80 -40" Type="1"/>
-<Transition ID="66" Name="transition6" Source="63" Target="58" Points="-60 -130 -79.5 -130" Type="1"/>
-<Transition ID="65" Name="transition5" Source="60" Target="63" Points="20 -80 30 -80 30 -130 10 -130" Type="1">
+<Transition ID="7" Name="transition10" Source="22" Target="28" Points="-150 -50 -150 -30" Type="1"/>
+<Transition ID="8" Name="transition9" Source="25" Target="21" Points="-230 -140 -230 -130 -150 -130 -150 -110" Type="1"/>
+<Transition ID="9" Name="transition6" Source="23" Target="2" Points="-130 -200 -149.5 -200" Type="1"/>
+<Transition ID="10" Name="transition5" Source="24" Target="23" Points="-50 -150 -40 -150 -40 -200 -60 -200" Type="1">
 <Trigger><![CDATA[1/timeScale]]></Trigger></Transition>
-<Transition ID="62" Name="transition1" Source="58" Target="60" Points="-80.9 -124.8 -20 -90" Type="1">
+<Transition ID="11" Name="transition1" Source="2" Target="24" Points="-150.9 -194.8 -90 -160" Type="1">
 <Guard><![CDATA[netSlot]]></Guard></Transition>
-<Transition ID="61" Name="transition" Source="58" Target="59" Points="-99.1 -124.8 -160 -90" Type="1">
+<Transition ID="12" Name="transition" Source="2" Target="25" Points="-169.1 -194.8 -230 -160" Type="1">
 <Guard><![CDATA[estSlot]]></Guard></Transition>
-<Transition ID="57" Name="transition8" Source="55" Target="30" Points="-40 250 140 250 140 -160" Type="1">
+<Transition ID="13" Name="transition8" Source="29" Target="26" Points="-110 180 70 180 70 -230" Type="1">
 <Trigger><![CDATA["nextStep"]]></Trigger>
 <Action><![CDATA[
 model m = (model)getOwner();
@@ -526,10 +525,10 @@ for(int i=0;i<(m.parKolMasGPRS.size()/2);i++)
    }
 }
 ]]></Action></Transition>
-<Transition ID="56" Name="transition7" Source="50" Target="55" Points="-90.5 210 -180 210 -180 240" Type="1">
+<Transition ID="14" Name="transition7" Source="3" Target="29" Points="-160.5 140 -250 140 -250 170" Type="1">
 <Guard><![CDATA[repeatFrame]]></Guard>
 <Action><![CDATA[repeatFrame=false;]]></Action></Transition>
-<Transition ID="53" Name="transition3" Source="50" Target="30" Points="-69.5 210 100 210 100 -160" Type="1">
+<Transition ID="15" Name="transition3" Source="3" Target="26" Points="-139.5 140 30 140 30 -230" Type="1">
 <Guard><![CDATA[transferOk]]></Guard>
 <Action><![CDATA[
 transferOk=false;
@@ -564,26 +563,19 @@ for(int i=0;i<(m.parKolMasGPRS.size()/2);i++)
    }
 }
 ]]></Action></Transition>
-<Transition ID="52" Name="transition2" Source="42" Target="76" Points="-80 100 -80 120" Type="1">
+<Transition ID="16" Name="transition2" Source="27" Target="19" Points="-150 30 -150 50" Type="1">
 <Trigger><![CDATA["nextStep"]]></Trigger></Transition>
-<Transition ID="49" Name="transition11" Source="48" Target="42" Points="-80 60 -80 80" Type="1">
+<Transition ID="17" Name="transition11" Source="28" Target="27" Points="-150 -10 -150 10" Type="1">
 <Trigger><![CDATA["nextStep"]]></Trigger></Transition>
-<Transition ID="41" Name="transition4" Source="30" Target="58" Points="-90 -160 -90 -140.5" Type="4">
+<Transition ID="18" Name="transition4" Source="26" Target="2" Points="-160 -230 -160 -210.5" Type="4">
 <Trigger><![CDATA["sendData"]]></Trigger></Transition>
-<State ID="76" Name="Сетевые задержки" Rect="-200 120 40 140" NamePos="-140 120" InCables="52" OutCables="77">
-<EntryAction><![CDATA[
-double netDelay = DistrNormal.sample(0.3,0.7);
-if (netDelay<0.1)
-{netDelay=0.1;}
-currentTimeOpros=currentTimeOpros+netDelay;
-timeTransferI=timeTransferI+netDelay;
-]]></EntryAction></State>
-<State ID="74" Name="Задержка сборки данных" Rect="-200 160 40 180" NamePos="-160 160" InCables="77" OutCables="75">
+<Transition ID="4" Name="transition14" Source="19" Target="20" Points="-150 70 -150 90" Type="1"/>
+<State ID="20" Name="Delay of packages linkage" Rect="-270 90 -30 110" NamePos="-230 90" InCables="4" OutCables="5">
 <EntryAction><![CDATA[
 currentTimeOpros=currentTimeOpros+0.25;
 timeTransferI=timeTransferI+0.25;
 ]]></EntryAction></State>
-<State ID="73" Name="Кодирование данных" Rect="-200 -40 40 -20" NamePos="-150 -40" InCables="68" OutCables="71">
+<State ID="21" Name="Data coding" Rect="-270 -110 -30 -90" NamePos="-190 -110" InCables="8" OutCables="6">
 <EntryAction><![CDATA[
 if (currentCounter==1)
     {
@@ -600,21 +592,21 @@ timeCode=0.08;
 currentTimeOpros=currentTimeOpros+timeCode;
 timeTransferI=timeTransferI+timeCode;
 ]]></EntryAction></State>
-<State ID="72" Name="Формирование пакетов" Rect="-200 0 40 20" NamePos="-150 0" InCables="71" OutCables="69">
+<State ID="22" Name="Packages forming" Rect="-270 -70 -30 -50" NamePos="-210 -70" InCables="6" OutCables="7">
 <EntryAction><![CDATA[
  double timePacket;
 timePacket=0.025;
 currentTimeOpros=currentTimeOpros+timePacket;
 timeTransferI=timeTransferI+timePacket;
 ]]></EntryAction></State>
-<State ID="63" Name="Ожидание" Rect="-60 -140 10 -120" NamePos="-60 -140" InCables="65" OutCables="66">
+<State ID="23" Name="waiting" Rect="-130 -210 -60 -190" NamePos="-120 -210" InCables="10" OutCables="9">
 <EntryAction><![CDATA[timeWait=timeWait+1;]]></EntryAction></State>
-<State ID="60" Name="Нет слота" Rect="-70 -90 20 -70" NamePos="-60 -90" InCables="62" OutCables="65">
+<State ID="24" Name="isn't a slot" Rect="-140 -160 -50 -140" NamePos="-130 -160" InCables="11" OutCables="10">
 <ExitAction><![CDATA[
 netSlot=false;
 kolBlok++;
 ]]></ExitAction></State>
-<State ID="59" Name="Есть слоты" Rect="-200 -90 -110 -70" NamePos="-190 -90" InCables="61" OutCables="68">
+<State ID="25" Name="is a slot" Rect="-270 -160 -180 -140" NamePos="-250 -160" InCables="12" OutCables="8">
 <EntryAction><![CDATA[
 SNR = HataModel();
 if (typeCS==1)
@@ -642,12 +634,12 @@ timeTransferI=timeTransferI+timeWait;
 timeWait=0;
 ]]></EntryAction>
 <ExitAction><![CDATA[estSlot=false;]]></ExitAction></State>
-<State ID="30" Name="Ожидание данных на передачу" Rect="-200 -180 170 -160" NamePos="-120 -180" InCables="4 57 53" OutCables="41">
+<State ID="26" Name="Waiting for data" Rect="-270 -250 100 -230" NamePos="-140 -250" InCables="1 13 15" OutCables="18">
 <EntryAction><![CDATA[
 model m = (model)getOwner();
 
 ]]></EntryAction></State>
-<State ID="42" Name="Передача данных" Rect="-200 80 40 100" NamePos="-130 80" InCables="49" OutCables="52">
+<State ID="27" Name="Data transmission" Rect="-270 10 -30 30" NamePos="-200 10" InCables="17" OutCables="16">
 <EntryAction><![CDATA[
 if (transferCondition==1)
 {
@@ -661,41 +653,44 @@ currentTimeOpros=currentTimeOpros+(transferData/bitrate);
 kolData=kolData+transferData;
 timeTransferI=timeTransferI+(transferData/bitrate);
 ]]></EntryAction></State>
-<State ID="48" Name="Время распространения сигнала" Rect="-200 40 40 60" NamePos="-180 40" InCables="69" OutCables="49">
+<State ID="28" Name="Time of signal propagation" Rect="-270 -30 -30 -10" NamePos="-240 -30" InCables="7" OutCables="17">
 <EntryAction><![CDATA[
 currentTimeOpros=currentTimeOpros+timeWave;
 timeTransferI=timeTransferI+timeWave;
 ]]></EntryAction></State>
-<State ID="55" Name="Повтор передачи блока" Rect="-200 240 -40 260" NamePos="-190 240" InCables="56" OutCables="57">
+<State ID="29" Name="Package repeat" Rect="-270 170 -110 190" NamePos="-240 170" InCables="14" OutCables="13">
 <EntryAction><![CDATA[
 kolData=kolData+transferData;
 timeTransferI=timeTransferI+((transferData/bitrate)+(uniform(0.1,1))+timeWave+0.25+0.25);
 currentTimeOpros=currentTimeOpros+((transferData/bitrate)+(uniform(0.1,1))+timeWave+0.25+0.25);
 ]]></EntryAction>
 <ExitAction><![CDATA[kolRepeat++;]]></ExitAction></State>
+<State ID="19" Name="Network delays" Rect="-270 50 -30 70" NamePos="-210 50" InCables="16" OutCables="4">
+<EntryAction><![CDATA[
+double netDelay = DistrNormal.sample(0.3,0.7);
+if (netDelay<0.1)
+{netDelay=0.1;}
+currentTimeOpros=currentTimeOpros+netDelay;
+timeTransferI=timeTransferI+netDelay;
+]]></EntryAction></State>
 </Items></Statechart>
 <Port ID="3" Name="portOut" Pos="400 250" Parent="1"/>
 <Port ID="2" Name="portIn" Pos="-10 250" Parent="1"/>
 <Bounds Flags="0" Pen="#808080 20" Brush="#000000" ID="1" Name="GPRS" Rect="-10 0 400 500" NamePos="0 10" Children="3 2"/>
 <Comment ID="64" Name="textBox6" Rect="10 310 230 490">
-<Text><![CDATA[Модель Хаты-распр. сигнала]]></Text></Comment>
+<Text><![CDATA[Okamura-Hata model]]></Text></Comment>
 <Comment ID="49" Name="textBox5" Rect="240 40 380 240">
-<Text><![CDATA[Системные переменные]]></Text></Comment>
+<Text><![CDATA[System variables]]></Text></Comment>
 <Comment ID="48" Name="textBox4" Rect="10 40 230 170">
-<Text><![CDATA[Вспомогательные переменные]]></Text></Comment>
+<Text><![CDATA[Auxiliary variables]]></Text></Comment>
 <Comment ID="25" Name="textBox1" Rect="240 260 380 490">
 <Text><![CDATA[
-Собираемая статистика
+Statistics
 
 
 ]]></Text></Comment>
 <Comment ID="20" Name="textBox" Rect="10 180 230 300">
-<Text><![CDATA[
-Модель Эрланга-вероятность блокировки
-
-]]></Text></Comment>
-<Comment ID="10" Name="textBox2" Rect="480 10 1050 310">
-<Text><![CDATA[Общая задержка в канале GSM при распространении в прямом и обратном направлениях, вызванная обработкой сигнала, кодированием/декодированием речи, канальным кодированием и т.д., составляет около 180 мс.]]></Text></Comment>
+<Text><![CDATA[Erlang model]]></Text></Comment>
 </StructureDiagram><Image/>
 <Parameters>
 <Item Name="timeWave" DefaultValue="0.002" Modificator="2"/>
@@ -759,7 +754,7 @@ double HataModel()
 </RecordList></Item>
 </ConversionTables>
 <StructureDiagram>
-<Variable ID="80" Name="timeoutALL" Pos="210 390" NamePos="220 390">
+<Variable ID="80" Name="timeoutALL" Pos="180 350" NamePos="190 350">
 <VarType ScalarType="real"/>
 <Value><![CDATA[0.18]]></Value>
 <Equation/></Variable>
@@ -943,9 +938,16 @@ double HataModel()
 <Equation/></Variable>
 <Statechart ID="5" Name="GSM" Pos="60 30" NamePos="70 30">
 <Items>
-<Initial ID="111" Name="pointer1" Parent="110" Target="106" Points="-70 100 -70 120"/>
-<Initial ID="4" Name="pointer" Target="2" Points="30 -145 30 -110"/>
-<ChoicePoint ID="99" Name="branch" Pos="-70 250" Parent="110" InCables="98" OutCables="105 100">
+<Initial ID="2" Name="pointer" Target="33" Points="50 -185 50 -150"/>
+<Initial ID="1" Name="pointer1" Parent="28" Target="22" Points="-50 60 -50 80"/>
+<ChoicePoint ID="4" Name="branch5" Pos="50 -60" InCables="7 20" OutCables="17 19">
+<Action><![CDATA[
+if (randomTrue(parVerUstGSM/100))
+{connect=true;}
+else
+{disconnect=true;}
+]]></Action></ChoicePoint>
+<ChoicePoint ID="3" Name="branch" Pos="-50 210" Parent="28" InCables="13" OutCables="11 12">
 <Action><![CDATA[
 BER=HataModel();
 if (BER<=0)
@@ -957,27 +959,14 @@ if (statusBER)
 else if (statusBER==false)
 {transferOk=true;}
 ]]></Action></ChoicePoint>
-<ChoicePoint ID="79" Name="branch5" Pos="30 -20" InCables="116 21" OutCables="82 27">
-<Action><![CDATA[
-if (randomTrue(parVerUstGSM/100))
-{connect=true;}
-else
-{disconnect=true;}
-]]></Action></ChoicePoint>
-<Transition ID="124" Name="transition4" Source="110" Target="47" Points="70 300 70 340 70 370 0 370" Type="4">
-<Trigger><![CDATA["stopGSM"]]></Trigger>
-<Action><![CDATA[
-//timeTransfer=timeTransfer+timeService;
- 
-]]></Action></Transition>
-<Transition ID="122" Name="transition3" Parent="110" Source="106" Target="85" Points="-70 140 -70 160" Type="4">
+<Transition ID="6" Name="transition3" Parent="28" Source="22" Target="25" Points="-50 100 -50 120" Type="4">
 <Trigger><![CDATA["sendData"]]></Trigger></Transition>
-<Transition ID="116" Name="transition20" Source="115" Target="79" Points="70 -20 40.5 -20" Type="1"/>
-<Transition ID="114" Name="transition14" Source="113" Target="47" Points="-70 340 -70 360" Type="1">
+<Transition ID="7" Name="transition20" Source="26" Target="4" Points="90 -60 60.5 -60" Type="1"/>
+<Transition ID="8" Name="transition14" Source="27" Target="31" Points="-50 300 -50 320" Type="1">
 <Trigger><![CDATA["nextStep"]]></Trigger></Transition>
-<Transition ID="112" Name="transition19" Source="110" Target="113" Points="-70 300 -70 320" Type="4">
+<Transition ID="9" Name="transition19" Source="28" Target="27" Points="-50 260 -50 280" Type="4">
 <Trigger><![CDATA["callEND"]]></Trigger></Transition>
-<Transition ID="108" Name="transition13" Parent="110" Source="102" Target="106" Points="-190 280 -230 280 -230 130 -170 130" Type="1">
+<Transition ID="10" Name="transition13" Parent="28" Source="23" Target="22" Points="-170 240 -210 240 -210 90 -150 90" Type="1">
 <Action><![CDATA[
 model m = (model)getOwner();
 
@@ -1012,7 +1001,7 @@ for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
 }
     
 ]]></Action></Transition>
-<Transition ID="105" Name="transition11" Parent="110" Source="99" Target="106" Points="-59.5 250 120 250 120 130 20 130" Type="1">
+<Transition ID="11" Name="transition11" Parent="28" Source="3" Target="22" Points="-39.5 210 140 210 140 90 40 90" Type="1">
 <Guard><![CDATA[transferOk]]></Guard>
 <Action><![CDATA[
 transferOk=false;
@@ -1049,40 +1038,44 @@ for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
 }
     
 ]]></Action></Transition>
-<Transition ID="100" Name="transition10" Parent="110" Source="99" Target="102" Points="-80.5 250 -170 250 -170 270" Type="1">
+<Transition ID="12" Name="transition10" Parent="28" Source="3" Target="23" Points="-60.5 210 -150 210 -150 230" Type="1">
 <Guard><![CDATA[repeatFrame]]></Guard>
 <Action><![CDATA[repeatFrame=false;]]></Action></Transition>
-<Transition ID="98" Name="transition9" Parent="110" Source="86" Target="99" Points="-70 220 -70 239.5" Type="1">
+<Transition ID="13" Name="transition9" Parent="28" Source="24" Target="3" Points="-50 180 -50 199.5" Type="1">
 <Trigger><![CDATA["nextStep"]]></Trigger></Transition>
-<Transition ID="87" Name="transition2" Parent="110" Source="85" Target="86" Points="-70 180 -70 200" Type="1">
+<Transition ID="14" Name="transition2" Parent="28" Source="25" Target="24" Points="-50 140 -50 160" Type="1">
 <Trigger><![CDATA["nextStep"]]></Trigger></Transition>
-<Transition ID="84" Name="transition24" Source="80" Target="110" Points="-70 60 -70 90" Type="1">
+<Transition ID="15" Name="transition24" Source="30" Target="28" Points="-50 20 -50 50" Type="1">
 <Trigger><![CDATA["nextStep"]]></Trigger></Transition>
-<Transition ID="83" Name="transition23" Source="81" Target="115" Points="190 50 210 50 210 -20 150 -20" Type="1">
+<Transition ID="16" Name="transition23" Source="29" Target="26" Points="210 10 230 10 230 -60 170 -60" Type="1">
 <Trigger><![CDATA[1/timeScale]]></Trigger></Transition>
-<Transition ID="82" Name="transition22" Source="79" Target="81" Points="38.7 -14.2 120 40" Type="1">
+<Transition ID="17" Name="transition22" Source="4" Target="29" Points="58.7 -54.2 140 0" Type="1">
 <Guard><![CDATA[disconnect]]></Guard></Transition>
-<Transition ID="49" Name="transition15" Source="47" Target="2" Points="-70 380 -70 400 -270 400 -270 -100 -45 -100" Type="1"/>
-<Transition ID="27" Name="transition6" Source="79" Target="80" Points="21.3 -14.2 -60 40" Type="1">
+<Transition ID="18" Name="transition15" Source="31" Target="33" Points="-50 340 -50 360 -250 360 -250 -140 -25 -140" Type="1"/>
+<Transition ID="19" Name="transition6" Source="4" Target="30" Points="41.3 -54.2 -40 0" Type="1">
 <Guard><![CDATA[connect]]></Guard></Transition>
-<Transition ID="21" Name="transition1" Source="7" Target="79" Points="30 -50 30 -30.5" Type="1"/>
-<Transition ID="6" Name="transition" Source="2" Target="7" Points="30 -90 30 -80 30 -70" Type="4">
+<Transition ID="20" Name="transition1" Source="32" Target="4" Points="50 -90 50 -70.5" Type="1"/>
+<Transition ID="21" Name="transition" Source="33" Target="32" Points="50 -130 50 -120 50 -110" Type="4">
 <Trigger><![CDATA["startGSM"]]></Trigger></Transition>
-<State ID="106" Name="Ожидание данных" Rect="-170 120 20 140" NamePos="-120 120" Parent="110" InCables="111 108 105" OutCables="122">
-<EntryAction><![CDATA[bitrate=9600;]]></EntryAction></State>
-<State ID="102" Name="Повтор передачи кадра" Rect="-190 270 -30 290" NamePos="-190 270" Parent="110" InCables="100" OutCables="108">
+<Transition ID="5" Name="transition4" Source="28" Target="31" Points="90 260 90 300 90 330 20 330" Type="4">
+<Trigger><![CDATA["stopGSM"]]></Trigger>
+<Action><![CDATA[
+//timeTransfer=timeTransfer+timeService;
+ 
+]]></Action></Transition>
+<State ID="23" Name="Frame repeat" Rect="-170 230 -10 250" NamePos="-130 230" Parent="28" InCables="12" OutCables="10">
 <EntryAction><![CDATA[
 
 timeTransfer=timeTransfer+((transferData/bitrate)+timeoutALL);
 timeTransferI=timeTransferI+((transferData/bitrate)+timeoutALL);
 ]]></EntryAction>
 <ExitAction><![CDATA[kolRepeat++;]]></ExitAction></State>
-<State ID="86" Name="Передача данных" Rect="-200 200 40 220" NamePos="-130 200" Parent="110" InCables="87" OutCables="98">
+<State ID="24" Name="Data transmission" Rect="-180 160 60 180" NamePos="-110 160" Parent="28" InCables="14" OutCables="13">
 <EntryAction><![CDATA[
 timeTransfer=timeTransfer+(transferData/bitrate);
 timeTransferI=timeTransferI+(transferData/bitrate);
 ]]></EntryAction></State>
-<State ID="85" Name="Общая задержка в радиоканале" Rect="-200 160 40 180" NamePos="-180 160" Parent="110" InCables="122" OutCables="87">
+<State ID="25" Name="Total delay in radio channel" Rect="-180 120 60 140" NamePos="-140 120" Parent="28" InCables="6" OutCables="14">
 <EntryAction><![CDATA[
 if (currentCounter==1)
     {
@@ -1098,16 +1091,16 @@ timeoutALL=DistrNormal.sample(0.175,0.825);
 timeTransfer=timeTransfer+timeoutALL;
 timeTransferI=timeTransferI+timeoutALL;
 ]]></EntryAction></State>
-<State ID="115" Name="Ждать" Rect="70 -30 150 -10" NamePos="90 -30" InCables="83" OutCables="116">
-<EntryAction><![CDATA[timeWaitCalling=timeWaitCalling+5;]]></EntryAction></State>
-<State ID="113" Name="Разрыв соединения" Rect="-150 320 0 340" NamePos="-140 320" InCables="112" OutCables="114">
+<State ID="22" Name="Waiting for data trans-ion" Rect="-150 80 40 100" NamePos="-140 80" Parent="28" InCables="1 10 11" OutCables="6">
+<EntryAction><![CDATA[bitrate=9600;]]></EntryAction></State>
+<State ID="27" Name="Connection break" Rect="-130 280 20 300" NamePos="-120 280" InCables="9" OutCables="8">
 <ExitAction><![CDATA[
 timeEndI=uniform(1,parVrEndGSM);
 timeService=timeService+timeEndI;
 //timeTransfer=timeTransfer+timeService;
 
 ]]></ExitAction></State>
-<State ID="110" Rect="-250 90 150 300" NamePos="-250 90" Children="106 102 86 85 111 99 122 108 105 100 98 87" InCables="84" OutCables="124 112">
+<State ID="28" Rect="-230 50 170 260" NamePos="-230 50" Children="23 24 25 22 1 3 6 10 11 12 13 14" InCables="15" OutCables="9 5">
 <EntryAction><![CDATA[
 endGSM=randomTrue(parVerEndGSM/100);
 idGSM = this.getCurrentState();
@@ -1131,10 +1124,10 @@ if (endGSM)
      endGSM=false;
 }
 ]]></EntryAction></State>
-<State ID="81" Name="Неудачный дозвон" Rect="50 40 190 60" NamePos="60 40" InCables="82" OutCables="83">
+<State ID="29" Name="Unsuccessful" Rect="70 0 210 20" NamePos="100 0" InCables="17" OutCables="16">
 <EntryAction><![CDATA[kolNeudach++;]]></EntryAction>
 <ExitAction><![CDATA[disconnect=false;]]></ExitAction></State>
-<State ID="80" Name="Установление соединения" Rect="-170 40 20 60" NamePos="-160 40" InCables="27" OutCables="84">
+<State ID="30" Name="Connection OK" Rect="-150 0 40 20" NamePos="-100 0" InCables="19" OutCables="15">
 <ExitAction><![CDATA[
 statusCalling=true;
 
@@ -1158,31 +1151,30 @@ timeService=timeService+timeUstI;
 timeWaitCalling=0;
 connect = false;
 ]]></ExitAction></State>
-<State ID="47" Name="Конец" Rect="-150 360 0 380" NamePos="-90 360" InCables="124 114" OutCables="49">
+<State ID="31" Name="End" Rect="-130 320 20 340" NamePos="-70 320" InCables="8 5" OutCables="18">
 <EntryAction><![CDATA[
 model.kolFinishGSM++;
 if (model.kolFinishGSM==(model.parKolMasGSM.size())/2)
 {model.finishAllGSM=true;}
 statusCalling=false;
 ]]></EntryAction></State>
-<State ID="7" Name="Процедура дозвона" Rect="-45 -70 105 -50" NamePos="-35 -70" InCables="6" OutCables="21"/>
-<State ID="2" Name="Начало" Rect="-45 -110 105 -90" NamePos="5 -110" InCables="4 49" OutCables="6"/>
+<State ID="32" Name="Connection setting" Rect="-25 -110 125 -90" NamePos="-10 -110" InCables="21" OutCables="20"/>
+<State ID="33" Name="Start" Rect="-25 -150 125 -130" NamePos="40 -150" InCables="2 18" OutCables="21"/>
+<State ID="26" Name="Waiting" Rect="90 -70 170 -50" NamePos="110 -70" InCables="16" OutCables="7">
+<EntryAction><![CDATA[timeWaitCalling=timeWaitCalling+5;]]></EntryAction></State>
 </Items></Statechart>
 <Port ID="3" Name="portOut" Pos="260 230" Parent="1"/>
 <Port ID="2" Name="portIn" Pos="-140 230" Parent="1"/>
 <Bounds Flags="0" Pen="#808080 20" Brush="#000000" ID="1" Name="GSM" Rect="-140 10 260 450" NamePos="-130 20" Children="3 2"/>
 <Comment ID="78" Name="textBox3" Rect="70 50 240 220">
-<Text><![CDATA[Вспомогательные переменные]]></Text></Comment>
+<Text><![CDATA[Auxiliary variables]]></Text></Comment>
 <Comment ID="63" Name="textBox4" Rect="70 240 240 430">
-<Text><![CDATA[Модель Хаты]]></Text></Comment>
+<Text><![CDATA[Okamura-Hata model]]></Text></Comment>
 <Comment ID="60" Name="textBox" Rect="-120 50 50 220">
-<Text><![CDATA[Системные переменные]]></Text></Comment>
+<Text><![CDATA[System variables]]></Text></Comment>
 <Comment ID="29" Name="textBox5" Rect="-120 240 50 430">
-<Text><![CDATA[
-Собираемая статистика
-
-]]></Text></Comment>
-<Comment ID="10" Name="textBox1" Rect="0 -170 500 -70">
+<Text><![CDATA[Statistics]]></Text></Comment>
+<Comment ID="10" Name="textBox1" Rect="-140 -110 360 -10">
 <Text><![CDATA[
 kolEndGSM - количество внезапно разорванных соединений всего
 kolEndGSMSet - количество внезапно разорванных соединений во время опроса СЭТ
@@ -1211,7 +1203,6 @@ kolEndGSMMir - количество внезапно разорванных со
 public static boolean startMIR = false;
 boolean allMIR,openCloseChannel,openIs,closeIs,MIRdontwork,MIRwork = false;
 boolean netMIR,estMIR,nextMIR,nextIArray,allIArray,estEvent,estEnergy,estPower, estDopPar,someNo = false;
-//int iArray = 0;
 boolean noManyArray,oprosManyArray,estManyArray,nextData,allData = false; 
 
 double getTimeOut(){
@@ -1631,28 +1622,26 @@ else if (currentChannel==2)
 <Transition ID="12" Name="transition1" Source="3" Target="2" Points="70.1 63.3 -30.1 96.7" Type="1">
 <Guard><![CDATA[estMIR]]></Guard></Transition>
 <Transition ID="13" Name="transition" Source="19" Target="16" Points="80 -50 80 -30" Type="1"/>
-<State ID="326" Name="Тайм-аут ответа2" Rect="360 390 570 410" NamePos="420 390" InCables="200" OutCables="325">
+<State ID="326" Name="Answer timeout2" Rect="360 390 570 410" NamePos="420 390" InCables="200" OutCables="325">
+<EntryAction><![CDATA[
+timeOutAnswer=getTimeOut();
+timerTimeOut.restart(0);
+]]></EntryAction></State>
+<State ID="324" Name="Answer timeout1" Rect="-160 740 -10 760" NamePos="-140 740" InCables="287" OutCables="323">
+<EntryAction><![CDATA[
+timeOutAnswer=getTimeOut();
+timerTimeOut.restart(0);
+]]></EntryAction></State>
+<State ID="322" Name="Answer timeout" Rect="-10 200 200 220" NamePos="50 200" InCables="226" OutCables="321">
 <EntryAction><![CDATA[
 timeOutAnswer=getTimeOut();
 //timerTimeOut.restart(timeOutAnswer/timeScale);
 //timerTimeOut.restart(timeOutAnswer);
 timerTimeOut.restart(0);
 ]]></EntryAction></State>
-<State ID="324" Name="Тайм-аут ответа1" Rect="-160 740 -10 760" NamePos="-140 740" InCables="287" OutCables="323">
-<EntryAction><![CDATA[
-timeOutAnswer=getTimeOut();
-timerTimeOut.restart(0);
-]]></EntryAction></State>
-<State ID="322" Name="Тайм-аут ответа" Rect="-10 200 200 220" NamePos="50 200" InCables="226" OutCables="321">
-<EntryAction><![CDATA[
-timeOutAnswer=getTimeOut();
-//timerTimeOut.restart(timeOutAnswer/timeScale);
-//timerTimeOut.restart(timeOutAnswer);
-timerTimeOut.restart(0);
-]]></EntryAction></State>
-<State ID="315" Name="по GPRS" Rect="90 10 150 30" NamePos="90 10" InCables="316" OutCables="319">
+<State ID="315" Name="GPRS" Rect="90 10 150 30" NamePos="110 10" InCables="316" OutCables="319">
 <EntryAction><![CDATA[currentChannel=2;]]></EntryAction></State>
-<State ID="313" Name="по GSM" Rect="10 10 70 30" NamePos="10 10" InCables="9" OutCables="317">
+<State ID="313" Name="GSM" Rect="10 10 70 30" NamePos="30 10" InCables="9" OutCables="317">
 <EntryAction><![CDATA[
 currentChannel=1;
 model m = (model)getOwner();
@@ -1671,7 +1660,7 @@ for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
 }
 
 ]]></EntryAction></State>
-<State ID="301" Name="Счётчик не отвечает" Rect="-60 700 90 720" NamePos="-50 700" InCables="286" OutCables="300">
+<State ID="301" Name="No answer from counter" Rect="-60 700 90 720" NamePos="-50 700" InCables="286" OutCables="300">
 <EntryAction><![CDATA[
 MIRdontwork = false;
 MIRdontAnswer++;
@@ -1680,16 +1669,16 @@ MIRdontAnswer++;
 indexArray = 0;
 indexEventJournal = 1;
 ]]></ExitAction></State>
-<State ID="302" Name="Ещё массив" Rect="-70 590 20 610" NamePos="-60 590" InCables="289" OutCables="288">
+<State ID="302" Name="One more array" Rect="-70 590 20 610" NamePos="-60 590" InCables="289" OutCables="288">
 <ExitAction><![CDATA[oprosManyArray = false;]]></ExitAction></State>
-<State ID="303" Name="След. параметр" Rect="-160 820 -10 840" NamePos="-140 820" InCables="291" OutCables="298 299"/>
-<State ID="305" Name="След. массив" Rect="40 580 150 600" NamePos="50 580" InCables="295" OutCables="310">
+<State ID="303" Name="Next param" Rect="-160 820 -10 840" NamePos="-120 820" InCables="291" OutCables="298 299"/>
+<State ID="305" Name="Next array" Rect="40 580 150 600" NamePos="50 580" InCables="295" OutCables="310">
 <ExitAction><![CDATA[
 allData = false;
 indexArray = 0;
 iArray++;
 ]]></ExitAction></State>
-<State ID="307" Name="Ответ" Rect="-160 780 -10 800" NamePos="-100 780" InCables="323" OutCables="291">
+<State ID="307" Name="Answer" Rect="-160 780 -10 800" NamePos="-100 780" InCables="323" OutCables="291">
 <EntryAction><![CDATA[
 MIRwork = false;
 model m = (model)getOwner();
@@ -1750,7 +1739,7 @@ else if (currentChannel==2)
     }
 }
 ]]></EntryAction></State>
-<State ID="308" Name="Запрос" Rect="-120 630 -40 650" NamePos="-100 630" InCables="288 294" OutCables="293">
+<State ID="308" Name="Request" Rect="-120 630 -40 650" NamePos="-100 630" InCables="288 294" OutCables="293">
 <EntryAction><![CDATA[
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -1810,15 +1799,15 @@ else if (currentChannel==2)
 }
 ]]></EntryAction>
 <ExitAction><![CDATA[nextData = false;]]></ExitAction></State>
-<State ID="275" Name="Журнал событий" Rect="-250 410 -100 430" NamePos="-230 410" InCables="327" OutCables="274">
+<State ID="275" Name="Event logs" Rect="-250 410 -100 430" NamePos="-230 410" InCables="327" OutCables="274">
 <ExitAction><![CDATA[estEvent = false;]]></ExitAction></State>
-<State ID="276" Name="Энергия за сутки" Rect="-90 410 50 430" NamePos="-70 410" InCables="328" OutCables="329">
+<State ID="276" Name="Daily energy" Rect="-90 410 50 430" NamePos="-70 410" InCables="328" OutCables="329">
 <ExitAction><![CDATA[estEnergy = false;]]></ExitAction></State>
-<State ID="277" Name="Срезы мощности" Rect="60 410 200 430" NamePos="80 410" InCables="281" OutCables="331">
+<State ID="277" Name="Daily power slices" Rect="60 410 200 430" NamePos="80 410" InCables="281" OutCables="331">
 <ExitAction><![CDATA[estPower = false;]]></ExitAction></State>
-<State ID="278" Name="Доп. параметры" Rect="210 410 350 430" NamePos="230 410" InCables="280" OutCables="271">
+<State ID="278" Name="Aux. params" Rect="210 410 350 430" NamePos="230 410" InCables="280" OutCables="271">
 <ExitAction><![CDATA[estDopPar = false;]]></ExitAction></State>
-<State ID="234" Name="Закрытие сеанса(ответ)" Rect="360 430 570 450" NamePos="380 430" InCables="325" OutCables="320">
+<State ID="234" Name="Closing session(answer)" Rect="360 430 570 450" NamePos="380 430" InCables="325" OutCables="320">
 <EntryAction><![CDATA[
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -1848,7 +1837,7 @@ else if (currentChannel==2)
     }
 }
 ]]></EntryAction></State>
-<State ID="235" Name="Закрытие сеанса(запрос)" Rect="360 350 570 370" NamePos="380 350" InCables="279" OutCables="200">
+<State ID="235" Name="Closing session(request)" Rect="360 350 570 370" NamePos="380 350" InCables="279" OutCables="200">
 <EntryAction><![CDATA[
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -1876,7 +1865,7 @@ else if (currentChannel==2)
     }
 }
 ]]></EntryAction></State>
-<State ID="247" Name="Открытие сеанса(ответ)" Rect="-10 240 200 260" NamePos="10 240" InCables="321" OutCables="224">
+<State ID="247" Name="Start of a session(answer)" Rect="-10 240 200 260" NamePos="10 240" InCables="321" OutCables="224">
 <EntryAction><![CDATA[
 openCloseChannel = true;
 model m = (model)getOwner();
@@ -1907,26 +1896,22 @@ else if (currentChannel==2)
     }
 }
 ]]></EntryAction></State>
-<State ID="255" Name="Опрос параметров" Rect="-10 280 200 300" NamePos="40 280" InCables="224" OutCables="213">
+<State ID="255" Name="Polling of the parameters" Rect="-10 280 200 300" NamePos="20 280" InCables="224" OutCables="213">
 <EntryAction><![CDATA[
 
 
 if (parReqData == null)
 {
-//Engine.restart();
 Engine.stop();
-//Engine.showMessage("Задайте список опрашиваемых параметров","Внимание!!!",Engine.MESSAGE_INFORMATION, Engine.SHOW_AND_CONTINUE);
-JOptionPane.showMessageDialog(Engine.getAnimation(),"Задайте список опрашиваемых параметров","Внимание!!!",JOptionPane.WARNING_MESSAGE);
+JOptionPane.showMessageDialog(Engine.getAnimation(),"Please, specify a list of the polled paramaters","Attention!",JOptionPane.WARNING_MESSAGE);
 }
 else if (checkVector(parReqData))
-
 {
-//Engine.restart();
 Engine.stop();
-JOptionPane.showMessageDialog(Engine.getAnimation(),"Задайте список опрашиваемых параметров","Внимание!!!",JOptionPane.WARNING_MESSAGE);}
+JOptionPane.showMessageDialog(Engine.getAnimation(),"Please, specify a list of the polled paramaters","Attention!",JOptionPane.WARNING_MESSAGE);}
 
 ]]></EntryAction></State>
-<State ID="256" Name="Открытие сеанса(запрос)" Rect="-10 160 200 180" NamePos="10 160" InCables="260" OutCables="226">
+<State ID="256" Name="Start of a session(request)" Rect="-10 160 200 180" NamePos="10 160" InCables="260" OutCables="226">
 <EntryAction><![CDATA[
 nextMIR=false;
 model m = (model)getOwner();
@@ -1955,7 +1940,7 @@ else if (currentChannel==2)
     }
 }
 ]]></EntryAction></State>
-<State ID="257" Name="Конец опроса i-го CЭТ" Rect="360 470 570 490" NamePos="380 470" InCables="320 300" OutCables="231">
+<State ID="257" Name="Polling termination of i-th MIR" Rect="360 470 570 490" NamePos="380 470" InCables="320 300" OutCables="231">
 <ExitAction><![CDATA[
 indexMIR++;
 iArray = 0;
@@ -1963,7 +1948,7 @@ allIArray=false;
 
 
 ]]></ExitAction></State>
-<State ID="15" Name="В этом канале МИРов нет" Rect="170 80 360 100" NamePos="190 80" InCables="11" OutCables="10">
+<State ID="15" Name="No MIR counters in the channel" Rect="170 80 360 100" NamePos="170 80" InCables="11" OutCables="10">
 <EntryAction><![CDATA[
 allMIR = true;
  model m = (model)getOwner();
@@ -2014,9 +1999,9 @@ else if (currentChannel==2)
 
 netMIR = false;
 ]]></ExitAction></State>
-<State ID="16" Name="Ожидание" Rect="30 -30 130 -10" NamePos="50 -30" InCables="20 10 13" OutCables="316 9"/>
-<State ID="19" Name="Начало" Rect="30 -70 130 -50" NamePos="50 -70" InCables="1" OutCables="13"/>
-<State ID="14" Name="Закончен опрос МИРов" Rect="-190 160 -30 180" NamePos="-180 160" InCables="261" OutCables="20">
+<State ID="16" Name="Waiting" Rect="30 -30 130 -10" NamePos="50 -30" InCables="20 10 13" OutCables="316 9"/>
+<State ID="19" Name="Start" Rect="30 -70 130 -50" NamePos="50 -70" InCables="1" OutCables="13"/>
+<State ID="14" Name="Polling termination of MIRs" Rect="-190 160 -30 180" NamePos="-180 160" InCables="261" OutCables="20">
 <ExitAction><![CDATA[
 
 
@@ -2027,19 +2012,15 @@ indexMIR = 1;
 <Port ID="2" Name="port" Pos="-30 100" NamePos="-20 100" Parent="1"/>
 <Bounds Flags="0" Pen="#808080 20" Brush="#000000" ID="1" Name="MIRC01" Rect="-30 -80 350 280" NamePos="-20 -70" Children="2"/>
 <Comment ID="32" Name="textBox2" Rect="10 -40 160 110">
-<Text><![CDATA[Вспомогательные переменные]]></Text></Comment>
+<Text><![CDATA[Auxiliary variables]]></Text></Comment>
 <Comment ID="31" Name="textBox1" Rect="180 -40 330 260">
 <Text><![CDATA[
-Системные переменные
+System variables
 
 ]]></Text></Comment>
 <Comment ID="13" Name="textBox" Rect="10 130 160 260">
-<Text><![CDATA[
-Статистика
-
-]]></Text></Comment>
+<Text><![CDATA[Statistics]]></Text></Comment>
 </StructureDiagram><Image/>
-<Equations><![CDATA[//8*[10,13,12,23,10,13,12,23]]]></Equations>
 <Parameters>
 <Item Name="bitrate" DefaultValue="9600" Modificator="2"/>
 <Item Name="parReqData" Type="Vector" Modificator="2"/>
@@ -2058,7 +2039,7 @@ boolean finishRADIO = false;
 <VarType ScalarType="integer"/>
 <Value><![CDATA[0]]></Value>
 <Equation/></Variable>
-<Statechart ID="4" Name="RADIO" Pos="260 70" NamePos="270 70">
+<Statechart ID="4" Name="RADIO" Pos="120 20" NamePos="130 20">
 <Items>
 <Initial ID="5" Name="pointer1" Target="16" Points="-80 -310 -80 -270"/>
 <ChoicePoint ID="6" Name="branch" Pos="-80 -210" InCables="12" OutCables="10 11">
@@ -2078,9 +2059,9 @@ else
 <Guard><![CDATA[nextRADIOChannel]]></Guard></Transition>
 <Transition ID="12" Name="transition" Source="16" Target="6" Points="-80 -250 -80 -220 -80 -220.5" Type="4">
 <Trigger><![CDATA["startRADIO"]]></Trigger></Transition>
-<State ID="13" Name="Следующий канал GSM" Rect="-170 40 10 60" NamePos="-150 40" InCables="9" OutCables="17">
+<State ID="13" Name="Next GSM channel" Rect="-170 40 10 60" NamePos="-150 40" InCables="9" OutCables="17">
 <EntryAction><![CDATA[indexRADIOChannel++;]]></EntryAction></State>
-<State ID="14" Name="Следующий тип канала" Rect="-70 -170 110 -150" NamePos="-60 -170" InCables="17 10" OutCables="7">
+<State ID="14" Name="Next type of the channel" Rect="-70 -170 110 -150" NamePos="-60 -170" InCables="17 10" OutCables="7">
 <EntryAction><![CDATA[
 model.kolFinishRADIO++;
 if (model.kolFinishRADIO==(model.parKolMasRADIO.size())/2)
@@ -2090,9 +2071,9 @@ if (model.kolFinishRADIO==(model.parKolMasRADIO.size())/2)
 allRADIOChannel = false;
 indexRADIOChannel = 1;
 ]]></ExitAction></State>
-<State ID="15" Name="Процедура соединения" Rect="-260 -170 -100 -150" NamePos="-250 -170" InCables="11" OutCables="9">
+<State ID="15" Name="Connection procedure" Rect="-260 -170 -100 -150" NamePos="-250 -170" InCables="11" OutCables="9">
 <ExitAction><![CDATA[nextRADIOChannel = false;]]></ExitAction></State>
-<State ID="16" Name="Начало" Rect="-120 -270 -60 -250" NamePos="-110 -270" InCables="5 7" OutCables="12"/>
+<State ID="16" Name="Start" Rect="-120 -270 -60 -250" NamePos="-110 -270" InCables="5 7" OutCables="12"/>
 </Items></Statechart>
 <Port ID="3" Name="portOut" Pos="400 100" NamePos="410 100" Parent="1"/>
 <Port ID="2" Name="portIn" Pos="0 100" NamePos="10 100" Parent="1"/>
@@ -2104,7 +2085,6 @@ indexRADIOChannel = 1;
 boolean netSET,estSET,nextSET,allSET,openIs,closeIs,nextData,allData,SETwork,SETdontwork = false;
 boolean estEvent,estEnergy,estPower, estDopPar, nextIArray,allIArray,someNo,oprosManyArray = false;
 int indexArray = 1;
-//int iArray = 0;
 int indexEventJournal  = 1;
 boolean noManyArray,estManyArray = false;
 
@@ -2113,7 +2093,6 @@ double getTimeOut(){
 double i;
 double meanDistr = (timeOutOfSpeed(bitrate) + (maxTimeoutAnswer - timeOutOfSpeed(bitrate))/2);
 double sigmaDistr = maxTimeoutAnswer - meanDistr;
-//timeOutAnswer = DistrNormal.sample(sigmaDistr,meanDistr);
 i = DistrUniform.sample(timeOutOfSpeed(bitrate),maxTimeoutAnswer);
 return i;
 }
@@ -2143,7 +2122,7 @@ return s;
 <StructureDiagram>
 <ChartTimer ID="18" Name="timerTimeOut" Pos="210 30" NamePos="220 30" Timeout="1.0">
 <ExpiryAction><![CDATA[oprosAlgoritm.fireEvent("nextStep");]]></ExpiryAction></ChartTimer>
-<Variable ID="38" Name="iArray" Pos="250 300" NamePos="260 300">
+<Variable ID="38" Name="iArray" Pos="210 300" NamePos="220 300">
 <VarType ScalarType="integer"/>
 <Value><![CDATA[0]]></Value>
 <Equation/></Variable>
@@ -2362,10 +2341,6 @@ else if (currentChannel==2)
    }
 
 
-
- 
-
-//((Double)m.parKolMasGSM.get(2*(m.gSM.indexChannel-1)+1)).doubleValue()!=0
 ]]></Action></ChoicePoint>
 <Transition ID="209" Name="transition33" Source="15" Target="67" Points="-110 110 -110 140 -190 140 -198 179.8" Type="1"/>
 <Transition ID="208" Name="transition32" Source="16" Target="67" Points="-260 110 -260 140 -210 140 -202 179.8" Type="1"/>
@@ -2515,33 +2490,27 @@ for(int i=0;i<m.parKolMasGPRS.size()/2;i++)
 <Transition ID="20" Name="transition1" Source="19" Target="29" Points="-129.9 -366.7 -200.1 -343.3" Type="1">
 <Guard><![CDATA[estSET]]></Guard></Transition>
 <Transition ID="8" Name="transition" Source="2" Target="22" Points="-120 -480 -120 -460" Type="1"/>
-<State ID="200" Name="Тайм-аут ответа3" Rect="150 80 360 100" NamePos="200 80" InCables="189" OutCables="199">
-<EntryAction><![CDATA[
-timeOutAnswer=getTimeOut();
-//timerTimeOut.restart(timeOutAnswer/timeScale);
-//timerTimeOut.restart(timeOutAnswer);
-timerTimeOut.restart(0);
-]]></EntryAction></State>
-<State ID="198" Name="Тайм-аут ответа2" Rect="-390 430 -250 450" NamePos="-370 430" InCables="156" OutCables="197">
+<State ID="200" Name="Answer timeout3" Rect="150 80 360 100" NamePos="200 80" InCables="189" OutCables="199">
 <EntryAction><![CDATA[
 timeOutAnswer=getTimeOut();
 timerTimeOut.restart(0);
 ]]></EntryAction></State>
-<State ID="196" Name="Тайм-аут ответа1" Rect="-250 -130 -40 -110" NamePos="-190 -130" InCables="53" OutCables="195">
+<State ID="198" Name="Answer timeout2" Rect="-390 430 -250 450" NamePos="-370 430" InCables="156" OutCables="197">
 <EntryAction><![CDATA[
 timeOutAnswer=getTimeOut();
-  //timerTimeOut.restart(timeOutAnswer/timeScale);
-//timerTimeOut.restart(timeOutAnswer);
 timerTimeOut.restart(0);
 ]]></EntryAction></State>
-<State ID="193" Name="Тайм-аут ответа" Rect="-220 -250 -70 -230" NamePos="-200 -250" InCables="43" OutCables="194">
+<State ID="196" Name="Answer timeout1" Rect="-250 -130 -40 -110" NamePos="-190 -130" InCables="53" OutCables="195">
 <EntryAction><![CDATA[
 timeOutAnswer=getTimeOut();
-//timerTimeOut.restart(timeOutAnswer/timeScale);
-//timerTimeOut.restart(timeOutAnswer);
 timerTimeOut.restart(0);
 ]]></EntryAction></State>
-<State ID="191" Name="Закрытие сеанса(запрос)" Rect="150 40 360 60" NamePos="170 40" InCables="170" OutCables="189">
+<State ID="193" Name="Answer timeout" Rect="-220 -250 -70 -230" NamePos="-200 -250" InCables="43" OutCables="194">
+<EntryAction><![CDATA[
+timeOutAnswer=getTimeOut();
+timerTimeOut.restart(0);
+]]></EntryAction></State>
+<State ID="191" Name="Closing session(request)" Rect="150 40 360 60" NamePos="180 40" InCables="170" OutCables="189">
 <EntryAction><![CDATA[
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -2569,7 +2538,7 @@ else if (currentChannel==2)
     }
 }
 ]]></EntryAction></State>
-<State ID="192" Name="Закрытие сеанса(ответ)" Rect="150 120 360 140" NamePos="170 120" InCables="199" OutCables="190">
+<State ID="192" Name="Closing session(answer)" Rect="150 120 360 140" NamePos="190 120" InCables="199" OutCables="190">
 <EntryAction><![CDATA[
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -2600,9 +2569,9 @@ else if (currentChannel==2)
 }
 openCloseChannel=false;
 ]]></EntryAction></State>
-<State ID="183" Name="по GPRS" Rect="-110 -420 -50 -400" NamePos="-100 -420" InCables="180" OutCables="182">
+<State ID="183" Name="GPRS" Rect="-110 -420 -50 -400" NamePos="-100 -420" InCables="180" OutCables="182">
 <EntryAction><![CDATA[currentChannel=2;]]></EntryAction></State>
-<State ID="184" Name="по GSM" Rect="-190 -420 -130 -400" NamePos="-180 -420" InCables="179" OutCables="181">
+<State ID="184" Name="GSM" Rect="-190 -420 -130 -400" NamePos="-180 -420" InCables="179" OutCables="181">
 <EntryAction><![CDATA[
 currentChannel=1;
 model m = (model)getOwner();
@@ -2622,7 +2591,7 @@ for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
 
 
 ]]></EntryAction></State>
-<State ID="154" Name="Счётчик не отвечает" Rect="-300 390 -150 410" NamePos="-290 390" InCables="161" OutCables="172">
+<State ID="154" Name="No answer from counter" Rect="-300 390 -150 410" NamePos="-290 390" InCables="161" OutCables="172">
 <EntryAction><![CDATA[
 SETdontwork = false;
 SETdontAnswer++;
@@ -2631,16 +2600,16 @@ SETdontAnswer++;
 indexArray = 1;
 indexEventJournal = 1;
 ]]></ExitAction></State>
-<State ID="148" Name="Ещё массив" Rect="-310 280 -220 300" NamePos="-300 280" InCables="145" OutCables="149">
+<State ID="148" Name="one more array" Rect="-310 280 -220 300" NamePos="-300 280" InCables="145" OutCables="149">
 <ExitAction><![CDATA[oprosManyArray = false;]]></ExitAction></State>
-<State ID="96" Name="След. параметр" Rect="-390 510 -250 530" NamePos="-370 510" InCables="188" OutCables="147 99"/>
-<State ID="88" Name="След. массив" Rect="-200 270 -90 290" NamePos="-190 270" InCables="89" OutCables="138">
+<State ID="96" Name="Next parameter" Rect="-390 510 -250 530" NamePos="-370 510" InCables="188" OutCables="147 99"/>
+<State ID="88" Name="Next array" Rect="-200 270 -90 290" NamePos="-190 270" InCables="89" OutCables="138">
 <ExitAction><![CDATA[
 allData = false;
 indexArray = 1;
 iArray++;
 ]]></ExitAction></State>
-<State ID="70" Name="Отправка ответа" Rect="-390 470 -250 490" NamePos="-370 470" InCables="197" OutCables="188">
+<State ID="70" Name="Answer sending" Rect="-390 470 -250 490" NamePos="-370 470" InCables="197" OutCables="188">
 <EntryAction><![CDATA[
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -2701,7 +2670,7 @@ else if (currentChannel==2)
 }
 ]]></EntryAction>
 <ExitAction><![CDATA[SETwork = false;]]></ExitAction></State>
-<State ID="69" Name="Получение запроса" Rect="-390 320 -240 340" NamePos="-370 320" InCables="149 90" OutCables="186">
+<State ID="69" Name="Request reception" Rect="-390 320 -240 340" NamePos="-370 320" InCables="149 90" OutCables="186">
 <EntryAction><![CDATA[
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -2765,10 +2734,10 @@ openCloseChannel = true;
 
  nextData = false;
 ]]></ExitAction></State>
-<State ID="60" Name="Канал закрыт" Rect="-130 220 -20 240" NamePos="-120 220" InCables="73" OutCables="201">
+<State ID="60" Name="Closed channel" Rect="-130 220 -20 240" NamePos="-120 220" InCables="73" OutCables="201">
 <EntryAction><![CDATA[closeChannelSET++;]]></EntryAction>
 <ExitAction><![CDATA[closeIs = false;]]></ExitAction></State>
-<State ID="48" Name="Открытие сеанса(ответ)" Rect="-250 -90 -40 -70" NamePos="-230 -90" InCables="195" OutCables="55">
+<State ID="48" Name="Start of a session(answer)" Rect="-250 -90 -40 -70" NamePos="-230 -90" InCables="195" OutCables="55">
 <EntryAction><![CDATA[
 openCloseChannel = true;
 model m = (model)getOwner();
@@ -2801,7 +2770,7 @@ else if (currentChannel==2)
 
 
 ]]></EntryAction></State>
-<State ID="40" Name="Тест канала(ответ)" Rect="-220 -210 -70 -190" NamePos="-200 -210" InCables="194" OutCables="46">
+<State ID="40" Name="Channel testing(answer)" Rect="-220 -210 -70 -190" NamePos="-210 -210" InCables="194" OutCables="46">
 <EntryAction><![CDATA[
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -2831,14 +2800,12 @@ else if (currentChannel==2)
     }
 }
 ]]></EntryAction></State>
-<State ID="31" Name="Закончен опрос СЭТов" Rect="-390 -290 -230 -270" NamePos="-380 -290" InCables="32" OutCables="37">
+<State ID="31" Name="Polling termination of SETs" Rect="-390 -290 -230 -270" NamePos="-380 -290" InCables="32" OutCables="37">
 <ExitAction><![CDATA[
-
-
- indexSET = 1;
+indexSET = 1;
 
 ]]></ExitAction></State>
-<State ID="24" Name="В этом канале СЭТов нет" Rect="-30 -350 160 -330" NamePos="-10 -350" InCables="21" OutCables="26">
+<State ID="24" Name="No SET counters in the channel" Rect="-30 -350 160 -330" NamePos="-30 -350" InCables="21" OutCables="26">
 <EntryAction><![CDATA[
 allSET = true;
  model m = (model)getOwner();
@@ -2885,35 +2852,33 @@ else if (currentChannel==2)
 }
 ]]></EntryAction>
 <ExitAction><![CDATA[netSET = false;]]></ExitAction></State>
-<State ID="22" Name="Ожидание" Rect="-170 -460 -70 -440" NamePos="-150 -460" InCables="37 26 8" OutCables="179 180"/>
-<State ID="18" Name="Доп. параметры" Rect="-30 90 110 110" NamePos="-10 90" InCables="202" OutCables="178">
+<State ID="22" Name="Waiting" Rect="-170 -460 -70 -440" NamePos="-150 -460" InCables="37 26 8" OutCables="179 180"/>
+<State ID="18" Name="Aux. params" Rect="-30 90 110 110" NamePos="0 90" InCables="202" OutCables="178">
 <ExitAction><![CDATA[estDopPar = false;]]></ExitAction></State>
-<State ID="17" Name="Журнал событий" Rect="-490 90 -340 110" NamePos="-470 90" InCables="207" OutCables="174">
+<State ID="17" Name="Event logs" Rect="-490 90 -340 110" NamePos="-450 90" InCables="207" OutCables="174">
 <ExitAction><![CDATA[estEvent = false;]]></ExitAction></State>
-<State ID="16" Name="Энергия за сутки" Rect="-330 90 -190 110" NamePos="-310 90" InCables="206" OutCables="208">
+<State ID="16" Name="Daily energy" Rect="-330 90 -190 110" NamePos="-310 90" InCables="206" OutCables="208">
 <ExitAction><![CDATA[estEnergy = false;]]></ExitAction></State>
-<State ID="15" Name="Срезы мощности" Rect="-180 90 -40 110" NamePos="-160 90" InCables="205" OutCables="209">
+<State ID="15" Name="Daily power slices" Rect="-180 90 -40 110" NamePos="-160 90" InCables="205" OutCables="209">
 <ExitAction><![CDATA[estPower = false;]]></ExitAction></State>
-<State ID="14" Name="Опрос параметров" Rect="-250 -50 -40 -30" NamePos="-200 -50" InCables="55" OutCables="124">
+<State ID="14" Name="Polling of the parameters" Rect="-250 -50 -40 -30" NamePos="-210 -50" InCables="55" OutCables="124">
 <EntryAction><![CDATA[
 
 
 if (parReqData == null)
 {
-//Engine.restart();
 Engine.stop();
-//Engine.showMessage("Задайте список опрашиваемых параметров","Внимание!!!",Engine.MESSAGE_INFORMATION, Engine.SHOW_AND_CONTINUE);
-JOptionPane.showMessageDialog(Engine.getAnimation(),"Задайте список опрашиваемых параметров","Внимание!!!",JOptionPane.WARNING_MESSAGE);
+JOptionPane.showMessageDialog(Engine.getAnimation(),"Please, specify a list of the polled paramaters","Attention!",JOptionPane.WARNING_MESSAGE);
 }
 else if (checkVector(parReqData))
 
 {
 //Engine.restart();
 Engine.stop();
-JOptionPane.showMessageDialog(Engine.getAnimation(),"Задайте список опрашиваемых параметров","Внимание!!!",JOptionPane.WARNING_MESSAGE);}
+JOptionPane.showMessageDialog(Engine.getAnimation(),"Please, specify a list of the polled paramaters","Attention!",JOptionPane.WARNING_MESSAGE);}
 
 ]]></EntryAction></State>
-<State ID="11" Name="Открытие сеанса(запрос)" Rect="-250 -170 -40 -150" NamePos="-230 -170" InCables="46" OutCables="53">
+<State ID="11" Name="Start of a session(request)" Rect="-250 -170 -40 -150" NamePos="-230 -170" InCables="46" OutCables="53">
 <EntryAction><![CDATA[
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -2941,13 +2906,13 @@ else if (currentChannel==2)
     }
 }
 ]]></EntryAction></State>
-<State ID="9" Name="Конец опроса i-го CЭТ" Rect="150 160 360 180" NamePos="170 160" InCables="190 172" OutCables="173">
+<State ID="9" Name="Polling termination of i-th SET" Rect="150 160 360 180" NamePos="170 160" InCables="190 172" OutCables="173">
 <ExitAction><![CDATA[
 indexSET++;
 iArray = 0;
- allIArray = false;
+allIArray = false;
 ]]></ExitAction></State>
-<State ID="7" Name="Тест канала(запрос)" Rect="-220 -290 -70 -270" NamePos="-210 -290" InCables="201 30" OutCables="43">
+<State ID="7" Name="Channel testing(request)" Rect="-220 -290 -70 -270" NamePos="-210 -290" InCables="201 30" OutCables="43">
 <EntryAction><![CDATA[
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -2977,17 +2942,20 @@ else if (currentChannel==2)
 }
 ]]></EntryAction>
 <ExitAction><![CDATA[nextSET=false;]]></ExitAction></State>
-<State ID="2" Name="Начало" Rect="-170 -500 -70 -480" NamePos="-140 -500" InCables="4" OutCables="8"/>
+<State ID="2" Name="Start" Rect="-170 -500 -70 -480" NamePos="-140 -500" InCables="4" OutCables="8"/>
 <Comment ID="50" Name="textBox" Rect="-50 -290 -50 -160"/>
 </Items></Statechart>
 <Port ID="3" Name="port" Pos="-10 170" NamePos="0 170" Parent="1"/>
 <Bounds Flags="0" Pen="#808080 20" Brush="#000000" ID="1" Name="SET" Rect="-10 10 360 330" NamePos="0 20" Children="3"/>
 <Comment ID="37" Name="textBox3" Rect="190 50 340 310">
-<Text><![CDATA[Системные переменные]]></Text></Comment>
+<Text><![CDATA[
+System variables
+
+]]></Text></Comment>
 <Comment ID="36" Name="textBox2" Rect="20 190 170 310">
-<Text><![CDATA[Вспомогательные переменные]]></Text></Comment>
+<Text><![CDATA[Auxiliary variables]]></Text></Comment>
 <Comment ID="23" Name="textBox1" Rect="20 50 170 170">
-<Text><![CDATA[Статистика]]></Text></Comment>
+<Text><![CDATA[Statistics]]></Text></Comment>
 </StructureDiagram><Image/>
 <Parameters>
 <Item Name="bitrate" DefaultValue="9600" Modificator="2"/>
@@ -3031,28 +2999,28 @@ boolean nextChannel,otherChannel = false;
 public static int scale = 3600;
 public static Matrix askChannel = new Matrix(1,3);
 
-void GSMCreate(int kolGSM){// создание заданого количества GSM каналов
+void GSMCreate(int kolGSM){//function for generating the specified number of GSM channels
  for (int i =0;i < kolGSM;i++)
      {
       this.setup_gSM(new GSM(),i);
       this.gSM.item(i).ID = i;
      }
 }
-void MIRcreateForGSM(int kolMIR){// функция создания заданого количества счётчиков МИР для GPRS каналов
+void MIRcreateForGSM(int kolMIR){//function for generating the specified number of MIR counters for GSM channels
  for (int i =0;i < kolMIR;i++)
      {
       this.setup_mIRGSM(new MIRC01(),i);
       this.mIRGSM.item(i).ID = i;
      }
 }
-void SETcreateForGSM(int kolSET){// функция создания заданого количества счётчиков МИР для GPRS каналов
+void SETcreateForGSM(int kolSET){//function for generating the specified number of SET counters for GSM channels
  for (int i =0;i < kolSET;i++)
      {
       this.setup_sETGSM(new SET(),i);
       this.sETGSM.item(i).ID = i;
      }
 }
-void GPRSCreate(int kolGPRS){// создание заданого количества GPRS каналов
+void GPRSCreate(int kolGPRS){//function for generating the specified number of GPRS channels
  for (int i =0;i < kolGPRS;i++)
      {
       this.setup_gPRS(new GPRS(),i);
@@ -3060,31 +3028,22 @@ void GPRSCreate(int kolGPRS){// создание заданого количес
      }
 
 }
-/*void RADIOCreate(int kolRADIO){// создание заданого количества GPRS каналов
- for (int i =0;i < kolRADIO;i++)
-     {
-      this.setup_rADIO(new RADIO(),i);
-      this.rADIO.item(i).ID = i;
-     }
 
-}*/
-
-void MIRcreateForGPRS(int kolMIR){// функция создания заданого количества счётчиков МИР для GPRS каналов
+void MIRcreateForGPRS(int kolMIR){//function for generating the specified number of MIR counters for GPRS channels
  for (int i =0;i < kolMIR;i++)
      {
       this.setup_mIRGPRS(new MIRC01(),i);
       this.mIRGPRS.item(i).ID = i;
      }
 }
-void SETcreateForGPRS(int kolSET){// функция создания заданого количества счётчиков МИР для GPRS каналов
+void SETcreateForGPRS(int kolSET){//function for generating the specified number of SET counters for GPRS channels
  for (int i =0;i < kolSET;i++)
      {
       this.setup_sETGPRS(new SET(),i);
       this.sETGPRS.item(i).ID = i;
      }
 }
-//void breakResult(){
-//}
+
 void collectionStat(){
 if (parKolMasGPRS!=null)
 {
@@ -3209,7 +3168,7 @@ void outputResult(){
 <Button Flags="6" Brush="#cccccc" ID="72" Name="button6" Rect="20 -280 160 -250" Font="Tahoma,12" Label="References">
 <EventHandlingCode><![CDATA[
 
-dcfgMod win3 = new dcfgMod(Engine.getAnimationFrame(),"ccc", true);
+dcfgMod win3 = new dcfgMod(Engine.getAnimationFrame(), "Настройки моделирования", true);
 boolean packFrame = false;
   if (packFrame) {
       win3.pack();
@@ -3316,22 +3275,18 @@ boolean packFrame = false;
     win1.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
     win1.setVisible(true);
 
-   // button3.setEnabled(false);
     }
-//else if (button3.isEnable() == false){
-//cfgGSM.getFrames().clone();
 
-//}
 ]]></EventHandlingCode></Button>
-<Text ID="90" Name="text7" Rect="10 -150 85.7 -132.9" Flags="28680" Pen="no 0" Brush="#000000" Font="Tahoma,12">
+<Text ID="90" Name="text7" Rect="10 -150 82.5 -133.6" Flags="28680" Pen="no 0" Brush="#000000" Font="Tahoma,12">
 <Text><![CDATA[Time, hours]]></Text></Text>
-<Text ID="88" Name="text9" Rect="10 -190 115.6 -172.9" Flags="28680" Pen="no 0" Brush="#000000" Font="Tahoma,12">
+<Text ID="88" Name="text9" Rect="10 -190 111.1 -173.6" Flags="28680" Pen="no 0" Brush="#000000" Font="Tahoma,12">
 <Text><![CDATA[All gprs finished:]]></Text></Text>
-<Text ID="89" Name="text10" Rect="10 -170 104.6 -152.9" Flags="28680" Pen="no 0" Brush="#000000" Font="Tahoma,12">
+<Text ID="89" Name="text10" Rect="10 -170 100.5 -153.6" Flags="28680" Pen="no 0" Brush="#000000" Font="Tahoma,12">
 <Text><![CDATA[Kol finish gprs:]]></Text></Text>
-<Text ID="87" Name="text6" Rect="10 -210 103.6 -192.9" Flags="28680" Pen="no 0" Brush="#000000" Font="Tahoma,12">
+<Text ID="87" Name="text6" Rect="10 -210 99.5 -193.6" Flags="28680" Pen="no 0" Brush="#000000" Font="Tahoma,12">
 <Text><![CDATA[Kol finish gsm:]]></Text></Text>
-<Text ID="86" Name="text5" Rect="10 -230 114.6 -212.9" Flags="28680" Pen="no 0" Brush="#000000" Font="Tahoma,12">
+<Text ID="86" Name="text5" Rect="10 -230 110.1 -213.6" Flags="28680" Pen="no 0" Brush="#000000" Font="Tahoma,12">
 <Text><![CDATA[All gsm finished:]]></Text></Text>
 <Text ID="82" Name="text4" Rect="120 -230 128.8 -213.6" Flags="28680" Pen="no 0" Brush="#000000" Font="Tahoma,12">
 <TextExpr><![CDATA[model.finishAllGSM]]></TextExpr></Text>
@@ -3374,14 +3329,14 @@ else{parVrMod--;}
 ]]></ExpiryAction></ChartTimer>
 <ChartTimer ID="898" Name="timerStartAsk" Pos="50 -180" NamePos="60 -180" Type="2" Timeout="timeAsk">
 <ExpiryAction><![CDATA[askCounter.fireEvent("Start");]]></ExpiryAction></ChartTimer>
-<PortRef ID="2798" Name="portOut" Pos="250 -60" Parent="1749" OutCables="1883 1882" PrototypeID="1"/>
-<PortRef ID="2799" Name="portIn" Pos="190 -60" Parent="1749" PrototypeID="2"/>
-<PortRef ID="2800" Name="portOut" Pos="10 -60" Parent="1841" OutCables="1881 1880" PrototypeID="1"/>
-<PortRef ID="2801" Name="portIn" Pos="-50 -60" Parent="1841" PrototypeID="2"/>
-<PortRef ID="2802" Name="port" Pos="90 -100" Parent="1844" InCables="1880" PrototypeID="1"/>
-<PortRef ID="2803" Name="port" Pos="90 -20" Parent="1846" InCables="1881" PrototypeID="1"/>
-<PortRef ID="2804" Name="port" Pos="330 -100" Parent="1874" InCables="1882" PrototypeID="1"/>
-<PortRef ID="2805" Name="port" Pos="330 -20" Parent="1876" InCables="1883" PrototypeID="1"/>
+<PortRef ID="2862" Name="portOut" Pos="250 -60" Parent="1749" OutCables="1883 1882" PrototypeID="1"/>
+<PortRef ID="2863" Name="portIn" Pos="190 -60" Parent="1749" PrototypeID="2"/>
+<PortRef ID="2864" Name="portOut" Pos="10 -60" Parent="1841" OutCables="1881 1880" PrototypeID="1"/>
+<PortRef ID="2865" Name="portIn" Pos="-50 -60" Parent="1841" PrototypeID="2"/>
+<PortRef ID="2866" Name="port" Pos="90 -100" Parent="1844" InCables="1880" PrototypeID="1"/>
+<PortRef ID="2867" Name="port" Pos="90 -20" Parent="1846" InCables="1881" PrototypeID="1"/>
+<PortRef ID="2868" Name="port" Pos="330 -100" Parent="1874" InCables="1882" PrototypeID="1"/>
+<PortRef ID="2869" Name="port" Pos="330 -20" Parent="1876" InCables="1883" PrototypeID="1"/>
 <Variable ID="2236" Name="timeScale" Pos="-60 -120" NamePos="-50 -120">
 <VarType ScalarType="real"/>
 <Value><![CDATA[60]]></Value>
@@ -3410,10 +3365,10 @@ gPRS.item(1).finishGPRS == true
 ]]></Trigger></Transition>
 <Transition ID="8" Name="transition" Source="12" Target="13" Points="-90 -550 -90 -520" Type="4">
 <Trigger><![CDATA["createSystem"]]></Trigger></Transition>
-<State ID="13" Name="Ожидание" Rect="-140 -520 -40 -500" NamePos="-120 -520" InCables="5 8" OutCables="14">
+<State ID="13" Name="Waiting" Rect="-140 -520 -40 -500" NamePos="-120 -520" InCables="5 8" OutCables="14">
 <Comment><![CDATA[Waiting]]></Comment>
 <EntryAction><![CDATA[statusOprosa=randomTrue(0.5);]]></EntryAction></State>
-<State ID="10" Name="Опрос по всем каналам закончен" Rect="-230 -270 50 -250" NamePos="-200 -270" InCables="6" OutCables="5">
+<State ID="10" Name="All channels have been polled" Rect="-230 -270 50 -250" NamePos="-200 -270" InCables="6" OutCables="5">
 <Comment><![CDATA[Polling over all channels is finished]]></Comment>
 <EntryAction><![CDATA[
 finishAllGPRS=false;
@@ -3424,13 +3379,12 @@ kolFinishRADIO=0;
 
 finishAllGSM=false;
 kolFinishGSM=0; 
-
 ]]></EntryAction>
 <ExitAction><![CDATA[
 
 
 ]]></ExitAction></State>
-<State ID="11" Name="Начало опроса по всем каналам" Rect="-200 -450 20 -430" NamePos="-190 -450" InCables="14" OutCables="7">
+<State ID="11" Name="Starting of polling over all channels" Rect="-200 -450 20 -430" NamePos="-190 -450" InCables="14" OutCables="7">
 <Comment><![CDATA[Begin polling through all channels]]></Comment>
 <EntryAction><![CDATA[
 
@@ -3525,7 +3479,6 @@ kolFinishGSM=0;
       mIRGSM.item(i).set_parReqData(parReqData);
       mIRGSM.item(i).set_verNoAnswer(parMIRverNoAnswer);
       
-     // gSM.GSM.fireEvent("startGSM");
        if (statusOprosa)
             {
              mIRGSM.item(i).oprosAlgoritm.fireEvent("startMIRGSM");
@@ -3553,7 +3506,7 @@ kolFinishGSM=0;
 
 
 ]]></ExitAction></State>
-<State ID="12" Name="Создание объектов" Rect="-150 -570 -30 -550" NamePos="-150 -570" InCables="1" OutCables="8">
+<State ID="12" Name="Objects generating" Rect="-150 -570 -30 -550" NamePos="-150 -570" InCables="1" OutCables="8">
 <Comment><![CDATA[System's objects creation]]></Comment>
 <ExitAction><![CDATA[
 
@@ -3578,7 +3531,7 @@ for (int q=0;q<3;q++)
  
 }
 ]]></ExitAction></State>
-<State ID="9" Name="Ожидания окончания опроса по всем каналам" Rect="-250 -360 60 -340" NamePos="-240 -360" InCables="7" OutCables="6">
+<State ID="9" Name="Waiting of polling termination over all channels" Rect="-250 -360 60 -340" NamePos="-240 -360" InCables="7" OutCables="6">
 <Comment><![CDATA[Waiting polling termination ]]></Comment>
 <ExitAction><![CDATA[
  if (parKolMasGPRS!=null)
@@ -3623,25 +3576,21 @@ for (int q=0;q<3;q++)
 
 ]]></ExitAction></State>
 </Items></Statechart>
-<Connector ID="1883" Name="connector3" Source="2798" Target="2805" Points="250 -60 330 -20"/>
-<Connector ID="1882" Name="connector2" Source="2798" Target="2804" Points="250 -60 330 -100"/>
-<Connector ID="1881" Name="connector1" Source="2800" Target="2803" Points="10 -60 90 -20"/>
-<Connector ID="1880" Name="connector" Source="2800" Target="2802" Points="10 -60 90 -100"/>
-<Object OriginOffset="30.5 20.5" Flags="10" ID="1749" Name="gPRS" Pos="220 -60" NamePos="188.5 -91.5" Children="2798 2799" ReplicationFactor="0" Type="aiis.GPRS"/>
-<Object OriginOffset="30.5 20.5" Flags="10" ID="1841" Name="gSM" Pos="-20 -60" NamePos="-51.5 -91.4" Children="2800 2801" ReplicationFactor="0" Type="aiis.GSM"/>
-<Object OriginOffset="30.5 20.5" Flags="10" ID="1844" Name="mIRGSM" Pos="120 -100" NamePos="88.5 -131.5" Children="2802" ReplicationFactor="0" Type="aiis.MIRC01"/>
-<Object OriginOffset="30.5 20.5" Flags="10" ID="1846" Name="sETGSM" Pos="120 -20" NamePos="88.5 -51.4" Children="2803" ReplicationFactor="0" Type="aiis.SET"/>
-<Object OriginOffset="30.5 20.5" Flags="10" ID="1874" Name="mIRGPRS" Pos="360 -100" NamePos="328.5 -131.5" Children="2804" ReplicationFactor="0" Type="aiis.MIRC01"/>
-<Object OriginOffset="30.5 20.5" Flags="10" ID="1876" Name="sETGPRS" Pos="360 -20" NamePos="328.5 -51.4" Children="2805" ReplicationFactor="0" Type="aiis.SET"/>
+<Connector ID="1883" Name="connector3" Source="2862" Target="2869" Points="250 -60 330 -20"/>
+<Connector ID="1882" Name="connector2" Source="2862" Target="2868" Points="250 -60 330 -100"/>
+<Connector ID="1881" Name="connector1" Source="2864" Target="2867" Points="10 -60 90 -20"/>
+<Connector ID="1880" Name="connector" Source="2864" Target="2866" Points="10 -60 90 -100"/>
+<Object OriginOffset="30.5 20.5" Flags="10" ID="1749" Name="gPRS" Pos="220 -60" NamePos="188.5 -91.5" Children="2862 2863" ReplicationFactor="0" Type="aiis.GPRS"/>
+<Object OriginOffset="30.5 20.5" Flags="10" ID="1841" Name="gSM" Pos="-20 -60" NamePos="-51.5 -91.4" Children="2864 2865" ReplicationFactor="0" Type="aiis.GSM"/>
+<Object OriginOffset="30.5 20.5" Flags="10" ID="1844" Name="mIRGSM" Pos="120 -100" NamePos="88.5 -131.5" Children="2866" ReplicationFactor="0" Type="aiis.MIRC01"/>
+<Object OriginOffset="30.5 20.5" Flags="10" ID="1846" Name="sETGSM" Pos="120 -20" NamePos="88.5 -51.4" Children="2867" ReplicationFactor="0" Type="aiis.SET"/>
+<Object OriginOffset="30.5 20.5" Flags="10" ID="1874" Name="mIRGPRS" Pos="360 -100" NamePos="328.5 -131.5" Children="2868" ReplicationFactor="0" Type="aiis.MIRC01"/>
+<Object OriginOffset="30.5 20.5" Flags="10" ID="1876" Name="sETGPRS" Pos="360 -20" NamePos="328.5 -51.4" Children="2869" ReplicationFactor="0" Type="aiis.SET"/>
 <Bounds Flags="0" Pen="#808080 20" Brush="#000000" ID="1" Name="model" Rect="-80 -200 410 20" NamePos="-70 -190"/>
-<Comment ID="904" Name="textBox3" Rect="-80 -340 440 -240">
+<Comment ID="904" Name="textBox3" Rect="-80 -260 410 -210">
 <Text><![CDATA[
-все верменные интервалы указываются в секундах,с последующим переводом к нужному масштабу времени
-1 ед.мод. времени=1час реального=3600с
-"createSystem"
-"createSystem"
-"createSystem"
-
+Time intervals are in seconds and are converted to the necessary time scale
+1 simulation time unit = 1 hour = 3600 sec 
 
 ]]></Text></Comment>
 </StructureDiagram>
@@ -3686,9 +3635,13 @@ for (int q=0;q<3;q++)
 </ActiveObjectClasses></Item>
 <Item Name="interfaceMod" Expanded="y">
 <ExternalFiles>
-<Item Name="cfgGSM.java" RelativePathName="cfgGSM.java"/>
-<Item Name="cfgSystem.java" RelativePathName="cfgSystem.java"/>
-<Item Name="dcfgMod.java" RelativePathName="dcfgMod.java"/>
+<Item Name="cfgGSM.java" RelativePathName="src\interfaceMod\cfgGSM.java"/>
+<Item Name="cfgSystem.java" RelativePathName="src\interfaceMod\cfgSystem.java"/>
+<Item Name="create.png" RelativePathName="src\interfaceMod\create.png"/>
+<Item Name="dcfgMod.java" RelativePathName="src\interfaceMod\dcfgMod.java"/>
+<Item Name="deleteAll.png" RelativePathName="src\interfaceMod\deleteAll.png"/>
+<Item Name="deleteI.png" RelativePathName="src\interfaceMod\deleteI.png"/>
+<Item Name="exitWin.png" RelativePathName="src\interfaceMod\exitWin.png"/>
 </ExternalFiles></Item>
 </Packages></Item>
 </Projects>
@@ -3696,7 +3649,7 @@ for (int q=0;q<3;q++)
 <SimulationExperiments>
 <Item Name="Simulation" StopAtTime="0" Time="0" RootObject="aiis.model" Current="1">
 <Desktop xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">
-AAAAAE0FAAABAAAABwAAAM8AAAABAAAAAQAAAP//AAASAENYSk1ESU1vbm9DaGlsZFduZAAA
+AAAAAEkFAAABAAAABwAAAM8AAAABAAAAAQAAAP//AAASAENYSk1ESU1vbm9DaGlsZFduZAAA
 AAAAAAAAAQAAAJQBAAD//wAAFABDTW9kZWxTdGF0ZWNoYXJ0VmlldwMAAAAbcm9vdC5zRVRH
 U00tMC5vcHJvc0FsZ29yaXRtAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAA
 AAAAAQAAAP//////////+v///+D///9sAgAAIgEAALwDAADNAgAAAwAAAAAAKwAAAAAAAAAA
@@ -3707,48 +3660,73 @@ AAD///////////r////g////9AAAACMBAABLAgAAxgIAAAMAAAAAAC8AAAAAAAAAAAAAAAAA
 AAAAAAAAwwAAAAEAAAABAAAA//8AABIAQ1hKTURJTW9ub0NoaWxkV25kAAAAAAAAAAABAAAA
 lAEAAP//AAAUAENNb2RlbFN0YXRlY2hhcnRWaWV3AwAAAA9yb290LmFza0NvdW50ZXIAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAAAAAAAAAABAAAA///////////6////4P//
-/+kCAAAEAAAA1gMAAB8BAAADAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAMQAAAABAAAAAQAA
+/+kCAAAEAAAA1QMAAB8BAAADAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAMQAAAABAAAAAQAA
 AP//AAASAENYSk1ESU1vbm9DaGlsZFduZAAAAAAAAAAAAQAAAJQBAAD//wAAFABDTW9kZWxT
 dGF0ZWNoYXJ0VmlldwMAAAAQcm9vdC5nUFJTLTAuR1BSUwAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAsAAAAAAAAAAEAAAD///////////r////g////3wMAAAQAAADyBAAAdQEA
-AAMAAAAAAFEAAAAAAAAAAAAAAAAAAAAAAAAAxgAAAAEAAAABAAAA//8AABIAQ1hKTURJTW9u
+AAMAAAAAAFEAAAAAAAAAAAAAAAAAAAAAAAAAwgAAAAEAAAABAAAA//8AABIAQ1hKTURJTW9u
 b0NoaWxkV25kAAAAAAAAAAABAAAAlAEAAP//AAAUAENNb2RlbFN0YXRlY2hhcnRWaWV3AwAA
 AA5yb290LmdTTS0wLkdTTQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAA
-AAEAAAD///////////r////g////3QMAAH4BAAD1BAAA1QIAAAMAAAABAG4AAABBAAAAAAAA
-AAAAAAAAAAAAAAAAAKAAAAABAAAAAQAAAP//AAASAENYSk1ESU1vbm9DaGlsZFduZAAAAAAA
-AAAAAQAAALsBAAD//wAADgBDQW5pbWF0aW9uVmlldwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAACwAAAAAAAAAAQAAAP//////////+v///+D////1AAAAAgAAAOcCAAAe
-AQAAAQAAAGQAAAAAAAAAngAAAAEAAAABAAAA//8AABIAQ1hKTURJTW9ub0NoaWxkV25kAAAA
-AAAAAAABAAAAkgEAAP//AAAQAENNb2RlbE9iamVjdFZpZXcDAAAABHJvb3QAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAALAAAAAAAAAABAAAA///////////6////4P///wMAAAAB
-AAAA8QAAAA0DAAAAAAAA</Desktop></Item>
+AAEAAAD///////////r////g////3QMAAH4BAAD1BAAA1QIAAAMAAAAAAEEAAAAAAAAAAAAA
+AAAAAAAAAAAAngAAAAEAAAABAAAA//8AABIAQ1hKTURJTW9ub0NoaWxkV25kAAAAAAAAAAAB
+AAAAkgEAAP//AAAQAENNb2RlbE9iamVjdFZpZXcDAAAABHJvb3QAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAALAAAAAAAAAABAAAA///////////6////4P///wMAAAABAAAA8QAA
+AA0DAAAAAAAAoAAAAAEAAAABAAAA//8AABIAQ1hKTURJTW9ub0NoaWxkV25kAAAAAAAAAAAB
+AAAAuwEAAP//AAAOAENBbmltYXRpb25WaWV3AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAALAAAAAAAAAABAAAA///////////6////4P////UAAAACAAAA5wIAAB4BAAAB
+AAAAZAAAAAAAAAA=</Desktop></Item>
 </SimulationExperiments></Experiments>
 <AnimatonSettings/>
 <EditorDesktop xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">
-AAAAAOwEAAABAAAABgAAAL8AAAABAAAAAQAAAP//AAASAENYSk1ESU1vbm9DaGlsZFduZAAA
-AAAAAAAAAQAAALIBAAD//wAACQBDQ29kZVZpZXcDAAAAGFxQcm9qZWN0c1xBSUlTXGFpaXNc
-R1BSUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAMAAAD/////////
-//r////g////hAAAAK4AAAAIBAAA2QIAAAEAAAABAAAAAQAAAAAAAAABAAAAAAAAAMkAAAAB
-AAAAAQAAAP//AAASAENYSk1ESU1vbm9DaGlsZFduZAAAAAAAAAAAAQAAALIBAAD//wAACQBD
-Q29kZVZpZXcDAAAAIlxQcm9qZWN0c1xBSUlTXGFpaXNcbW9kZWxcbW9kZWxpbmcAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAAAAAAAAAADAAAA///////////6////4P///5oA
-AADLAAAAGAQAANcCAAABAAAAAQAAAAEAAAAAAAAAAQAAAAAAAADAAAAAAQAAAAEAAAD//wAA
-EgBDWEpNRElNb25vQ2hpbGRXbmQAAAAAAAAAAAEAAACyAQAA//8AAAkAQ0NvZGVWaWV3AwAA
-ABlcUHJvamVjdHNcQUlJU1xhaWlzXG1vZGVsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAACwAAAAAAAAAAwAAAP//////////+v///+D///+wAAAA6AAAAC4EAAD0AgAAAQAAAAEA
-AAABAAAAAAAAAIAAAAAAAAAA1wAAAAEAAAABAAAA//8AABIAQ1hKTURJTW9ub0NoaWxkV25k
-AAAAAAAAAAABAAAAigEAAP//AAAVAENBbmltYXRpb25EaWFncmFtVmlldwMAAAAiXFByb2pl
-Y3RzXEFJSVNcYWlpc1xtb2RlbFxtb2RlbGluZwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAsAAAAAAAAAAMAAAD///////////r////g////xgAAAAUBAABEBAAAEQMAAAMAAAAA
-AGQAAAAkAwAAmgMAAAAAAAAAAAAA2gAAAAEAAAABAAAA//8AABIAQ1hKTURJTW9ub0NoaWxk
-V25kAAAAAAAAAAABAAAAiAEAAP//AAAWAENTdGF0ZWNoYXJ0RGlhZ3JhbVZpZXcDAAAAJFxQ
-cm9qZWN0c1xBSUlTXGFpaXNcbW9kZWxcYXNrQ291bnRlcgAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAsAAAAAAAAAAMAAAD///////////r////g////AAAAAAAAAAB+AwAADAIA
-AAMAAAAAAGQAAAD+AgAAugIAAAAAAAAAAAAA0wAAAAEAAAABAAAA//8AABIAQ1hKTURJTW9u
-b0NoaWxkV25kAAAAAAAAAAABAAAAiAEAAP//AAAWAENTdGF0ZWNoYXJ0RGlhZ3JhbVZpZXcD
-AAAAHVxQcm9qZWN0c1xBSUlTXGFpaXNcR1BSU1xHUFJTAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAACwAAAACAAAAAwAAAP//////////+v///+D///8WAAAAHQAAANMBAAApAgAA
-AwAAAAAAZAAAAMsDAACkAwAAAAAAAAAAAAA=</EditorDesktop>
+AAAAABgKAAABAAAADAAAANEAAAABAAAAAQAAAP//AAASAENYSk1ESU1vbm9DaGlsZFduZAAA
+AAAAAAAAAQAAAIgBAAD//wAAFgBDU3RhdGVjaGFydERpYWdyYW1WaWV3AwAAABtcUHJvamVj
+dHNcQUlJU1xhaWlzXEdTTVxHU00AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAAA
+AAAAAAADAAAA///////////6////4P///wAAAAAAAAAA6wIAACsCAAADAAAAAABkAAAAoQMA
+AFwEAAAAAAAAAAAAANMAAAABAAAAAQAAAP//AAASAENYSk1ESU1vbm9DaGlsZFduZAAAAAAA
+AAAAAQAAAIgBAAD//wAAFgBDU3RhdGVjaGFydERpYWdyYW1WaWV3AwAAAB1cUHJvamVjdHNc
+QUlJU1xhaWlzXEdQUlNcR1BSUwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAA
+AAAAAAMAAAD///////////r////g////FgAAAB0AAAD7AgAAKQIAAAMAAAAAAGQAAABoAwAA
+AgQAAAAAAAAAAAAA3wAAAAEAAAABAAAA//8AABIAQ1hKTURJTW9ub0NoaWxkV25kAAAAAAAA
+AAABAAAAiAEAAP//AAAWAENTdGF0ZWNoYXJ0RGlhZ3JhbVZpZXcDAAAAJVxQcm9qZWN0c1xB
+SUlTXGFpaXNcU0VUXG9wcm9zQWxnb3JpdG0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAALAAAAAAAAAADAAAA///////////6////4P///ywAAAA6AAAAEQMAAEYCAAADAAAAAQAJ
+AAAAZAAAAEoDAAAOAwAAAAAAAAAAAAC/AAAAAQAAAAEAAAD//wAAEgBDWEpNRElNb25vQ2hp
+bGRXbmQAAAAAAAAAAAEAAACyAQAA//8AAAkAQ0NvZGVWaWV3AwAAABhcUHJvamVjdHNcQUlJ
+U1xhaWlzXEdQUlMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAAAAAAAAAADAAAA
+///////////6////4P///0IAAABXAAAAJwMAAGMCAAABAAAAAQAAAHoAAAAAAAAAAQAAAAAA
+AADeAAAAAQAAAAEAAAD//wAAEgBDWEpNRElNb25vQ2hpbGRXbmQAAAAAAAAAAAEAAACIAQAA
+//8AABYAQ1N0YXRlY2hhcnREaWFncmFtVmlldwMAAAAoXFByb2plY3RzXEFJSVNcYWlpc1xN
+SVJDMDFcb3Byb3NBbGdvcml0bQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAA
+AAAAAAMAAAD///////////r////g////WAAAAHQAAAA9AwAAgAIAAAMAAAAAAGQAAADtAwAA
+zAQAAAAAAAAAAAAAwQAAAAEAAAABAAAA//8AABIAQ1hKTURJTW9ub0NoaWxkV25kAAAAAAAA
+AAABAAAAsgEAAP//AAAJAENDb2RlVmlldwMAAAAaXFByb2plY3RzXEFJSVNcYWlpc1xNSVJD
+MDEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAAAAAAAAAADAAAA///////////6
+////4P///24AAACRAAAAUwMAAJ0CAAABAAAAAQAAAAEAAAAAAAAAAQAAAAAAAADXAAAAAQAA
+AAEAAAD//wAAEgBDWEpNRElNb25vQ2hpbGRXbmQAAAAAAAAAAAEAAACGAQAA//8AABUAQ1N0
+cnVjdHVyZURpYWdyYW1WaWV3AwAAABpcUHJvamVjdHNcQUlJU1xhaWlzXE1JUkMwMQAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAMAAAD///////////r////g////
+hAAAAK4AAABpAwAAugIAAAMAAAABAB8AAABkAAAAKgQAAHYEAAAAAAAAAQAAAAAAAADVAAAA
+AQAAAAEAAAD//wAAEgBDWEpNRElNb25vQ2hpbGRXbmQAAAAAAAAAAAEAAACGAQAA//8AABUA
+Q1N0cnVjdHVyZURpYWdyYW1WaWV3AwAAABhcUHJvamVjdHNcQUlJU1xhaWlzXEdQUlMAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAAAAAAAAAADAAAA///////////6////4P//
+/5oAAADLAAAAfwMAANcCAAADAAAAAQBAAAAAZAAAAEgEAADuBAAAAAAAAAEAAAAAAAAA0AAA
+AAEAAAABAAAA//8AABIAQ1hKTURJTW9ub0NoaWxkV25kAAAAAAAAAAABAAAAhgEAAP//AAAV
+AENTdHJ1Y3R1cmVEaWFncmFtVmlldwMAAAAXXFByb2plY3RzXEFJSVNcYWlpc1xHU00AAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAAAAAAAAAADAAAA///////////6////4P//
+/7AAAADoAAAAlQMAAPQCAAADAAAAAABkAAAAmAMAABgEAAAAAAAAAQAAAAAAAADWAAAAAQAA
+AAEAAAD//wAAEgBDWEpNRElNb25vQ2hpbGRXbmQAAAAAAAAAAAEAAACGAQAA//8AABUAQ1N0
+cnVjdHVyZURpYWdyYW1WaWV3AwAAABlcUHJvamVjdHNcQUlJU1xhaWlzXFJBRElPAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAAAAAAwAAAP//////////+v///+D////G
+AAAABQEAAKsDAAARAwAAAwAAAAEABAAAAGQAAABhBAAAdgQAAAAAAAABAAAAAAAAANYAAAAB
+AAAAAQAAAP//AAASAENYSk1ESU1vbm9DaGlsZFduZAAAAAAAAAAAAQAAAIYBAAD//wAAFQBD
+U3RydWN0dXJlRGlhZ3JhbVZpZXcDAAAAGVxQcm9qZWN0c1xBSUlTXGFpaXNcbW9kZWwAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAAAAAAAAAADAAAA///////////6////4P//
+/wAAAAAAAAAA5QIAAAwCAAADAAAAAQCAAwAAZAAAADAEAADGAwAAAAAAAAEAAAAAAAAA1wAA
+AAEAAAABAAAA//8AABIAQ1hKTURJTW9ub0NoaWxkV25kAAAAAAAAAAABAAAAigEAAP//AAAV
+AENBbmltYXRpb25EaWFncmFtVmlldwMAAAAiXFByb2plY3RzXEFJSVNcYWlpc1xtb2RlbFxt
+b2RlbGluZwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAAAgAAAAMAAAD/////
+//////r////g////FgAAAB0AAAD7AgAAKQIAAAMAAAAAAGQAAAAHAwAA1QMAAAAAAAAAAAAA
+</EditorDesktop>
 <ControlBars>
 <Editor PropertiesBarState="6"/>
 <Viewer ProjectBarState="0" StencilsBarState="0" PropertiesBarState="6"/></ControlBars>

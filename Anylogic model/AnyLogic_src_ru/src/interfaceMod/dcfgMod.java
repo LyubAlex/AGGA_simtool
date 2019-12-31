@@ -12,9 +12,7 @@ import aiis.*;
 public class dcfgMod extends JDialog {
   //вектор флагов опрашиваемых данных
   Vector interReqData = new Vector(4);
-
   Matrix intReqData = new Matrix(1,4);
-
   JPanel panel1 = new JPanel();
   XYLayout xYLayout1 = new XYLayout();
   JLabel labelVrMod = new JLabel();
@@ -36,18 +34,15 @@ public class dcfgMod extends JDialog {
   Checkbox chEvent = new Checkbox();
 
   public dcfgMod(Frame frame, String title, boolean modal) {
-    super(frame, title, modal);
-
-   try {
+   super(frame, title, modal);
+   try 
+   {
       jbInit();
-     // pack();
-    }
-    catch(Exception ex) {
+   }
+   catch(Exception ex) {
      // ex.printStackTrace();
     }
   }
-
-
 
   private void jbInit() throws Exception {
     border1 = BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151));
@@ -73,7 +68,7 @@ public class dcfgMod extends JDialog {
     inputVrMod.setValue(new Integer(100));
     inputVrMod.setDebugGraphicsOptions(0);
     inputVrMod.setHorizontalAlignment(SwingConstants.CENTER);
-    inputVrMod.setText("1000");
+    inputVrMod.setText("30");
     jPanel3.setBackground(new Color(210, 255, 236));
     jPanel3.setBorder(titledBorder2);
     jPanel3.setLayout(xYLayout3);
@@ -111,11 +106,9 @@ public class dcfgMod extends JDialog {
   }
   this.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
 
+  setVisible(false);
 
-
-    setVisible(false);
-
-  }
+}
 
   void bSaveExit_actionPerformed(ActionEvent e) {
     Number valueh1 = (Number)inputVrMod.getValue();
@@ -132,50 +125,42 @@ public class dcfgMod extends JDialog {
   }
 
   void chEvent_itemStateChanged(ItemEvent e) {
-if (chEvent.getState())
-{
- // interReqData.addElement(new Integer(1));
- intReqData.set(0,0,1);
-}
-else
-{intReqData.set(0,0,0);}
-
+  if (chEvent.getState())
+  {
+   intReqData.set(0,0,1);
   }
+  else
+  {
+  intReqData.set(0,0,0);}
+}
 
   void chPower_itemStateChanged(ItemEvent e) {
     if (chPower.getState())
     {
-     // interReqData.addElement(new Integer(1));
      intReqData.set(0,2,1);
     }
     else
     {
     intReqData.set(0,2,0);
-    //intReqData.removeElement(0,1);
     }
-
   }
 
   void chEnergy_itemStateChanged(ItemEvent e) {
     if (chEnergy.getState())
     {
-     // interReqData.addElement(new Integer(1));
      intReqData.set(0,1,1);
     }
     else
     {intReqData.set(0,1,0);}
-
   }
 
   void chDopPar_itemStateChanged(ItemEvent e) {
     if (chDopPar.getState())
     {
-     // interReqData.addElement(new Integer(1));
      intReqData.set(0,3,1);
     }
     else
     {intReqData.set(0,3,0);}
-
   }
 }
 

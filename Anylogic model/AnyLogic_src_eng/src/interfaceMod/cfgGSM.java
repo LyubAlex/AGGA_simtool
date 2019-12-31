@@ -6,19 +6,7 @@ import javax.swing.*;
 import com.borland.jbcl.layout.*;
 import javax.swing.border.*;
 
-
-/**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2008</p>
- * <p>Company: </p>
- * @author not attributable
- * @version 1.0
- */
-
 public class cfgGSM extends JFrame {
-
-
 
 JPanel contentPane;
   BorderLayout borderLayout1 = new BorderLayout();
@@ -44,7 +32,6 @@ JPanel contentPane;
 
   //Construct the frame
   public cfgGSM() {
-    //enableEvents(AWTEvent.WINDOW_EVENT_MASK);
     try {
       jbInit();
 
@@ -56,14 +43,7 @@ JPanel contentPane;
 
   //Component initialization
   private void jbInit() throws Exception  {
-
-
-
-    titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Характеристики канала связи");
-
-
-
-
+    titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151)),"Characteristics of communication channels");
     contentPane = (JPanel) this.getContentPane();
     border1 = BorderFactory.createEtchedBorder(Color.white,new Color(165, 163, 151));
     contentPane.setBackground(new Color(210, 236, 255));
@@ -71,9 +51,9 @@ JPanel contentPane;
     contentPane.setLayout(borderLayout1);
     this.setForeground(Color.red);
     this.setSize(new Dimension(302, 325));
-    this.setTitle("Параметры канала GSM");
-        this.setResizable(false);
-       // this.setVisible(true);
+    this.setTitle("GSM channels params");
+    this.setResizable(false);
+
     jPanel1.setLayout(xYLayout1);
     jPanel1.setBackground(new Color(210, 236, 255));
     jPanel1.setBorder(null);
@@ -90,35 +70,31 @@ JPanel contentPane;
     jScrollPane1.setFont(new java.awt.Font("Dialog", 0, 20));
     titledBorder1.setTitleFont(new java.awt.Font("Arial", 0, 11));
     jLabelVerUst.setFont(new java.awt.Font("Arial", 0, 11));
-    jLabelVerUst.setText("Вероятность установления соединения, %");
-
-
+    jLabelVerUst.setText("Probability of a successful connection, %");
 
     saveCfgGSM.setFont(new java.awt.Font("Arial", 0, 11));
-    saveCfgGSM.setText("Сохранить");
+    saveCfgGSM.setText("Save");
     saveCfgGSM.addActionListener(new cfgGSM_saveCfgGSM_actionAdapter(this));
-
-
     inputVerGSM.setValue(new Integer(100));
 
     inputVerGSM.setDebugGraphicsOptions(0);
     inputVerGSM.setHorizontalAlignment(SwingConstants.CENTER);
-    jLabelVrUst.setText("Время установления соединения, с");
+    jLabelVrUst.setText("Connection establishing time, sec");
     jLabelVrUst.setFont(new java.awt.Font("Arial", 0, 11));
     inputVrGSM.setHorizontalAlignment(SwingConstants.CENTER);
     inputVrGSM.setValue(new Integer(15));
 
-    jLabelVerEnd.setText("Вероятность разрыва соединения, %");
+    jLabelVerEnd.setText("Probability of an unintentional disconnection, %");
     jLabelVerEnd.setFont(new java.awt.Font("Arial", 0, 11));
     inputVerEndGSM.setHorizontalAlignment(SwingConstants.CENTER);
     inputVerEndGSM.setDebugGraphicsOptions(0);
     inputVerEndGSM.setValue(new Integer(100));
     jLabelVrEnd.setFont(new java.awt.Font("Arial", 0, 11));
-    jLabelVrEnd.setText("Время прекращения сеанса, с");
+    jLabelVrEnd.setText("Disconnection time of the established connection, sec");
     inputVrEndGSM.setValue(new Integer(15));
     inputVrEndGSM.setHorizontalAlignment(SwingConstants.CENTER);
     exitButton.addActionListener(new cfgGSM_exitButton_actionAdapter(this));
-    exitButton.setText("Выйти");
+    exitButton.setText("Exit");
     exitButton.addActionListener(new cfgGSM_exitButton_actionAdapter(this));
     exitButton.setFont(new java.awt.Font("Arial", 0, 11));
     jPanel3.setBackground(new Color(210, 236, 255));
@@ -138,51 +114,33 @@ JPanel contentPane;
     jPanel1.add(saveCfgGSM, new XYConstraints(37, 245, -1, -1));
     jPanel1.add(jPanel3,      new XYConstraints(20, 238, 251, 38));
     jPanel3.add(exitButton,    new XYConstraints(143, 5, 87, -1));
-
-
-
-
   }
 
-  //Overridden so we can exit when window is closed
-  /*protected void processWindowEvent(WindowEvent e) {
-    super.processWindowEvent(e);
-    if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-      System.exit(0);
-    }
-  }*/
-
   void saveCfgGSM_actionPerformed(ActionEvent e) {
-//jLabel1.setText(inputVer.getText());
    Number valueh1 = (Number)inputVerGSM.getValue();
    double valueVerGSM = valueh1.doubleValue();
- aiis.model.set_parVerUstGSM(valueVerGSM);
+   aiis.model.set_parVerUstGSM(valueVerGSM);
 
    Number valueh2 = (Number)inputVrGSM.getValue();
    double valueVrGSM = valueh2.doubleValue();
- aiis.model.set_parVrUstGSM(valueVrGSM);
+   aiis.model.set_parVrUstGSM(valueVrGSM);
 
    Number valueh3 = (Number)inputVerEndGSM.getValue();
    double valueVerEndGSM = valueh3.doubleValue();
- aiis.model.set_parVerEndGSM(valueVerEndGSM);
+   aiis.model.set_parVerEndGSM(valueVerEndGSM);
 
    Number valueh4 = (Number)inputVrEndGSM.getValue();
    double valueVrEndGSM = valueh4.doubleValue();
- aiis.model.set_parVrEndGSM(valueVrEndGSM);
-// aiis.model.set_parVrMod(valueVrEndGSM);
+   aiis.model.set_parVrEndGSM(valueVrEndGSM);
   }
 
   void exitButton_actionPerformed(ActionEvent e) {
-
-this.dispose();
-
+  this.dispose();
   }
-
 }
 
 class cfgGSM_saveCfgGSM_actionAdapter implements java.awt.event.ActionListener {
   cfgGSM adaptee;
-
   cfgGSM_saveCfgGSM_actionAdapter(cfgGSM adaptee) {
     this.adaptee = adaptee;
   }
