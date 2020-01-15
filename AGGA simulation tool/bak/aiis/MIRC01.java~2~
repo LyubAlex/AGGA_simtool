@@ -1,0 +1,1902 @@
+// MIRC01.java
+
+package aiis;
+
+import java.util.Vector;
+import java.util.Hashtable;
+import java.awt.Color;
+import com.xj.jama.Matrix;
+import com.xj.anylogic.*;
+import com.xj.anylogic.animation.*;
+import com.xj.random.*;
+
+
+// _XJ_SECTION_BEGIN( AO.Import )
+import javax.swing.*;
+// _XJ_SECTION_END
+public class MIRC01 extends ActiveObject
+ {
+   public String msg = "Задайте список опрашиваемых параметров";
+   public String atten = "Внимание!";
+
+   public static void main( String[] args ) {
+    System.out.println( "...started..." );
+    try {
+      Engine.setRoot( new MIRC01() );
+    } catch ( Throwable ex ) {
+      Engine.traceException( ex );
+      Engine.setError( "Exception during model root object creation: " + ex );
+    }
+    Engine.start( args );
+    System.out.println( "...finished..." );
+  }
+
+  public void onEngineCreate() {
+  }
+
+  public String getType() {
+    return "aiis.MIRC01";
+  }
+
+  protected void getEquations() {
+    addFE( _ref_closeChannel, new VectorFunction() {
+      public Matrix value() { return toMatrix(
+// _XJ_SECTION_BEGIN( AO.Equation.0.closeChannel )
+mul(8,matrixByRows( 1, 2, new double[]{ 10,11 } ))
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "closeChannel = 8*[10,11]"; }
+    }, false, null );
+    addFE( _ref_openChannel, new VectorFunction() {
+      public Matrix value() { return toMatrix(
+// _XJ_SECTION_BEGIN( AO.Equation.26.openChannel )
+mul(8,matrixByRows( 1, 2, new double[]{ 19,11 } ))
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "openChannel = 8*[19,11]"; }
+    }, false, null );
+    addFE( _ref_arrayEventJournal, new VectorFunction() {
+      public Matrix value() { return toMatrix(
+// _XJ_SECTION_BEGIN( AO.Equation.51.arrayEventJournal )
+mul(8,matrixByRows( 1, 44, new double[]{ 10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23 } ))
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "arrayEventJournal = 8*[10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23]"; }
+    }, false, null );
+    addFE( _ref_arrayParametrs, new VectorFunction() {
+      public Matrix value() { return toMatrix(
+// _XJ_SECTION_BEGIN( AO.Equation.208.arrayParametrs )
+mul(8,matrixByRows( 1, 12, new double[]{ 11,112,11,13,11,15,11,15,11,17,11,37 } ))
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "arrayParametrs = 8*[11,112,11,13,11,15,11,15,11,17,11,37]"; }
+    }, false, null );
+    addFE( _ref_arrayEnergy, new VectorFunction() {
+      public Matrix value() { return toMatrix(
+// _XJ_SECTION_BEGIN( AO.Equation.267.arrayEnergy )
+mul(8,matrixByRows( 1, 2, new double[]{ 12,27 } ))
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "arrayEnergy = 8*[12,27]"; }
+    }, false, null );
+    addFE( _ref_arrayPowerProfile, new VectorFunction() {
+      public Matrix value() { return toMatrix(
+// _XJ_SECTION_BEGIN( AO.Equation.292.arrayPowerProfile )
+mul(8,matrixByRows( 1, 4, new double[]{ 10,13,14,53 } ))
+// _XJ_SECTION_END
+      ); }
+      public String toString() { return "arrayPowerProfile = 8*[10,13,14,53]"; }
+    }, false, null );
+  }
+
+  public void create() {
+    timerTimeOut = new Timer_timerTimeOut();
+    timerTimeOut.setName( "timerTimeOut" );
+    _ref_iArray.setup( this, "iArray", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.iArray )
+    iArray = 0
+;
+// _XJ_SECTION_END
+    _ref_closeChannelMIR.setup( this, "closeChannelMIR", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.closeChannelMIR )
+    closeChannelMIR = 0
+;
+// _XJ_SECTION_END
+    _ref_avTimeMIRGSM.setup( this, "avTimeMIRGSM", true );
+    _ref_avTimeMIRGPRS.setup( this, "avTimeMIRGPRS", true );
+    _ref_timeScale.setup( this, "timeScale", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.timeScale )
+    timeScale = 60
+;
+// _XJ_SECTION_END
+    _ref_ID.setup( this, "ID", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.ID )
+    ID = 0
+;
+// _XJ_SECTION_END
+    _ref_currentChannel.setup( this, "currentChannel", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.currentChannel )
+    currentChannel = 0
+;
+// _XJ_SECTION_END
+    _ref_indexEventJournal.setup( this, "indexEventJournal", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.indexEventJournal )
+    indexEventJournal = 1
+;
+// _XJ_SECTION_END
+    _ref_indexArray.setup( this, "indexArray", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.indexArray )
+    indexArray = 0
+;
+// _XJ_SECTION_END
+    _ref_MIRdontAnswer.setup( this, "MIRdontAnswer", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.MIRdontAnswer )
+    MIRdontAnswer = 0
+;
+// _XJ_SECTION_END
+    _ref_timeOutAnswer.setup( this, "timeOutAnswer", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.timeOutAnswer )
+    timeOutAnswer = 0.1
+;
+// _XJ_SECTION_END
+    _ref_closeChannel.setup( this, "closeChannel", true );
+    _ref_openChannel.setup( this, "openChannel", true );
+    _ref_arrayEventJournal.setup( this, "arrayEventJournal", true );
+    _ref_arrayParametrs.setup( this, "arrayParametrs", true );
+    _ref_arrayEnergy.setup( this, "arrayEnergy", true );
+    _ref_arrayPowerProfile.setup( this, "arrayPowerProfile", true );
+    _ref_indexMIR.setup( this, "indexMIR", true );
+// _XJ_SECTION_BEGIN( AO.Initial.0.indexMIR )
+    indexMIR = 1
+;
+// _XJ_SECTION_END
+    oprosAlgoritm = new Type_oprosAlgoritm();
+    port = new Port();
+    port.setup( "port", this );
+  }
+
+  public void destroy() {
+    oprosAlgoritm = null;
+    port = null;
+    super.destroy();
+  }
+
+  protected void startup() {
+    startThread( oprosAlgoritm, "oprosAlgoritm" );
+  }
+
+  public static class _Type_lookupTable_timeOutOfSpeed extends LookupTable {
+    public _Type_lookupTable_timeOutOfSpeed() {
+      super(
+    "timeOutOfSpeed",    LookupTable.SPLINE,
+    LookupTable.EXTRAPOLATE, 0.0,
+    new double[]{ 1200, 2400, 4800, 9600 },
+    new double[]{ 0.049, 0.025, 0.013, 0.007 } );
+    }
+  }
+  public static _Type_lookupTable_timeOutOfSpeed timeOutOfSpeed = new _Type_lookupTable_timeOutOfSpeed();
+  public static double timeOutOfSpeed( double x ) {
+    return timeOutOfSpeed.lookup( x );
+  }
+  public static Matrix timeOutOfSpeed( Matrix x ) {
+    return timeOutOfSpeed.lookup( x );
+  }
+  public static HyperArray timeOutOfSpeed( HyperArray x ) {
+    return timeOutOfSpeed.lookup( x );
+  }
+
+  // Class parameters
+  public static void set_bitrate(
+// _XJ_SECTION_BEGIN( AO.ParameterType.0 )
+double
+// _XJ_SECTION_END
+      _value ) {
+    bitrate = _value;
+  }
+
+  public static double get_bitrate() {
+    return bitrate;
+  }
+
+  public static
+// _XJ_SECTION_BEGIN( AO.ParameterType.0 )
+double
+// _XJ_SECTION_END
+ bitrate =
+// _XJ_SECTION_BEGIN( AO.ParameterValue.0 )
+9600
+// _XJ_SECTION_END
+;
+  public static void set_parReqData(
+// _XJ_SECTION_BEGIN( AO.ParameterType.1 )
+Vector
+// _XJ_SECTION_END
+      _value ) {
+    parReqData = _value;
+  }
+
+  public static Vector get_parReqData() {
+    return parReqData;
+  }
+
+  public static
+// _XJ_SECTION_BEGIN( AO.ParameterType.1 )
+Vector
+// _XJ_SECTION_END
+ parReqData;
+  public static void set_maxTimeoutAnswer(
+// _XJ_SECTION_BEGIN( AO.ParameterType.2 )
+double
+// _XJ_SECTION_END
+      _value ) {
+    maxTimeoutAnswer = _value;
+  }
+
+  public static double get_maxTimeoutAnswer() {
+    return maxTimeoutAnswer;
+  }
+
+  public static
+// _XJ_SECTION_BEGIN( AO.ParameterType.2 )
+double
+// _XJ_SECTION_END
+ maxTimeoutAnswer =
+// _XJ_SECTION_BEGIN( AO.ParameterValue.2 )
+1
+// _XJ_SECTION_END
+;
+  public static void set_verNoAnswer(
+// _XJ_SECTION_BEGIN( AO.ParameterType.3 )
+double
+// _XJ_SECTION_END
+      _value ) {
+    verNoAnswer = _value;
+  }
+
+  public static double get_verNoAnswer() {
+    return verNoAnswer;
+  }
+
+  public static
+// _XJ_SECTION_BEGIN( AO.ParameterType.3 )
+double
+// _XJ_SECTION_END
+ verNoAnswer =
+// _XJ_SECTION_BEGIN( AO.ParameterValue.3 )
+5
+// _XJ_SECTION_END
+;
+
+  public void setParams( double bitrate, Vector parReqData, double maxTimeoutAnswer, double verNoAnswer ) {
+    set_bitrate( bitrate );
+    set_parReqData( parReqData );
+    set_maxTimeoutAnswer( maxTimeoutAnswer );
+    set_verNoAnswer( verNoAnswer );
+  }
+
+  // Structure objects
+public int iArray;
+  public VariableRefDouble _ref_iArray = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { iArray = (int)_value; }
+    public double getDoubleValue() { return (double)iArray; } };
+public double closeChannelMIR;
+  public VariableRefDouble _ref_closeChannelMIR = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { closeChannelMIR = (double)_value; }
+    public double getDoubleValue() { return (double)closeChannelMIR; } };
+public double avTimeMIRGSM;
+  public VariableRefDouble _ref_avTimeMIRGSM = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { avTimeMIRGSM = (double)_value; }
+    public double getDoubleValue() { return (double)avTimeMIRGSM; } };
+public double avTimeMIRGPRS;
+  public VariableRefDouble _ref_avTimeMIRGPRS = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { avTimeMIRGPRS = (double)_value; }
+    public double getDoubleValue() { return (double)avTimeMIRGPRS; } };
+public double timeScale;
+  public VariableRefDouble _ref_timeScale = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { timeScale = (double)_value; }
+    public double getDoubleValue() { return (double)timeScale; } };
+public int ID;
+  public VariableRefDouble _ref_ID = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { ID = (int)_value; }
+    public double getDoubleValue() { return (double)ID; } };
+public int currentChannel;
+  public VariableRefDouble _ref_currentChannel = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { currentChannel = (int)_value; }
+    public double getDoubleValue() { return (double)currentChannel; } };
+public int indexEventJournal;
+  public VariableRefDouble _ref_indexEventJournal = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { indexEventJournal = (int)_value; }
+    public double getDoubleValue() { return (double)indexEventJournal; } };
+public int indexArray;
+  public VariableRefDouble _ref_indexArray = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { indexArray = (int)_value; }
+    public double getDoubleValue() { return (double)indexArray; } };
+public int MIRdontAnswer;
+  public VariableRefDouble _ref_MIRdontAnswer = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { MIRdontAnswer = (int)_value; }
+    public double getDoubleValue() { return (double)MIRdontAnswer; } };
+public double timeOutAnswer;
+  public VariableRefDouble _ref_timeOutAnswer = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { timeOutAnswer = (double)_value; }
+    public double getDoubleValue() { return (double)timeOutAnswer; } };
+public Matrix closeChannel;
+  public VariableRefVector _ref_closeChannel = new VariableRefVector() {
+    public void   set( Object _value ) { closeChannel = (Matrix)_value; }
+    public Object get() { return closeChannel; } };
+public Matrix openChannel;
+  public VariableRefVector _ref_openChannel = new VariableRefVector() {
+    public void   set( Object _value ) { openChannel = (Matrix)_value; }
+    public Object get() { return openChannel; } };
+public Matrix arrayEventJournal;
+  public VariableRefVector _ref_arrayEventJournal = new VariableRefVector() {
+    public void   set( Object _value ) { arrayEventJournal = (Matrix)_value; }
+    public Object get() { return arrayEventJournal; } };
+public Matrix arrayParametrs;
+  public VariableRefVector _ref_arrayParametrs = new VariableRefVector() {
+    public void   set( Object _value ) { arrayParametrs = (Matrix)_value; }
+    public Object get() { return arrayParametrs; } };
+public Matrix arrayEnergy;
+  public VariableRefVector _ref_arrayEnergy = new VariableRefVector() {
+    public void   set( Object _value ) { arrayEnergy = (Matrix)_value; }
+    public Object get() { return arrayEnergy; } };
+public Matrix arrayPowerProfile;
+  public VariableRefVector _ref_arrayPowerProfile = new VariableRefVector() {
+    public void   set( Object _value ) { arrayPowerProfile = (Matrix)_value; }
+    public Object get() { return arrayPowerProfile; } };
+public double indexMIR;
+  public VariableRefDouble _ref_indexMIR = new VariableRefDouble() {
+    public void   setDoubleValue( double _value ) { indexMIR = (double)_value; }
+    public double getDoubleValue() { return (double)indexMIR; } };
+  public Port port;
+  Timer_timerTimeOut timerTimeOut = null;
+  class Timer_timerTimeOut extends StaticTimer {
+    Timer_timerTimeOut() {
+      super( MIRC01.this );
+    }
+    public void action() {
+// _XJ_SECTION_BEGIN( ST.Action.timerTimeOut )
+oprosAlgoritm.fireEvent("nextStep");
+// _XJ_SECTION_END
+    }
+  }
+
+// Group class for group _IconGroup
+public class _IconGroup extends Group {
+
+  public void setup() {
+    setActiveObject( MIRC01.this );
+    super.setup();
+    setSize( 67, 42 );
+    setOrigin( -35, -20 );
+
+    add( _shape_ );
+    _shape_.setShapeName( "_shape_" );
+    _shape_.setPos( -27, -17 );
+    _shape_.setFillColor( new Color( 12632256 ) );
+    _shape_.setSize( 60, 40 );
+    _shape_.setLineWidth( 0 );
+    _shape_.setLineColor( null );
+
+    add( _shape_rectangle );
+    _shape_rectangle.setShapeName( "_shape_rectangle" );
+    _shape_rectangle.setPos( -30, -20 );
+    _shape_rectangle.setFillColor( new Color( 16231006 ) );
+    _shape_rectangle.setSize( 60, 40 );
+    _shape_rectangle.setLineWidth( 1 );
+    _shape_rectangle.setLineColor( new Color( 16093485 ) );
+
+    add( _shape_port );
+    _shape_port.setShapeName( "_shape_port" );
+    _shape_port.setPos( -30, 0 );
+    _shape_port.setFillColor( new Color( 16777215 ) );
+  }
+
+  public void init() {
+    super.init();
+  }
+
+  public void update() {
+    super.update();
+  }
+
+    public ShapePort _shape_port = new ShapePort();
+    public ShapeRect _shape_rectangle = new ShapeRect();
+    public ShapeRect _shape_ = new ShapeRect();
+}
+
+  public _IconGroup icon = null;
+  public Group createIcon() {
+    return icon != null ? icon : ( icon = new _IconGroup() );
+  }
+
+// Group class for group _StructureGroup
+public class _StructureGroup extends Group {
+
+  public void setup() {
+    setScale( 0.8 );
+    setActiveObject( MIRC01.this );
+    super.setup();
+    setSize( 387, 362 );
+    setOrigin( -36, -81 );
+
+    add( _shape_textBox_13 );
+    _shape_textBox_13.setShapeName( "_shape_textBox_13" );
+    _shape_textBox_13.setPos( 10, 130 );
+    _shape_textBox_13.setFillColor( new Color( 16777152 ) );
+    _shape_textBox_13.setSize( 150, 130 );
+    _shape_textBox_13.setFontColor( new Color( 0 ) );
+    _shape_textBox_13.setText( "Статистика\n" );
+
+    add( _shape_textBox1_31 );
+    _shape_textBox1_31.setShapeName( "_shape_textBox1_31" );
+    _shape_textBox1_31.setPos( 180, -40 );
+    _shape_textBox1_31.setFillColor( new Color( 16777152 ) );
+    _shape_textBox1_31.setSize( 150, 300 );
+    _shape_textBox1_31.setFontColor( new Color( 0 ) );
+    _shape_textBox1_31.setText( "Системные переменные\n" );
+
+    add( _shape_textBox2_32 );
+    _shape_textBox2_32.setShapeName( "_shape_textBox2_32" );
+    _shape_textBox2_32.setPos( 10, -40 );
+    _shape_textBox2_32.setFillColor( new Color( 16777152 ) );
+    _shape_textBox2_32.setSize( 150, 150 );
+    _shape_textBox2_32.setFontColor( new Color( 0 ) );
+    _shape_textBox2_32.setText( "Вспомогательные переменные" );
+
+    add( _object_MIRC01 );
+    _object_MIRC01.setShapeName( "_object_MIRC01" );
+    _object_MIRC01.setPos( -30, -80 );
+    _object_MIRC01.setSize( 380, 360 );
+    _object_MIRC01.setName( "MIRC01" );
+    _object_MIRC01.setNameOffset( 10, 10 );
+
+    add( _shape_port );
+    _shape_port.setShapeName( "_shape_port" );
+    _shape_port.setPos( -30, 100 );
+    _shape_port.setFillColor( new Color( 16777215 ) );
+    _shape_port.setName( "port" );
+    _shape_port.setNameOffset( 10, 0 );
+
+    add( _shape_oprosAlgoritm );
+    _shape_oprosAlgoritm.setShapeName( "_shape_oprosAlgoritm" );
+    _shape_oprosAlgoritm.setPos( 110, -60 );
+    _shape_oprosAlgoritm.setName( "oprosAlgoritm" );
+    _shape_oprosAlgoritm.setNameOffset( 10, 0 );
+
+    add( _shape_indexMIR );
+    _shape_indexMIR.setShapeName( "_shape_indexMIR" );
+    _shape_indexMIR.setPos( 30, 70 );
+    _shape_indexMIR.setFillColor( new Color( 10526975 ) );
+    _shape_indexMIR.setStateVariable( true );
+    _shape_indexMIR.setName( "indexMIR" );
+    _shape_indexMIR.setNameOffset( 10, 0 );
+
+    add( _shape_arrayPowerProfile );
+    _shape_arrayPowerProfile.setShapeName( "_shape_arrayPowerProfile" );
+    _shape_arrayPowerProfile.setPos( 200, 10 );
+    _shape_arrayPowerProfile.setFillColor( new Color( 10526975 ) );
+    _shape_arrayPowerProfile.setStateVariable( true );
+    _shape_arrayPowerProfile.setName( "arrayPowerProfile" );
+    _shape_arrayPowerProfile.setNameOffset( 10, 0 );
+
+    add( _shape_arrayEnergy );
+    _shape_arrayEnergy.setShapeName( "_shape_arrayEnergy" );
+    _shape_arrayEnergy.setPos( 200, 30 );
+    _shape_arrayEnergy.setFillColor( new Color( 10526975 ) );
+    _shape_arrayEnergy.setStateVariable( true );
+    _shape_arrayEnergy.setName( "arrayEnergy" );
+    _shape_arrayEnergy.setNameOffset( 10, 0 );
+
+    add( _shape_arrayParametrs );
+    _shape_arrayParametrs.setShapeName( "_shape_arrayParametrs" );
+    _shape_arrayParametrs.setPos( 200, 50 );
+    _shape_arrayParametrs.setFillColor( new Color( 10526975 ) );
+    _shape_arrayParametrs.setStateVariable( true );
+    _shape_arrayParametrs.setName( "arrayParametrs" );
+    _shape_arrayParametrs.setNameOffset( 10, 0 );
+
+    add( _shape_arrayEventJournal );
+    _shape_arrayEventJournal.setShapeName( "_shape_arrayEventJournal" );
+    _shape_arrayEventJournal.setPos( 200, 70 );
+    _shape_arrayEventJournal.setFillColor( new Color( 10526975 ) );
+    _shape_arrayEventJournal.setStateVariable( true );
+    _shape_arrayEventJournal.setName( "arrayEventJournal" );
+    _shape_arrayEventJournal.setNameOffset( 10, 0 );
+
+    add( _shape_openChannel );
+    _shape_openChannel.setShapeName( "_shape_openChannel" );
+    _shape_openChannel.setPos( 200, 90 );
+    _shape_openChannel.setFillColor( new Color( 10526975 ) );
+    _shape_openChannel.setStateVariable( true );
+    _shape_openChannel.setName( "openChannel" );
+    _shape_openChannel.setNameOffset( 10, 0 );
+
+    add( _shape_closeChannel );
+    _shape_closeChannel.setShapeName( "_shape_closeChannel" );
+    _shape_closeChannel.setPos( 200, 110 );
+    _shape_closeChannel.setFillColor( new Color( 10526975 ) );
+    _shape_closeChannel.setStateVariable( true );
+    _shape_closeChannel.setName( "closeChannel" );
+    _shape_closeChannel.setNameOffset( 10, 0 );
+
+    add( _shape_timeOutAnswer );
+    _shape_timeOutAnswer.setShapeName( "_shape_timeOutAnswer" );
+    _shape_timeOutAnswer.setPos( 200, 130 );
+    _shape_timeOutAnswer.setFillColor( new Color( 10526975 ) );
+    _shape_timeOutAnswer.setStateVariable( true );
+    _shape_timeOutAnswer.setName( "timeOutAnswer" );
+    _shape_timeOutAnswer.setNameOffset( 10, 0 );
+
+    add( _shape_MIRdontAnswer );
+    _shape_MIRdontAnswer.setShapeName( "_shape_MIRdontAnswer" );
+    _shape_MIRdontAnswer.setPos( 30, 240 );
+    _shape_MIRdontAnswer.setFillColor( new Color( 10526975 ) );
+    _shape_MIRdontAnswer.setStateVariable( true );
+    _shape_MIRdontAnswer.setName( "MIRdontAnswer" );
+    _shape_MIRdontAnswer.setNameOffset( 10, 0 );
+
+    add( _shape_indexArray );
+    _shape_indexArray.setShapeName( "_shape_indexArray" );
+    _shape_indexArray.setPos( 30, 30 );
+    _shape_indexArray.setFillColor( new Color( 10526975 ) );
+    _shape_indexArray.setStateVariable( true );
+    _shape_indexArray.setName( "indexArray" );
+    _shape_indexArray.setNameOffset( 10, 0 );
+
+    add( _shape_indexEventJournal );
+    _shape_indexEventJournal.setShapeName( "_shape_indexEventJournal" );
+    _shape_indexEventJournal.setPos( 30, 10 );
+    _shape_indexEventJournal.setFillColor( new Color( 10526975 ) );
+    _shape_indexEventJournal.setStateVariable( true );
+    _shape_indexEventJournal.setName( "indexEventJournal" );
+    _shape_indexEventJournal.setNameOffset( 10, 0 );
+
+    add( _shape_currentChannel );
+    _shape_currentChannel.setShapeName( "_shape_currentChannel" );
+    _shape_currentChannel.setPos( 30, 50 );
+    _shape_currentChannel.setFillColor( new Color( 10526975 ) );
+    _shape_currentChannel.setStateVariable( true );
+    _shape_currentChannel.setName( "currentChannel" );
+    _shape_currentChannel.setNameOffset( 10, 0 );
+
+    add( _shape_ID );
+    _shape_ID.setShapeName( "_shape_ID" );
+    _shape_ID.setPos( 200, 150 );
+    _shape_ID.setFillColor( new Color( 10526975 ) );
+    _shape_ID.setStateVariable( true );
+    _shape_ID.setName( "ID" );
+    _shape_ID.setNameOffset( 10, 0 );
+
+    add( _shape_timeScale );
+    _shape_timeScale.setShapeName( "_shape_timeScale" );
+    _shape_timeScale.setPos( 200, 170 );
+    _shape_timeScale.setFillColor( new Color( 10526975 ) );
+    _shape_timeScale.setStateVariable( true );
+    _shape_timeScale.setName( "timeScale" );
+    _shape_timeScale.setNameOffset( 10, 0 );
+
+    add( _shape_avTimeMIRGPRS );
+    _shape_avTimeMIRGPRS.setShapeName( "_shape_avTimeMIRGPRS" );
+    _shape_avTimeMIRGPRS.setPos( 30, 170 );
+    _shape_avTimeMIRGPRS.setFillColor( new Color( 10526975 ) );
+    _shape_avTimeMIRGPRS.setStateVariable( true );
+    _shape_avTimeMIRGPRS.setName( "avTimeMIRGPRS" );
+    _shape_avTimeMIRGPRS.setNameOffset( 10, 0 );
+
+    add( _shape_avTimeMIRGSM );
+    _shape_avTimeMIRGSM.setShapeName( "_shape_avTimeMIRGSM" );
+    _shape_avTimeMIRGSM.setPos( 30, 190 );
+    _shape_avTimeMIRGSM.setFillColor( new Color( 10526975 ) );
+    _shape_avTimeMIRGSM.setStateVariable( true );
+    _shape_avTimeMIRGSM.setName( "avTimeMIRGSM" );
+    _shape_avTimeMIRGSM.setNameOffset( 10, 0 );
+
+    add( _shape_closeChannelMIR );
+    _shape_closeChannelMIR.setShapeName( "_shape_closeChannelMIR" );
+    _shape_closeChannelMIR.setPos( 30, 210 );
+    _shape_closeChannelMIR.setFillColor( new Color( 10526975 ) );
+    _shape_closeChannelMIR.setStateVariable( true );
+    _shape_closeChannelMIR.setName( "closeChannelMIR" );
+    _shape_closeChannelMIR.setNameOffset( 10, 0 );
+
+    add( _shape_iArray );
+    _shape_iArray.setShapeName( "_shape_iArray" );
+    _shape_iArray.setPos( 230, 210 );
+    _shape_iArray.setFillColor( new Color( 10526975 ) );
+    _shape_iArray.setStateVariable( true );
+    _shape_iArray.setName( "iArray" );
+    _shape_iArray.setNameOffset( 10, 0 );
+
+    add( _shape_timerTimeOut );
+    _shape_timerTimeOut.setShapeName( "_shape_timerTimeOut" );
+    _shape_timerTimeOut.setPos( 230, -60 );
+    _shape_timerTimeOut.setName( "timerTimeOut" );
+    _shape_timerTimeOut.setNameOffset( 10, 0 );
+  }
+
+  public void init() {
+    super.init();
+  }
+
+  public void update() {
+    super.update();
+  }
+
+    public ShapeTimer _shape_timerTimeOut = new ShapeTimer();
+    public ShapeVar _shape_iArray = new ShapeVar();
+    public ShapeVar _shape_closeChannelMIR = new ShapeVar();
+    public ShapeVar _shape_avTimeMIRGSM = new ShapeVar();
+    public ShapeVar _shape_avTimeMIRGPRS = new ShapeVar();
+    public ShapeVar _shape_timeScale = new ShapeVar();
+    public ShapeVar _shape_ID = new ShapeVar();
+    public ShapeVar _shape_currentChannel = new ShapeVar();
+    public ShapeVar _shape_indexEventJournal = new ShapeVar();
+    public ShapeVar _shape_indexArray = new ShapeVar();
+    public ShapeVar _shape_MIRdontAnswer = new ShapeVar();
+    public ShapeVar _shape_timeOutAnswer = new ShapeVar();
+    public ShapeVar _shape_closeChannel = new ShapeVar();
+    public ShapeVar _shape_openChannel = new ShapeVar();
+    public ShapeVar _shape_arrayEventJournal = new ShapeVar();
+    public ShapeVar _shape_arrayParametrs = new ShapeVar();
+    public ShapeVar _shape_arrayEnergy = new ShapeVar();
+    public ShapeVar _shape_arrayPowerProfile = new ShapeVar();
+    public ShapeVar _shape_indexMIR = new ShapeVar();
+    public ShapeStatechart _shape_oprosAlgoritm = new ShapeStatechart();
+    public ShapePort _shape_port = new ShapePort();
+    public ShapeBounds _object_MIRC01 = new ShapeBounds();
+    public ShapeComment _shape_textBox2_32 = new ShapeComment();
+    public ShapeComment _shape_textBox1_31 = new ShapeComment();
+    public ShapeComment _shape_textBox_13 = new ShapeComment();
+}
+
+  public _StructureGroup structure = null;
+  public Group createStructure() {
+    return structure != null ? structure : ( structure = new _StructureGroup() );
+  }
+
+// _XJ_SECTION_BEGIN( AO.Code )
+public static boolean startMIR = false;
+boolean allMIR,openCloseChannel,openIs,closeIs,MIRdontwork,MIRwork = false;
+boolean netMIR,estMIR,nextMIR,nextIArray,allIArray,estEvent,estEnergy,estPower, estDopPar,someNo = false;
+//int iArray = 0;
+boolean noManyArray,oprosManyArray,estManyArray,nextData,allData = false;
+
+double getTimeOut(){
+double i;
+double meanDistr = (timeOutOfSpeed(bitrate) + (maxTimeoutAnswer - timeOutOfSpeed(bitrate))/2);
+double sigmaDistr = maxTimeoutAnswer - meanDistr;
+i = DistrUniform.sample(timeOutOfSpeed(bitrate),maxTimeoutAnswer);
+return i;
+}
+
+static boolean checkVector(Vector a){
+boolean s = false;
+int j = 0;
+for (int i = 0;i<=a.size()-1;i++){
+if (((Double)a.get(i)).doubleValue() != 0)
+   j++;
+}
+if (j==0)
+   s=true;
+return s;
+};
+// _XJ_SECTION_END
+// Class inner statecharts
+// Statechart Type_oprosAlgoritm
+public Type_oprosAlgoritm oprosAlgoritm;
+class Type_oprosAlgoritm extends Statechart {
+
+  public static final short transition34 = 8;
+  public static final short transition31 = 9;
+  public static final short transition30 = 10;
+  public static final short transition17 = 11;
+  public static final short transition27 = 12;
+  public static final short transition25 = 13;
+  public static final short transition16 = 14;
+  public static final short transition14 = 15;
+  public static final short transition33 = 16;
+  public static final short transition32 = 17;
+  public static final short transition29 = 18;
+  public static final short transition37 = 19;
+  public static final short transition44 = 20;
+  public static final short transition43 = 21;
+  public static final short transition42 = 22;
+  public static final short transition40 = 23;
+  public static final short transition26 = 24;
+  public static final short transition24 = 25;
+  public static final short transition19 = 26;
+  public static final short transition18 = 27;
+  public static final short transition22 = 28;
+  public static final short transition41 = 29;
+  public static final short transition28 = 30;
+  public static final short transition48 = 31;
+  public static final short transition11 = 32;
+  public static final short transition10 = 33;
+  public static final short transition8 = 34;
+  public static final short transition39 = 35;
+  public static final short transition23 = 36;
+  public static final short transition36 = 37;
+  public static final short transition21 = 38;
+  public static final short transition6 = 39;
+  public static final short transition5 = 40;
+  public static final short transition46 = 41;
+  public static final short transition20 = 42;
+  public static final short transition15 = 43;
+  public static final short transition13 = 44;
+  public static final short transition9 = 45;
+  public static final short transition7 = 46;
+  public static final short transition4 = 47;
+  public static final short transition3 = 48;
+  public static final short transition2 = 49;
+  public static final short transition1 = 50;
+  public static final short transition = 51;
+  public static final short Та_м_ау_______а2 = 52;
+  public static final short Та_м_ау_______а1 = 53;
+  public static final short Та_м_ау_______а = 54;
+  public static final short п__GPRS = 55;
+  public static final short п__GSM = 56;
+  public static final short Счё_чи_________ча__ = 57;
+  public static final short Е_ё_ма__и_ = 58;
+  public static final short Сл_д__парам__р = 59;
+  public static final short Сл_д__ма__и_ = 60;
+  public static final short О____ = 61;
+  public static final short Запр__ = 62;
+  public static final short Жур_ал______и_ = 63;
+  public static final short ___рги__за__у__и = 64;
+  public static final short Ср_з__м______и = 65;
+  public static final short Д_п__парам__р_ = 66;
+  public static final short За_р__и____а__а_______ = 67;
+  public static final short За_р__и____а__а_запр___ = 68;
+  public static final short О__р__и____а__а_______ = 69;
+  public static final short Опр___парам__р__ = 70;
+  public static final short О__р__и____а__а_запр___ = 71;
+  public static final short _______пр__а_i_г__C_Т = 72;
+  public static final short В____м__а_ал__МИР______ = 73;
+  public static final short О_ида_и_ = 74;
+  public static final short Начал_ = 75;
+  public static final short За___ч____пр___МИР__ = 76;
+
+  protected Node[] getNodes() { return new Node[]{
+    new Node( 1, eInitialMarker, "pointer", -1, -1, 75 ),
+    new Node( 284, eDynamicChoice, "branch6", -1 ),
+    new Node( 285, eDynamicChoice, "branch2", -1 ),
+    new Node( 262, eDynamicChoice, "branch4", -1 ),
+    new Node( 263, eDynamicChoice, "branch5", -1 ),
+    new Node( 264, eDynamicChoice, "branch3", -1 ),
+    new Node( 3, eDynamicChoice, "branch", -1 ),
+    new Node( 2, eDynamicChoice, "branch1", -1 ),
+    new Node( 331, eTransition, "transition34", -1, 65, 5 ),
+    new Node( 329, eTransition, "transition31", -1, 64, 5 ),
+    new Node( 328, eTransition, "transition30", -1, 4, 64 ),
+    new Node( 327, eTransition, "transition17", -1, 4, 63 ),
+    new Node( 325, eTransition, "transition27", -1, 52, 67 ),
+    new Node( 323, eTransition, "transition25", -1, 53, 61 ),
+    new Node( 321, eTransition, "transition16", -1, 54, 69 ),
+    new Node( 320, eTransition, "transition14", -1, 67, 72 ),
+    new Node( 319, eTransition, "transition33", -1, 55, 6 ),
+    new Node( 317, eTransition, "transition32", -1, 56, 6 ),
+    new Node( 316, eTransition, "transition29", -1, 74, 55 ),
+    new Node( 310, eTransition, "transition37", -1, 60, 3 ),
+    new Node( 286, eTransition, "transition44", -1, 1, 57 ),
+    new Node( 287, eTransition, "transition43", -1, 1, 53 ),
+    new Node( 288, eTransition, "transition42", -1, 58, 62 ),
+    new Node( 289, eTransition, "transition40", -1, 2, 58 ),
+    new Node( 291, eTransition, "transition26", -1, 61, 59 ),
+    new Node( 293, eTransition, "transition24", -1, 62, 1 ),
+    new Node( 294, eTransition, "transition19", -1, 2, 62 ),
+    new Node( 295, eTransition, "transition18", -1, 2, 60 ),
+    new Node( 297, eTransition, "transition22", -1, 5, 2 ),
+    new Node( 298, eTransition, "transition41", -1, 59, 5 ),
+    new Node( 299, eTransition, "transition28", -1, 59, 5 ),
+    new Node( 300, eTransition, "transition48", -1, 57, 72 ),
+    new Node( 281, eTransition, "transition11", -1, 4, 65 ),
+    new Node( 280, eTransition, "transition10", -1, 4, 66 ),
+    new Node( 279, eTransition, "transition8", -1, 3, 68 ),
+    new Node( 265, eTransition, "transition39", -1, 4, 3 ),
+    new Node( 266, eTransition, "transition23", -1, 3, 4 ),
+    new Node( 271, eTransition, "transition36", -1, 66, 5 ),
+    new Node( 274, eTransition, "transition21", -1, 63, 5 ),
+    new Node( 261, eTransition, "transition6", -1, 7, 76 ),
+    new Node( 260, eTransition, "transition5", -1, 7, 71 ),
+    new Node( 200, eTransition, "transition46", -1, 68, 52 ),
+    new Node( 213, eTransition, "transition20", -1, 70, 3 ),
+    new Node( 224, eTransition, "transition15", -1, 69, 70 ),
+    new Node( 226, eTransition, "transition13", -1, 71, 54 ),
+    new Node( 231, eTransition, "transition9", -1, 72, 7 ),
+    new Node( 20, eTransition, "transition7", -1, 76, 74 ),
+    new Node( 9, eTransition, "transition4", -1, 74, 56 ),
+    new Node( 10, eTransition, "transition3", -1, 73, 74 ),
+    new Node( 11, eTransition, "transition2", -1, 6, 73 ),
+    new Node( 12, eTransition, "transition1", -1, 6, 7 ),
+    new Node( 13, eTransition, "transition", -1, 75, 74 ),
+    new Node( 326, eState, "Тайм-аут ответа2", -1 ),
+    new Node( 324, eState, "Тайм-аут ответа1", -1 ),
+    new Node( 322, eState, "Тайм-аут ответа", -1 ),
+    new Node( 315, eState, "по GPRS", -1 ),
+    new Node( 313, eState, "по GSM", -1 ),
+    new Node( 301, eState, "Счётчик не отвечает", -1 ),
+    new Node( 302, eState, "Ещё массив", -1 ),
+    new Node( 303, eState, "След. параметр", -1 ),
+    new Node( 305, eState, "След. массив", -1 ),
+    new Node( 307, eState, "Ответ", -1 ),
+    new Node( 308, eState, "Запрос", -1 ),
+    new Node( 275, eState, "Журнал событий", -1 ),
+    new Node( 276, eState, "Энергия за сутки", -1 ),
+    new Node( 277, eState, "Срезы мощности", -1 ),
+    new Node( 278, eState, "Доп. параметры", -1 ),
+    new Node( 234, eState, "Закрытие сеанса(ответ)", -1 ),
+    new Node( 235, eState, "Закрытие сеанса(запрос)", -1 ),
+    new Node( 247, eState, "Открытие сеанса(ответ)", -1 ),
+    new Node( 255, eState, "Опрос параметров", -1 ),
+    new Node( 256, eState, "Открытие сеанса(запрос)", -1 ),
+    new Node( 257, eState, "Конец опроса i-го CЭТ", -1 ),
+    new Node( 15, eState, "В этом канале МИРов нет", -1 ),
+    new Node( 16, eState, "Ожидание", -1 ),
+    new Node( 19, eState, "Начало", -1 ),
+    new Node( 14, eState, "Закончен опрос МИРов", -1 ),
+  }; }
+  protected void calculate( int node, int codeType ) {
+    switch ( node ) {
+// Branch State: branch6
+      case 1: switch ( codeType ) {
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.284.Action )
+
+ if(randomTrue(verNoAnswer/100))
+{MIRdontwork=true;}
+else
+{MIRwork=true;}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Branch State: branch2
+      case 2: switch ( codeType ) {
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.285.Action )
+if (iArray == 0)
+{
+   if (indexArray < arrayEventJournal.getColumnDimension()/2)
+      {
+       if (indexArray%2==0)
+         {
+
+           nextData=true;
+           noManyArray = true;
+           estManyArray = false;
+         }
+       else if (indexArray%2==1)
+           {
+           if (indexEventJournal< 10)
+              {
+                oprosManyArray=true;
+                noManyArray = false;
+                estManyArray = true;
+              }
+           else if (indexEventJournal==10)
+                   {
+                      oprosManyArray=true;
+                      noManyArray = true;
+                      estManyArray = false;
+                   }
+           }
+
+      }
+
+   else
+      {allData = true;}
+}
+
+else if (iArray==1)
+{
+ if (indexArray < arrayEnergy.getColumnDimension()/2)
+      {nextData = true;
+       noManyArray = true;
+      }
+   else
+      {allData = true;}
+}
+else if (iArray==2)
+{
+ if (indexArray < arrayPowerProfile.getColumnDimension()/2)
+      {
+       if (indexArray%2==0)
+          {
+           nextData=true;
+           noManyArray = true;
+           estManyArray = false;
+          }
+       else if(indexArray%2==1)
+              {
+               if (indexEventJournal< 12)
+                  {
+                   oprosManyArray=true;
+                   noManyArray = false;
+                   estManyArray = true;
+                  }
+               else if (indexEventJournal==12)
+                       {
+                        oprosManyArray=true;
+                        noManyArray = true;
+                        estManyArray = false;
+                       }
+
+               }
+
+      }
+
+
+        else
+      {allData = true;}
+
+}
+else if (iArray==3)
+{
+ if (indexArray < arrayParametrs.getColumnDimension()/2)
+      {nextData = true;
+   noManyArray = true;
+      }
+   else
+      {allData = true;}
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Branch State: branch4
+      case 3: switch ( codeType ) {
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.262.Action )
+
+if (iArray<=3)
+{nextIArray=true;}
+else
+{allIArray=true;}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Branch State: branch5
+      case 4: switch ( codeType ) {
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.263.Action )
+if ( ((Double)parReqData.get(iArray)).doubleValue()==1 & iArray ==0 )
+{estEvent = true;}
+else if (((Double)parReqData.get(iArray)).doubleValue()==1 & iArray ==1)
+{estEnergy = true;}
+else if (((Double)parReqData.get(iArray)).doubleValue()==1 & iArray ==2)
+{estPower = true;}
+else if (((Double)parReqData.get(iArray)).doubleValue()==1 & iArray ==3)
+{estDopPar = true;}
+else
+{someNo = true;}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Branch State: branch3
+      case 5: switch ( codeType ) {
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.264.Action )
+if (openCloseChannel){
+openIs = true;
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Branch State: branch
+      case 6: switch ( codeType ) {
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.3.Action )
+model m = (model)getOwner();
+if (currentChannel==1)
+   {
+    if (((Double)m.parKolMasGSM.get(2*ID+1)).doubleValue()==0)
+       {netMIR=true;}
+    else
+       {estMIR=true;}
+   }
+else if (currentChannel==2)
+   {
+    if (((Double)m.parKolMasGPRS.get(2*ID+1)).doubleValue()==0)
+       {netMIR=true;}
+    else
+       {estMIR=true;}
+   }
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Branch State: branch1
+      case 7: switch ( codeType ) {
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.2.Action )
+model m = (model)getOwner();
+estMIR = false;
+if (currentChannel==1)
+   {
+    if (indexMIR <= ((Double)m.parKolMasGSM.get(2*ID+1)).doubleValue() )
+       {nextMIR =true;}
+    else
+       {allMIR = true;}
+   }
+else if (currentChannel==2)
+   {
+    if (indexMIR <= ((Double)m.parKolMasGPRS.get(2*ID+1)).doubleValue() )
+       {nextMIR =true;}
+    else
+       {allMIR = true;}
+   }
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Transition: transition30
+      case 10: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.328.Guard )
+estEnergy
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition17
+      case 11: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.327.Guard )
+estEvent
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition27
+      case 12: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.325.Trigger )
+"nextStep"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition25
+      case 13: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.323.Trigger )
+"nextStep"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition16
+      case 14: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.321.Trigger )
+"nextStep"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition14
+      case 15: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.320.Trigger )
+"receiveData"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition32
+      case 17: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.317.Trigger )
+"callOK"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition29
+      case 18: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.316.Trigger )
+"startMIRGPRS"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition44
+      case 20: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.286.Guard )
+MIRdontwork
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition43
+      case 21: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.287.Guard )
+MIRwork
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition40
+      case 23: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.289.Guard )
+oprosManyArray
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition26
+      case 24: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.291.Trigger )
+"receiveData"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition24
+      case 25: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.293.Trigger )
+"receiveData"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition19
+      case 26: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.294.Guard )
+nextData
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition18
+      case 27: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.295.Guard )
+allData
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition22
+      case 28: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.297.Guard )
+openIs
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition41
+      case 29: switch ( codeType ) {
+        case eTrigger: nodeTriggerChangeEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.298.Trigger )
+estManyArray == true
+// _XJ_SECTION_END
+          ); break;
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.298.Action )
+indexEventJournal++;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Transition: transition28
+      case 30: switch ( codeType ) {
+        case eTrigger: nodeTriggerChangeEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.299.Trigger )
+noManyArray == true
+// _XJ_SECTION_END
+          ); break;
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.299.Action )
+indexArray++;
+indexEventJournal = 1;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Transition: transition11
+      case 32: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.281.Guard )
+estPower
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition10
+      case 33: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.280.Guard )
+estDopPar
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition8
+      case 34: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.279.Guard )
+allIArray
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition39
+      case 35: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.265.Guard )
+someNo
+// _XJ_SECTION_END
+          ); break;
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.265.Action )
+iArray++;
+ someNo = false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Transition: transition23
+      case 36: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.266.Guard )
+nextIArray
+// _XJ_SECTION_END
+          ); break;
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.266.Action )
+nextIArray = false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Transition: transition6
+      case 39: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.261.Guard )
+allMIR
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition5
+      case 40: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.260.Guard )
+nextMIR
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition46
+      case 41: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.200.Trigger )
+"receiveData"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition15
+      case 43: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.224.Trigger )
+"receiveData"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition13
+      case 44: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.226.Trigger )
+"receiveData"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition7
+      case 46: switch ( codeType ) {
+        case eAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.20.Action )
+model m = (model)getOwner();
+if (currentChannel==1)
+{
+ for(int i=0;i<m.parKolMasGSM.size()/2;i++)
+    {
+     if (ID==i)
+       {
+          if (m.mIRGSM.item(i).allMIR & m.sETGSM.item(i).allSET)
+             {
+                  m.mIRGSM.item(i).allMIR=false;
+                  m.sETGSM.item(i).allSET=false;
+                  m.gSM.item(i).GSM.fireEvent("callEND");
+                // model.kolFinishGSM++;
+              //   m.gSM.item(i).GSM.fireEvent("callEND");
+           /*   if (model.kolFinishGSM==(model.parKolMasGSM.size())/2)
+                 {
+                 m.gSM.item(i).GSM.fireEvent("callEND");
+                 //model.finishAllGSM=true;
+                 }*/
+             }
+          else if (m.mIRGSM.item(i).allMIR==true & m.sETGSM.item(i).allSET==false)
+             {
+               m.sETGSM.item(i).oprosAlgoritm.fireEvent("startSETGSM");
+             }
+
+
+
+
+
+        }
+    }
+}
+else if (currentChannel==2)
+{
+ for(int i=0;i<m.parKolMasGPRS.size()/2;i++)
+    {
+     if (ID==i)
+       {
+          if (m.mIRGPRS.item(i).allMIR & m.sETGPRS.item(i).allSET)
+             {
+                  m.mIRGPRS.item(i).allMIR=false;
+                  m.sETGPRS.item(i).allSET=false;
+                 model.kolFinishGPRS++;
+              if (model.kolFinishGPRS==(model.parKolMasGPRS.size())/2)
+                 {
+                  model.finishAllGPRS=true;
+
+                 }
+             }
+          else if (m.mIRGPRS.item(i).allMIR==true & m.sETGPRS.item(i).allSET==false)
+             {
+               m.sETGPRS.item(i).oprosAlgoritm.fireEvent("startSETGPRS");
+             }
+
+
+
+
+
+        }
+    }
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// Transition: transition4
+      case 47: switch ( codeType ) {
+        case eTrigger: nodeTriggerSignalEvent(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.9.Trigger )
+"startMIRGSM"
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition2
+      case 49: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.11.Guard )
+netMIR
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// Transition: transition1
+      case 50: switch ( codeType ) {
+        case eGuard: nodeGuard(
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.12.Guard )
+estMIR
+// _XJ_SECTION_END
+          ); break;
+      } break;
+// State: Тайм-аут ответа2
+      case 52: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.326.EntryAction )
+timeOutAnswer=getTimeOut();
+//timerTimeOut.restart(timeOutAnswer/timeScale);
+//timerTimeOut.restart(timeOutAnswer);
+timerTimeOut.restart(0);
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Тайм-аут ответа1
+      case 53: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.324.EntryAction )
+timeOutAnswer=getTimeOut();
+timerTimeOut.restart(0);
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Тайм-аут ответа
+      case 54: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.322.EntryAction )
+timeOutAnswer=getTimeOut();
+//timerTimeOut.restart(timeOutAnswer/timeScale);
+//timerTimeOut.restart(timeOutAnswer);
+timerTimeOut.restart(0);
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: по GPRS
+      case 55: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.315.EntryAction )
+currentChannel=2;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: по GSM
+      case 56: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.313.EntryAction )
+currentChannel=1;
+model m = (model)getOwner();
+for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
+{
+     if (ID==i)
+       {
+        m.gSM.item(i).currentCounter=2;
+        if (m.gSM.item(i).statusCalling==false)
+           {m.gSM.item(i).GSM.fireEvent("startGSM");}
+        else if (m.gSM.item(i).statusCalling)
+           {this.fireEvent("callOK");}
+
+
+       }
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Счётчик не отвечает
+      case 57: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.301.EntryAction )
+MIRdontwork = false;
+MIRdontAnswer++;
+;
+// _XJ_SECTION_END
+          } break;
+        case eExitAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.301.ExitAction )
+indexArray = 0;
+indexEventJournal = 1;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Ещё массив
+      case 58: switch ( codeType ) {
+        case eExitAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.302.ExitAction )
+oprosManyArray = false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: След. массив
+      case 60: switch ( codeType ) {
+        case eExitAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.305.ExitAction )
+allData = false;
+indexArray = 0;
+iArray++;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Ответ
+      case 61: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.307.EntryAction )
+MIRwork = false;
+model m = (model)getOwner();
+if (currentChannel==1)
+{
+  for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        if (iArray == 0)
+        {
+          m.gSM.item(i).transferData=arrayEventJournal.get(0,2*(indexArray+1)-1);
+        }
+        else if (iArray==1)
+        {
+          m.gSM.item(i).transferData=arrayEnergy.get(0,2*(indexArray+1)-1);
+        }
+        else if (iArray==2)
+        {
+          m.gSM.item(i).transferData=arrayPowerProfile.get(0,2*(indexArray+1)-1);
+        }
+        else if (iArray==3)
+        {
+          m.gSM.item(i).transferData=arrayParametrs.get(0,2*(indexArray+1)-1);
+        }
+   m.gSM.item(i).timeOutFromMIR=timeOutAnswer;
+        m.gSM.item(i).GSM.fireEvent("sendData");
+       }
+    }
+}
+else if (currentChannel==2)
+{
+ for(int i=0;i<(m.parKolMasGPRS.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        if (iArray == 0)
+        {
+          m.gPRS.item(i).transferData=arrayEventJournal.get(0,2*(indexArray+1)-1);
+        }
+        else if (iArray==1)
+        {
+          m.gPRS.item(i).transferData=arrayEnergy.get(0,2*(indexArray+1)-1);
+        }
+        else if (iArray==2)
+        {
+          m.gPRS.item(i).transferData=arrayPowerProfile.get(0,2*(indexArray+1)-1);
+        }
+        else if (iArray==3)
+        {
+          m.gPRS.item(i).transferData=arrayParametrs.get(0,2*(indexArray+1)-1);
+        }
+        m.gPRS.item(i).timeOutFromMIR=timeOutAnswer;
+        m.gPRS.item(i).currentCounter=2;
+        m.gPRS.item(i).transferCondition=2;
+        m.gPRS.item(i).GPRS.fireEvent("sendData");
+       }
+    }
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Запрос
+      case 62: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.308.EntryAction )
+model m = (model)getOwner();
+if (currentChannel==1)
+{
+  for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        if (iArray == 0)
+        {
+          m.gSM.item(i).transferData=arrayEventJournal.get(0,2*(indexArray));
+        }
+        else if (iArray==1)
+        {
+          m.gSM.item(i).transferData=arrayEnergy.get(0,2*(indexArray));
+        }
+        else if (iArray==2)
+        {
+          m.gSM.item(i).transferData=arrayPowerProfile.get(0,2*(indexArray));
+        }
+        else if (iArray==3)
+        {
+          m.gSM.item(i).transferData=arrayParametrs.get(0,2*(indexArray));
+        }
+
+        m.gSM.item(i).GSM.fireEvent("sendData");
+       }
+    }
+}
+else if (currentChannel==2)
+{
+ for(int i=0;i<(m.parKolMasGPRS.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        if (iArray == 0)
+        {
+          m.gPRS.item(i).transferData=arrayEventJournal.get(0,2*(indexArray));
+        }
+        else if (iArray==1)
+        {
+          m.gPRS.item(i).transferData=arrayEnergy.get(0,2*(indexArray));
+        }
+        else if (iArray==2)
+        {
+          m.gPRS.item(i).transferData=arrayPowerProfile.get(0,2*(indexArray));
+        }
+        else if (iArray==3)
+        {
+          m.gPRS.item(i).transferData=arrayParametrs.get(0,2*(indexArray));
+        }
+        m.gPRS.item(i).currentCounter=2;
+        m.gPRS.item(i).transferCondition=1;
+        m.gPRS.item(i).GPRS.fireEvent("sendData");
+       }
+    }
+}
+;
+// _XJ_SECTION_END
+          } break;
+        case eExitAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.308.ExitAction )
+nextData = false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Журнал событий
+      case 63: switch ( codeType ) {
+        case eExitAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.275.ExitAction )
+estEvent = false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Энергия за сутки
+      case 64: switch ( codeType ) {
+        case eExitAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.276.ExitAction )
+estEnergy = false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Срезы мощности
+      case 65: switch ( codeType ) {
+        case eExitAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.277.ExitAction )
+estPower = false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Доп. параметры
+      case 66: switch ( codeType ) {
+        case eExitAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.278.ExitAction )
+estDopPar = false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Закрытие сеанса(ответ)
+      case 67: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.234.EntryAction )
+model m = (model)getOwner();
+if (currentChannel==1)
+{
+  for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        m.gSM.item(i).timeOutFromMIR=timeOutAnswer;
+        m.gSM.item(i).transferData=closeChannel.get(0,1);
+        m.gSM.item(i).GSM.fireEvent("sendData");
+       }
+    }
+}
+else if (currentChannel==2)
+{
+ for(int i=0;i<(m.parKolMasGPRS.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        m.gPRS.item(i).timeOutFromMIR=timeOutAnswer;
+        m.gPRS.item(i).currentCounter=2;
+        m.gPRS.item(i).transferCondition=2;
+        m.gPRS.item(i).transferData=closeChannel.get(0,1);
+        m.gPRS.item(i).GPRS.fireEvent("sendData");
+       }
+    }
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Закрытие сеанса(запрос)
+      case 68: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.235.EntryAction )
+model m = (model)getOwner();
+if (currentChannel==1)
+{
+  for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        m.gSM.item(i).transferData=closeChannel.get(0,0);
+        m.gSM.item(i).GSM.fireEvent("sendData");
+       }
+    }
+}
+else if (currentChannel==2)
+{
+ for(int i=0;i<(m.parKolMasGPRS.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        m.gPRS.item(i).currentCounter=2;
+        m.gPRS.item(i).transferCondition=1;
+        m.gPRS.item(i).transferData=closeChannel.get(0,0);
+        m.gPRS.item(i).GPRS.fireEvent("sendData");
+       }
+    }
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Открытие сеанса(ответ)
+      case 69: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.247.EntryAction )
+openCloseChannel = true;
+model m = (model)getOwner();
+if (currentChannel==1)
+{
+  for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        m.gSM.item(i).timeOutFromMIR=timeOutAnswer;
+        m.gSM.item(i).transferData=openChannel.get(0,1);
+        m.gSM.item(i).GSM.fireEvent("sendData");
+       }
+    }
+}
+else if (currentChannel==2)
+{
+ for(int i=0;i<(m.parKolMasGPRS.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        m.gPRS.item(i).timeOutFromMIR=timeOutAnswer;
+        m.gPRS.item(i).currentCounter=2;
+        m.gPRS.item(i).transferCondition=2;
+        m.gPRS.item(i).transferData=openChannel.get(0,1);
+        m.gPRS.item(i).GPRS.fireEvent("sendData");
+       }
+    }
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Опрос параметров
+      case 70: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.255.EntryAction )
+
+
+if (parReqData == null)
+{
+  Engine.stop();
+
+  JOptionPane.showMessageDialog(Engine.getAnimation(), msg, atten, JOptionPane.WARNING_MESSAGE);
+
+//  JOptionPane.showMessageDialog(Engine.getAnimation(),"Задайте список опрашиваемых параметров","Внимание!!!",JOptionPane.WARNING_MESSAGE);
+}
+else if (checkVector(parReqData))
+
+{
+  Engine.stop();
+
+  JOptionPane.showMessageDialog(Engine.getAnimation(), msg, atten, JOptionPane.WARNING_MESSAGE);
+
+// JOptionPane.showMessageDialog(Engine.getAnimation(),"Задайте список опрашиваемых параметров","Внимание!!!",JOptionPane.WARNING_MESSAGE);}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Открытие сеанса(запрос)
+      case 71: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.256.EntryAction )
+nextMIR=false;
+model m = (model)getOwner();
+if (currentChannel==1)
+{
+  for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        m.gSM.item(i).transferData=openChannel.get(0,0);
+        m.gSM.item(i).GSM.fireEvent("sendData");
+       }
+    }
+}
+else if (currentChannel==2)
+{
+ for(int i=0;i<(m.parKolMasGPRS.size()/2);i++)
+    {
+     if (ID==i)
+       {
+        m.gPRS.item(i).currentCounter=2;
+        m.gPRS.item(i).transferCondition=1;
+        m.gPRS.item(i).transferData=openChannel.get(0,0);
+        m.gPRS.item(i).GPRS.fireEvent("sendData");
+       }
+    }
+}
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Конец опроса i-го CЭТ
+      case 72: switch ( codeType ) {
+        case eExitAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.257.ExitAction )
+indexMIR++;
+iArray = 0;
+allIArray=false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: В этом канале МИРов нет
+      case 73: switch ( codeType ) {
+        case eEntryAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.15.EntryAction )
+allMIR = true;
+ model m = (model)getOwner();
+if (currentChannel==1)
+{
+ for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
+    {
+     if (ID==i)
+       {
+         if (m.mIRGSM.item(i).allMIR & m.sETGSM.item(i).allSET)
+             {
+               m.mIRGSM.item(i).allMIR=false;
+                  m.sETGSM.item(i).allSET=false;
+                  m.gSM.item(i).GSM.fireEvent("callEND");
+              }
+          else
+             {
+               m.sETGSM.item(i).oprosAlgoritm.fireEvent("startSETGSM");
+             }
+       }
+    }
+}
+else if (currentChannel==2)
+{
+ for(int i=0;i<(m.parKolMasGPRS.size()/2);i++)
+    {
+     if (ID==i)
+       {
+         if (m.mIRGPRS.item(i).allMIR & m.sETGPRS.item(i).allSET)
+             {
+               m.mIRGPRS.item(i).allMIR=false;
+                  m.sETGPRS.item(i).allSET=false;
+              model.kolFinishGPRS++;
+              if (model.kolFinishGPRS==(model.parKolMasGPRS.size())/2)
+                 {model.finishAllGPRS=true;
+
+                 }
+             }
+          else
+             {
+               m.sETGPRS.item(i).oprosAlgoritm.fireEvent("startSETGPRS");
+             }
+       }
+    }
+}
+;
+// _XJ_SECTION_END
+          } break;
+        case eExitAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.15.ExitAction )
+
+netMIR = false;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+// State: Закончен опрос МИРов
+      case 76: switch ( codeType ) {
+        case eExitAction: {
+// _XJ_SECTION_BEGIN( SC.oprosAlgoritm.14.ExitAction )
+
+
+indexMIR = 1;
+;
+// _XJ_SECTION_END
+          } break;
+      } break;
+    }
+  }
+
+} // end of the Type_oprosAlgoritm statechart
+}

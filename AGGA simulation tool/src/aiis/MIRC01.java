@@ -16,8 +16,16 @@ import javax.swing.*;
 // _XJ_SECTION_END
 public class MIRC01 extends ActiveObject
  {
+   public static boolean langMIR = false;
 
-  public static void main( String[] args ) {
+   String msgRus1 = "Задайте список опрашиваемых параметров";
+   String alertRus1  = "Внимание!";
+
+   String msgEng1 = "Please, set the list of the requested parameters";
+   String alertEng1  = "Attention!";
+
+
+   public static void main( String[] args ) {
     System.out.println( "...started..." );
     try {
       Engine.setRoot( new MIRC01() );
@@ -38,7 +46,7 @@ public class MIRC01 extends ActiveObject
 
   protected void getEquations() {
     addFE( _ref_closeChannel, new VectorFunction() {
-      public Matrix value() { return toMatrix( 
+      public Matrix value() { return toMatrix(
 // _XJ_SECTION_BEGIN( AO.Equation.0.closeChannel )
 mul(8,matrixByRows( 1, 2, new double[]{ 10,11 } ))
 // _XJ_SECTION_END
@@ -46,7 +54,7 @@ mul(8,matrixByRows( 1, 2, new double[]{ 10,11 } ))
       public String toString() { return "closeChannel = 8*[10,11]"; }
     }, false, null );
     addFE( _ref_openChannel, new VectorFunction() {
-      public Matrix value() { return toMatrix( 
+      public Matrix value() { return toMatrix(
 // _XJ_SECTION_BEGIN( AO.Equation.26.openChannel )
 mul(8,matrixByRows( 1, 2, new double[]{ 19,11 } ))
 // _XJ_SECTION_END
@@ -54,7 +62,7 @@ mul(8,matrixByRows( 1, 2, new double[]{ 19,11 } ))
       public String toString() { return "openChannel = 8*[19,11]"; }
     }, false, null );
     addFE( _ref_arrayEventJournal, new VectorFunction() {
-      public Matrix value() { return toMatrix( 
+      public Matrix value() { return toMatrix(
 // _XJ_SECTION_BEGIN( AO.Equation.51.arrayEventJournal )
 mul(8,matrixByRows( 1, 44, new double[]{ 10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23 } ))
 // _XJ_SECTION_END
@@ -62,7 +70,7 @@ mul(8,matrixByRows( 1, 44, new double[]{ 10,13,12,23,10,13,12,23,10,13,12,23,10,
       public String toString() { return "arrayEventJournal = 8*[10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23,10,13,12,23]"; }
     }, false, null );
     addFE( _ref_arrayParametrs, new VectorFunction() {
-      public Matrix value() { return toMatrix( 
+      public Matrix value() { return toMatrix(
 // _XJ_SECTION_BEGIN( AO.Equation.208.arrayParametrs )
 mul(8,matrixByRows( 1, 12, new double[]{ 11,112,11,13,11,15,11,15,11,17,11,37 } ))
 // _XJ_SECTION_END
@@ -70,7 +78,7 @@ mul(8,matrixByRows( 1, 12, new double[]{ 11,112,11,13,11,15,11,15,11,17,11,37 } 
       public String toString() { return "arrayParametrs = 8*[11,112,11,13,11,15,11,15,11,17,11,37]"; }
     }, false, null );
     addFE( _ref_arrayEnergy, new VectorFunction() {
-      public Matrix value() { return toMatrix( 
+      public Matrix value() { return toMatrix(
 // _XJ_SECTION_BEGIN( AO.Equation.267.arrayEnergy )
 mul(8,matrixByRows( 1, 2, new double[]{ 12,27 } ))
 // _XJ_SECTION_END
@@ -78,7 +86,7 @@ mul(8,matrixByRows( 1, 2, new double[]{ 12,27 } ))
       public String toString() { return "arrayEnergy = 8*[12,27]"; }
     }, false, null );
     addFE( _ref_arrayPowerProfile, new VectorFunction() {
-      public Matrix value() { return toMatrix( 
+      public Matrix value() { return toMatrix(
 // _XJ_SECTION_BEGIN( AO.Equation.292.arrayPowerProfile )
 mul(8,matrixByRows( 1, 4, new double[]{ 10,13,14,53 } ))
 // _XJ_SECTION_END
@@ -163,9 +171,9 @@ mul(8,matrixByRows( 1, 4, new double[]{ 10,13,14,53 } ))
     startThread( oprosAlgoritm, "oprosAlgoritm" );
   }
 
-  public static class _Type_lookupTable_timeOutOfSpeed extends LookupTable { 
+  public static class _Type_lookupTable_timeOutOfSpeed extends LookupTable {
     public _Type_lookupTable_timeOutOfSpeed() {
-      super( 
+      super(
     "timeOutOfSpeed",    LookupTable.SPLINE,
     LookupTable.EXTRAPOLATE, 0.0,
     new double[]{ 1200, 2400, 4800, 9600 },
@@ -184,7 +192,7 @@ mul(8,matrixByRows( 1, 4, new double[]{ 10,13,14,53 } ))
   }
 
   // Class parameters
-  public static void set_bitrate( 
+  public static void set_bitrate(
 // _XJ_SECTION_BEGIN( AO.ParameterType.0 )
 double
 // _XJ_SECTION_END
@@ -196,16 +204,16 @@ double
     return bitrate;
   }
 
-  public static 
+  public static
 // _XJ_SECTION_BEGIN( AO.ParameterType.0 )
 double
 // _XJ_SECTION_END
- bitrate = 
+ bitrate =
 // _XJ_SECTION_BEGIN( AO.ParameterValue.0 )
 9600
 // _XJ_SECTION_END
 ;
-  public static void set_parReqData( 
+  public static void set_parReqData(
 // _XJ_SECTION_BEGIN( AO.ParameterType.1 )
 Vector
 // _XJ_SECTION_END
@@ -217,12 +225,12 @@ Vector
     return parReqData;
   }
 
-  public static 
+  public static
 // _XJ_SECTION_BEGIN( AO.ParameterType.1 )
 Vector
 // _XJ_SECTION_END
  parReqData;
-  public static void set_maxTimeoutAnswer( 
+  public static void set_maxTimeoutAnswer(
 // _XJ_SECTION_BEGIN( AO.ParameterType.2 )
 double
 // _XJ_SECTION_END
@@ -234,16 +242,16 @@ double
     return maxTimeoutAnswer;
   }
 
-  public static 
+  public static
 // _XJ_SECTION_BEGIN( AO.ParameterType.2 )
 double
 // _XJ_SECTION_END
- maxTimeoutAnswer = 
+ maxTimeoutAnswer =
 // _XJ_SECTION_BEGIN( AO.ParameterValue.2 )
 1
 // _XJ_SECTION_END
 ;
-  public static void set_verNoAnswer( 
+  public static void set_verNoAnswer(
 // _XJ_SECTION_BEGIN( AO.ParameterType.3 )
 double
 // _XJ_SECTION_END
@@ -255,11 +263,11 @@ double
     return verNoAnswer;
   }
 
-  public static 
+  public static
 // _XJ_SECTION_BEGIN( AO.ParameterType.3 )
 double
 // _XJ_SECTION_END
- verNoAnswer = 
+ verNoAnswer =
 // _XJ_SECTION_BEGIN( AO.ParameterValue.3 )
 5
 // _XJ_SECTION_END
@@ -409,6 +417,8 @@ public class _IconGroup extends Group {
 
 // Group class for group _StructureGroup
 public class _StructureGroup extends Group {
+
+
 
   public void setup() {
     setScale( 0.8 );
@@ -657,7 +667,7 @@ public static boolean startMIR = false;
 boolean allMIR,openCloseChannel,openIs,closeIs,MIRdontwork,MIRwork = false;
 boolean netMIR,estMIR,nextMIR,nextIArray,allIArray,estEvent,estEnergy,estPower, estDopPar,someNo = false;
 //int iArray = 0;
-boolean noManyArray,oprosManyArray,estManyArray,nextData,allData = false; 
+boolean noManyArray,oprosManyArray,estManyArray,nextData,allData = false;
 
 double getTimeOut(){
 double i;
@@ -837,7 +847,7 @@ class Type_oprosAlgoritm extends Statechart {
     switch ( node ) {
 // Branch State: branch6
       case 1: switch ( codeType ) {
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.284.Action )
 
  if(randomTrue(verNoAnswer/100))
@@ -850,7 +860,7 @@ else
       } break;
 // Branch State: branch2
       case 2: switch ( codeType ) {
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.285.Action )
 if (iArray == 0)
 {
@@ -858,7 +868,7 @@ if (iArray == 0)
       {
        if (indexArray%2==0)
          {
-          
+
            nextData=true;
            noManyArray = true;
            estManyArray = false;
@@ -866,7 +876,7 @@ if (iArray == 0)
        else if (indexArray%2==1)
            {
            if (indexEventJournal< 10)
-              { 
+              {
                 oprosManyArray=true;
                 noManyArray = false;
                 estManyArray = true;
@@ -880,7 +890,7 @@ if (iArray == 0)
            }
 
       }
- 
+
    else
       {allData = true;}
 }
@@ -907,7 +917,7 @@ else if (iArray==2)
        else if(indexArray%2==1)
               {
                if (indexEventJournal< 12)
-                  { 
+                  {
                    oprosManyArray=true;
                    noManyArray = false;
                    estManyArray = true;
@@ -918,12 +928,12 @@ else if (iArray==2)
                         noManyArray = true;
                         estManyArray = false;
                        }
-   
+
                }
-      
+
       }
-      
-      
+
+
         else
       {allData = true;}
 
@@ -943,7 +953,7 @@ else if (iArray==3)
       } break;
 // Branch State: branch4
       case 3: switch ( codeType ) {
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.262.Action )
 
 if (iArray<=3)
@@ -956,7 +966,7 @@ else
       } break;
 // Branch State: branch5
       case 4: switch ( codeType ) {
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.263.Action )
 if ( ((Double)parReqData.get(iArray)).doubleValue()==1 & iArray ==0 )
 {estEvent = true;}
@@ -966,7 +976,7 @@ else if (((Double)parReqData.get(iArray)).doubleValue()==1 & iArray ==2)
 {estPower = true;}
 else if (((Double)parReqData.get(iArray)).doubleValue()==1 & iArray ==3)
 {estDopPar = true;}
-else 
+else
 {someNo = true;}
 ;
 // _XJ_SECTION_END
@@ -974,7 +984,7 @@ else
       } break;
 // Branch State: branch3
       case 5: switch ( codeType ) {
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.264.Action )
 if (openCloseChannel){
 openIs = true;
@@ -985,7 +995,7 @@ openIs = true;
       } break;
 // Branch State: branch
       case 6: switch ( codeType ) {
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.3.Action )
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -1008,7 +1018,7 @@ else if (currentChannel==2)
       } break;
 // Branch State: branch1
       case 7: switch ( codeType ) {
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.2.Action )
 model m = (model)getOwner();
 estMIR = false;
@@ -1048,7 +1058,7 @@ estEvent
       } break;
 // Transition: transition27
       case 12: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.325.Trigger )
 "nextStep"
 // _XJ_SECTION_END
@@ -1056,7 +1066,7 @@ estEvent
       } break;
 // Transition: transition25
       case 13: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.323.Trigger )
 "nextStep"
 // _XJ_SECTION_END
@@ -1064,7 +1074,7 @@ estEvent
       } break;
 // Transition: transition16
       case 14: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.321.Trigger )
 "nextStep"
 // _XJ_SECTION_END
@@ -1072,7 +1082,7 @@ estEvent
       } break;
 // Transition: transition14
       case 15: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.320.Trigger )
 "receiveData"
 // _XJ_SECTION_END
@@ -1080,7 +1090,7 @@ estEvent
       } break;
 // Transition: transition32
       case 17: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.317.Trigger )
 "callOK"
 // _XJ_SECTION_END
@@ -1088,7 +1098,7 @@ estEvent
       } break;
 // Transition: transition29
       case 18: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.316.Trigger )
 "startMIRGPRS"
 // _XJ_SECTION_END
@@ -1120,7 +1130,7 @@ oprosManyArray
       } break;
 // Transition: transition26
       case 24: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.291.Trigger )
 "receiveData"
 // _XJ_SECTION_END
@@ -1128,7 +1138,7 @@ oprosManyArray
       } break;
 // Transition: transition24
       case 25: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.293.Trigger )
 "receiveData"
 // _XJ_SECTION_END
@@ -1160,12 +1170,12 @@ openIs
       } break;
 // Transition: transition41
       case 29: switch ( codeType ) {
-        case eTrigger: nodeTriggerChangeEvent( 
+        case eTrigger: nodeTriggerChangeEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.298.Trigger )
 estManyArray == true
 // _XJ_SECTION_END
           ); break;
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.298.Action )
 indexEventJournal++;
 ;
@@ -1174,12 +1184,12 @@ indexEventJournal++;
       } break;
 // Transition: transition28
       case 30: switch ( codeType ) {
-        case eTrigger: nodeTriggerChangeEvent( 
+        case eTrigger: nodeTriggerChangeEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.299.Trigger )
 noManyArray == true
 // _XJ_SECTION_END
           ); break;
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.299.Action )
 indexArray++;
 indexEventJournal = 1;
@@ -1218,7 +1228,7 @@ allIArray
 someNo
 // _XJ_SECTION_END
           ); break;
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.265.Action )
 iArray++;
  someNo = false;
@@ -1233,7 +1243,7 @@ iArray++;
 nextIArray
 // _XJ_SECTION_END
           ); break;
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.266.Action )
 nextIArray = false;
 ;
@@ -1258,7 +1268,7 @@ nextMIR
       } break;
 // Transition: transition46
       case 41: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.200.Trigger )
 "receiveData"
 // _XJ_SECTION_END
@@ -1266,7 +1276,7 @@ nextMIR
       } break;
 // Transition: transition15
       case 43: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.224.Trigger )
 "receiveData"
 // _XJ_SECTION_END
@@ -1274,7 +1284,7 @@ nextMIR
       } break;
 // Transition: transition13
       case 44: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.226.Trigger )
 "receiveData"
 // _XJ_SECTION_END
@@ -1282,7 +1292,7 @@ nextMIR
       } break;
 // Transition: transition7
       case 46: switch ( codeType ) {
-        case eAction: { 
+        case eAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.20.Action )
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -1308,11 +1318,11 @@ if (currentChannel==1)
              {
                m.sETGSM.item(i).oprosAlgoritm.fireEvent("startSETGSM");
              }
-       
-          
 
 
-         
+
+
+
         }
     }
 }
@@ -1330,18 +1340,18 @@ else if (currentChannel==2)
               if (model.kolFinishGPRS==(model.parKolMasGPRS.size())/2)
                  {
                   model.finishAllGPRS=true;
-              
+
                  }
              }
           else if (m.mIRGPRS.item(i).allMIR==true & m.sETGPRS.item(i).allSET==false)
              {
                m.sETGPRS.item(i).oprosAlgoritm.fireEvent("startSETGPRS");
              }
-       
-          
 
 
-         
+
+
+
         }
     }
 }
@@ -1351,7 +1361,7 @@ else if (currentChannel==2)
       } break;
 // Transition: transition4
       case 47: switch ( codeType ) {
-        case eTrigger: nodeTriggerSignalEvent( 
+        case eTrigger: nodeTriggerSignalEvent(
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.9.Trigger )
 "startMIRGSM"
 // _XJ_SECTION_END
@@ -1375,7 +1385,7 @@ estMIR
       } break;
 // State: Тайм-аут ответа2
       case 52: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.326.EntryAction )
 timeOutAnswer=getTimeOut();
 //timerTimeOut.restart(timeOutAnswer/timeScale);
@@ -1387,7 +1397,7 @@ timerTimeOut.restart(0);
       } break;
 // State: Тайм-аут ответа1
       case 53: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.324.EntryAction )
 timeOutAnswer=getTimeOut();
 timerTimeOut.restart(0);
@@ -1397,7 +1407,7 @@ timerTimeOut.restart(0);
       } break;
 // State: Тайм-аут ответа
       case 54: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.322.EntryAction )
 timeOutAnswer=getTimeOut();
 //timerTimeOut.restart(timeOutAnswer/timeScale);
@@ -1409,7 +1419,7 @@ timerTimeOut.restart(0);
       } break;
 // State: по GPRS
       case 55: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.315.EntryAction )
 currentChannel=2;
 ;
@@ -1418,7 +1428,7 @@ currentChannel=2;
       } break;
 // State: по GSM
       case 56: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.313.EntryAction )
 currentChannel=1;
 model m = (model)getOwner();
@@ -1431,8 +1441,8 @@ for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
            {m.gSM.item(i).GSM.fireEvent("startGSM");}
         else if (m.gSM.item(i).statusCalling)
            {this.fireEvent("callOK");}
-        
-        
+
+
        }
 }
 ;
@@ -1441,14 +1451,14 @@ for(int i=0;i<(m.parKolMasGSM.size()/2);i++)
       } break;
 // State: Счётчик не отвечает
       case 57: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.301.EntryAction )
 MIRdontwork = false;
 MIRdontAnswer++;
 ;
 // _XJ_SECTION_END
           } break;
-        case eExitAction: { 
+        case eExitAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.301.ExitAction )
 indexArray = 0;
 indexEventJournal = 1;
@@ -1458,7 +1468,7 @@ indexEventJournal = 1;
       } break;
 // State: Ещё массив
       case 58: switch ( codeType ) {
-        case eExitAction: { 
+        case eExitAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.302.ExitAction )
 oprosManyArray = false;
 ;
@@ -1467,7 +1477,7 @@ oprosManyArray = false;
       } break;
 // State: След. массив
       case 60: switch ( codeType ) {
-        case eExitAction: { 
+        case eExitAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.305.ExitAction )
 allData = false;
 indexArray = 0;
@@ -1478,7 +1488,7 @@ iArray++;
       } break;
 // State: Ответ
       case 61: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.307.EntryAction )
 MIRwork = false;
 model m = (model)getOwner();
@@ -1544,7 +1554,7 @@ else if (currentChannel==2)
       } break;
 // State: Запрос
       case 62: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.308.EntryAction )
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -1569,7 +1579,7 @@ if (currentChannel==1)
         {
           m.gSM.item(i).transferData=arrayParametrs.get(0,2*(indexArray));
         }
-  
+
         m.gSM.item(i).GSM.fireEvent("sendData");
        }
     }
@@ -1605,7 +1615,7 @@ else if (currentChannel==2)
 ;
 // _XJ_SECTION_END
           } break;
-        case eExitAction: { 
+        case eExitAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.308.ExitAction )
 nextData = false;
 ;
@@ -1614,7 +1624,7 @@ nextData = false;
       } break;
 // State: Журнал событий
       case 63: switch ( codeType ) {
-        case eExitAction: { 
+        case eExitAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.275.ExitAction )
 estEvent = false;
 ;
@@ -1623,7 +1633,7 @@ estEvent = false;
       } break;
 // State: Энергия за сутки
       case 64: switch ( codeType ) {
-        case eExitAction: { 
+        case eExitAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.276.ExitAction )
 estEnergy = false;
 ;
@@ -1632,7 +1642,7 @@ estEnergy = false;
       } break;
 // State: Срезы мощности
       case 65: switch ( codeType ) {
-        case eExitAction: { 
+        case eExitAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.277.ExitAction )
 estPower = false;
 ;
@@ -1641,7 +1651,7 @@ estPower = false;
       } break;
 // State: Доп. параметры
       case 66: switch ( codeType ) {
-        case eExitAction: { 
+        case eExitAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.278.ExitAction )
 estDopPar = false;
 ;
@@ -1650,7 +1660,7 @@ estDopPar = false;
       } break;
 // State: Закрытие сеанса(ответ)
       case 67: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.234.EntryAction )
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -1685,7 +1695,7 @@ else if (currentChannel==2)
       } break;
 // State: Закрытие сеанса(запрос)
       case 68: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.235.EntryAction )
 model m = (model)getOwner();
 if (currentChannel==1)
@@ -1718,7 +1728,7 @@ else if (currentChannel==2)
       } break;
 // State: Открытие сеанса(ответ)
       case 69: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.247.EntryAction )
 openCloseChannel = true;
 model m = (model)getOwner();
@@ -1754,30 +1764,47 @@ else if (currentChannel==2)
       } break;
 // State: Опрос параметров
       case 70: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.255.EntryAction )
 
 
 if (parReqData == null)
 {
-//Engine.restart();
-Engine.stop();
-//Engine.showMessage("Задайте список опрашиваемых параметров","Внимание!!!",Engine.MESSAGE_INFORMATION, Engine.SHOW_AND_CONTINUE);
-JOptionPane.showMessageDialog(Engine.getAnimation(),"Задайте список опрашиваемых параметров","Внимание!!!",JOptionPane.WARNING_MESSAGE);
+  Engine.stop();
+
+
+if(langMIR == false){
+JOptionPane.showMessageDialog(Engine.getAnimation(),msgRus1,alertRus1,JOptionPane.WARNING_MESSAGE);
+
+}
+else {
+JOptionPane.showMessageDialog(Engine.getAnimation(),msgEng1,alertEng1,JOptionPane.WARNING_MESSAGE);
+}
+
+
 }
 else if (checkVector(parReqData))
 
 {
-//Engine.restart();
-Engine.stop();
-JOptionPane.showMessageDialog(Engine.getAnimation(),"Задайте список опрашиваемых параметров","Внимание!!!",JOptionPane.WARNING_MESSAGE);}
+  Engine.stop();
+
+  if(langMIR == false){
+JOptionPane.showMessageDialog(Engine.getAnimation(),msgRus1,alertRus1,JOptionPane.WARNING_MESSAGE);
+
+}
+else {
+ JOptionPane.showMessageDialog(Engine.getAnimation(),msgEng1,alertEng1,JOptionPane.WARNING_MESSAGE);
+}
+
+
+}
 ;
 // _XJ_SECTION_END
           } break;
       } break;
 // State: Открытие сеанса(запрос)
       case 71: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.256.EntryAction )
 nextMIR=false;
 model m = (model)getOwner();
@@ -1811,7 +1838,7 @@ else if (currentChannel==2)
       } break;
 // State: Конец опроса i-го CЭТ
       case 72: switch ( codeType ) {
-        case eExitAction: { 
+        case eExitAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.257.ExitAction )
 indexMIR++;
 iArray = 0;
@@ -1822,7 +1849,7 @@ allIArray=false;
       } break;
 // State: В этом канале МИРов нет
       case 73: switch ( codeType ) {
-        case eEntryAction: { 
+        case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.15.EntryAction )
 allMIR = true;
  model m = (model)getOwner();
@@ -1858,7 +1885,7 @@ else if (currentChannel==2)
               model.kolFinishGPRS++;
               if (model.kolFinishGPRS==(model.parKolMasGPRS.size())/2)
                  {model.finishAllGPRS=true;
-                 
+
                  }
              }
           else
@@ -1871,7 +1898,7 @@ else if (currentChannel==2)
 ;
 // _XJ_SECTION_END
           } break;
-        case eExitAction: { 
+        case eExitAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.15.ExitAction )
 
 netMIR = false;
@@ -1881,7 +1908,7 @@ netMIR = false;
       } break;
 // State: Закончен опрос МИРов
       case 76: switch ( codeType ) {
-        case eExitAction: { 
+        case eExitAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.14.ExitAction )
 
 

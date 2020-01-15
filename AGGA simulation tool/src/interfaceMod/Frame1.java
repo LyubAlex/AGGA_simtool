@@ -1132,6 +1132,8 @@ exCfgSystem.show();
   void bOption1_actionPerformed(ActionEvent e) {
     if (lang == false)
     {
+
+
       bOption1.setIcon(imageEng);
       //--------------------------------------------------------------//
       exCfgSystem.setTitle("Structure of the system");
@@ -1286,6 +1288,8 @@ exCfgSystem.show();
       this.repaint();
       lang = true;
       aiis.model.langmodel = true;
+      aiis.MIRC01.langMIR = true;
+      aiis.SET.langSET = true;
     }
     else
     {
@@ -1442,6 +1446,8 @@ exCfgSystem.show();
         this.repaint();
         lang = false;
         aiis.model.langmodel = false;
+        aiis.MIRC01.langMIR = false;
+        aiis.SET.langSET = false;
     }
   }
 }
