@@ -8,7 +8,9 @@ The functionality of the software is:
     a. The total size of transmitted data, the number of repeated transmissions for each channel, the average quantity of failed data requests for two types of energy counters (for GPRS channels);
     b. The average number of connection interruptions, the average number of unsuccessful requests for connection, the average quantity of failed data requests for two types of energy counters (for CSD channels).
 Short user instructions on how to start using AGGA you can find in the document Getting started with AGGA. Doc.
+
 LICENSE
 The developed simulation model and the source code of the GUI have open access and can freely be used according to CC-BY-SA 4.0 license. However, for the proper functioning of the software as an independent application, it is necessary to use the following libraries in jar-format: beandt, dx, jbcl, jcommon-1.0.12, jfreechart-1.0.9 and xjanylogic5engine. These libraries are uploaded here only for demonstration purposes of the correct functioning of the model and GUI and can be used by stakeholders according to the conditions of licenses for the mentioned libraries. 
+
 CITATION
 If this simulation model seems to be useful for your research and you use it, please, make a reference in your publications as Alexander Lyubchenko. (2020, January 17). AGGA: an instrument for data transmission process simulation in a wireless automated system for energy consumption monitoring (Version v1.1). Zenodo. http://doi.org/10.5281/zenodo.3611233
