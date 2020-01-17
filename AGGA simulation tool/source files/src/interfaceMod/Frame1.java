@@ -225,8 +225,6 @@ void saveCfgSystem(){
   double bitMIR1=aiis.model.parBitrateMIR;
   Engine.restart();
 
-
-
   graphGPRSSET=null;
   graphGSMSET=null;
   outAllDataGPRS.setValue(new Double(0));//сброс поля, отображающего общий объём данных
@@ -490,7 +488,6 @@ void saveCfgSystem(){
     bCfgGSM.setIcon(imageGSM);
     bCfgGSM.setText("");
     bCfgGSM.addActionListener(new Frame1_bCfgGSM_actionAdapter(this));
-
 
     jToolBar2.add(bRun);
     jToolBar2.add(bPause);
@@ -1132,7 +1129,21 @@ exCfgSystem.show();
   void bOption1_actionPerformed(ActionEvent e) {
     if (lang == false)
     {
+      /*код был дя вывода предупреждающего сообщения, когда не выбраны опрашиваемые параметры
+      int sGSM = 0;
+      for (int i=0; i<exCfgSystem.tranGSM.size(); i++)
+      {
+        sGSM = sGSM + ((Number) exCfgSystem.tranGSM.get(i)).intValue();
+      }
 
+      int sGPRS = 0;
+      for (int i=0; i<exCfgSystem.tranGPRS.size(); i++)
+      {
+        sGPRS = sGPRS + ((Number) exCfgSystem.tranGPRS.get(i)).intValue();
+      }
+      test1.setValue(new Integer(sGSM+sGPRS));
+      }
+     */
 
       bOption1.setIcon(imageEng);
       //--------------------------------------------------------------//

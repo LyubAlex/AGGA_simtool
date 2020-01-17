@@ -19,10 +19,10 @@ public class SET extends ActiveObject
 
    public static boolean langSET = false;
 
-   String msgRus1 = "Задайте список опрашиваемых параметров";
+   String msgRus1 = "Задайте список опрашиваемых параметров после перезагрузки модели с сохранением текущей конфигурации системы";
    String alertRus1  = "Внимание!";
 
-   String msgEng1 = "Please, set the list of the requested parameters";
+   String msgEng1 = "Please, set the list of the requested parameters after model restart with saving the system's configuration";
    String alertEng1  = "Attention!";
 
 
@@ -1944,37 +1944,31 @@ estPower = false;
         case eEntryAction: {
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.14.EntryAction )
 
-
-if (parReqData == null)
-{
-
-Engine.stop();
-              if(langSET == false){
+          if (parReqData == null)
+          {
+            Engine.stop();
+            if(langSET == false)
+            {
               JOptionPane.showMessageDialog(Engine.getAnimation(),msgRus1,alertRus1,JOptionPane.WARNING_MESSAGE);
-
             }
-            else {
+            else
+            {
               JOptionPane.showMessageDialog(Engine.getAnimation(),msgEng1,alertEng1,JOptionPane.WARNING_MESSAGE);
             }
-
-}
-else if (checkVector(parReqData))
-
-{
-
-  Engine.stop();
+          }
+          else if (checkVector(parReqData))
+          {
+            Engine.stop();
+            if(langSET == false)
+            {
+              JOptionPane.showMessageDialog(Engine.getAnimation(),msgRus1,alertRus1,JOptionPane.WARNING_MESSAGE);
+            }
+            else
+            {
+              JOptionPane.showMessageDialog(Engine.getAnimation(),msgEng1,alertEng1,JOptionPane.WARNING_MESSAGE);
+          }
           }
 
-  if(langSET == false){
-  JOptionPane.showMessageDialog(Engine.getAnimation(),msgRus1,alertRus1,JOptionPane.WARNING_MESSAGE);
-
-}
-else {
-  JOptionPane.showMessageDialog(Engine.getAnimation(),msgEng1,alertEng1,JOptionPane.WARNING_MESSAGE);
-}
-
-//JOptionPane.showMessageDialog(Engine.getAnimation(),"Задайте список опрашиваемых параметров","Внимание!!!",JOptionPane.WARNING_MESSAGE);}
-;
 // _XJ_SECTION_END
           } break;
       } break;

@@ -136,6 +136,7 @@ public class Frame1 extends JFrame {
   JButton bCfgGSM = new JButton();
   JToolBar jToolBar5 = new JToolBar();
   JButton bOption1 = new JButton();
+  JFormattedTextField test1 = new JFormattedTextField();
 
   public Frame1() {
     enableEvents(AWTEvent.WINDOW_EVENT_MASK);
@@ -224,8 +225,6 @@ void saveCfgSystem(){
   double bitSET1=aiis.model.parBitrateSET;
   double bitMIR1=aiis.model.parBitrateMIR;
   Engine.restart();
-
-
 
   graphGPRSSET=null;
   graphGSMSET=null;
@@ -491,7 +490,6 @@ void saveCfgSystem(){
     bCfgGSM.setText("");
     bCfgGSM.addActionListener(new Frame1_bCfgGSM_actionAdapter(this));
 
-
     jToolBar2.add(bRun);
     jToolBar2.add(bPause);
     jToolBar2.add(bRestart);
@@ -518,6 +516,7 @@ void saveCfgSystem(){
     jPanel3.add(bShowGrGPRSSET,  new XYConstraints(77, 59, 32, 32));
     jPanel3.add(bShowGrGPRS, new XYConstraints(0, 59, 32, 32));
     jPanel3.add(bShowGrGPRSVr,   new XYConstraints(37, 59, 32, 32));
+    jPanel1.add(test1, new XYConstraints(12, 247, 54, 19));
     jPanel1.add(jPanel7,               new XYConstraints(11, 11, 51, 175));
     jPanel7.add(bCfgGSM,    new XYConstraints(2, 2, 42, 40));
     jPanel7.add(bCfgGPRS,     new XYConstraints(2, 44, 42, 40));
@@ -1132,6 +1131,47 @@ exCfgSystem.show();
   void bOption1_actionPerformed(ActionEvent e) {
     if (lang == false)
     {
+      /*int sGSM = 0;
+      for (int i=0; i<exCfgSystem.tranGSM.size(); i++)
+      {
+        sGSM = sGSM + ((Integer) exCfgSystem.tranGSM.get(i)).intValue();
+      }*/
+
+      /*int sGPRS = 0;
+      for (int i=0; i<exCfgSystem.tranGPRS.size(); i++)
+      {
+        sGPRS = sGPRS + ((Integer) exCfgSystem.tranGPRS.get(i)).intValue();
+      }
+*/
+      //test1.setValue(new Integer(sGSM+sGPRS));
+
+      //test1.setValue(new Integer (exCfgSystem.tranGPRS.size()));
+
+      //test1.setValue(exCfgSystem.tranGPRS.get(1).toString());
+
+      //int sGPRS = 0;
+      //Integer s1;
+     // for (int i=0; i<exCfgSystem.tranGPRS.size(); i++)
+     // {
+       // String str1 = exCfgSystem.tranGPRS.get(1).toString();
+       // s1 = Integer.valueOf(str1);
+     // }
+
+
+      String str1 = exCfgSystem.tranGPRS.get(0).toString();
+      String str2 = exCfgSystem.tranGPRS.get(1).toString();
+
+      Object obj1 = exCfgSystem.tranGPRS.get(0);
+      Object obj2 = exCfgSystem.tranGPRS.get(1);
+
+      //test1.setValue(str1);
+
+      test1.setValue(obj1);
+
+      //test1.setValue( Integer.valueOf("12"));
+
+
+
 
 
       bOption1.setIcon(imageEng);
@@ -1289,6 +1329,7 @@ exCfgSystem.show();
       lang = true;
       aiis.model.langmodel = true;
       aiis.MIRC01.langMIR = true;
+      aiis.SET.langSET = true;
     }
     else
     {
@@ -1446,6 +1487,7 @@ exCfgSystem.show();
         lang = false;
         aiis.model.langmodel = false;
         aiis.MIRC01.langMIR = false;
+        aiis.SET.langSET = false;
     }
   }
 }

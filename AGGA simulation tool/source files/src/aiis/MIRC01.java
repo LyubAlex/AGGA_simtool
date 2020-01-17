@@ -1,5 +1,4 @@
 // MIRC01.java
-
 package aiis;
 
 import java.util.Vector;
@@ -10,7 +9,6 @@ import com.xj.anylogic.*;
 import com.xj.anylogic.animation.*;
 import com.xj.random.*;
 
-
 // _XJ_SECTION_BEGIN( AO.Import )
 import javax.swing.*;
 // _XJ_SECTION_END
@@ -18,10 +16,10 @@ public class MIRC01 extends ActiveObject
  {
    public static boolean langMIR = false;
 
-   String msgRus1 = "Задайте список опрашиваемых параметров";
+   String msgRus1 = "Задайте список опрашиваемых параметров после перезагрузки модели с сохранением текущей конфигурации системы";
    String alertRus1  = "Внимание!";
 
-   String msgEng1 = "Please, set the list of the requested parameters";
+   String msgEng1 = "Please, set the list of the requested parameters after model restart with saving the system's configuration";
    String alertEng1  = "Attention!";
 
 
@@ -1768,37 +1766,34 @@ else if (currentChannel==2)
 // _XJ_SECTION_BEGIN( SC.oprosAlgoritm.255.EntryAction )
 
 
-if (parReqData == null)
-{
-  Engine.stop();
+          if (parReqData == null)
+          {
+            Engine.stop();
+
+            if(langMIR == false)
+            {
+              JOptionPane.showMessageDialog(Engine.getAnimation(),msgRus1,alertRus1,JOptionPane.WARNING_MESSAGE);
+
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(Engine.getAnimation(),msgEng1,alertEng1,JOptionPane.WARNING_MESSAGE);
+            }
+          }
+          else if (checkVector(parReqData))
+          {
+            Engine.stop();
+            if(langMIR == false)
+            {
+              JOptionPane.showMessageDialog(Engine.getAnimation(),msgRus1,alertRus1,JOptionPane.WARNING_MESSAGE);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(Engine.getAnimation(),msgEng1,alertEng1,JOptionPane.WARNING_MESSAGE);
+            }
+          }
 
 
-if(langMIR == false){
-JOptionPane.showMessageDialog(Engine.getAnimation(),msgRus1,alertRus1,JOptionPane.WARNING_MESSAGE);
-
-}
-else {
-JOptionPane.showMessageDialog(Engine.getAnimation(),msgEng1,alertEng1,JOptionPane.WARNING_MESSAGE);
-}
-
-
-}
-else if (checkVector(parReqData))
-
-{
-  Engine.stop();
-
-  if(langMIR == false){
-JOptionPane.showMessageDialog(Engine.getAnimation(),msgRus1,alertRus1,JOptionPane.WARNING_MESSAGE);
-
-}
-else {
- JOptionPane.showMessageDialog(Engine.getAnimation(),msgEng1,alertEng1,JOptionPane.WARNING_MESSAGE);
-}
-
-
-}
-;
 // _XJ_SECTION_END
           } break;
       } break;

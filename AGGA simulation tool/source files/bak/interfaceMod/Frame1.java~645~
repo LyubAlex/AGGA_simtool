@@ -136,12 +136,12 @@ public class Frame1 extends JFrame {
   JButton bCfgGSM = new JButton();
   JToolBar jToolBar5 = new JToolBar();
   JButton bOption1 = new JButton();
+  JFormattedTextField test1 = new JFormattedTextField();
 
   public Frame1() {
     enableEvents(AWTEvent.WINDOW_EVENT_MASK);
-
-    try {
-
+    try
+    {
       jbInit();
     }
     catch(Exception e) {
@@ -225,8 +225,6 @@ void saveCfgSystem(){
   double bitSET1=aiis.model.parBitrateSET;
   double bitMIR1=aiis.model.parBitrateMIR;
   Engine.restart();
-
-
 
   graphGPRSSET=null;
   graphGSMSET=null;
@@ -466,7 +464,7 @@ void saveCfgSystem(){
     noAnswerSET.setText("");
     noAnswerSET.addMouseListener(new Frame1_noAnswerSET_mouseAdapter(this));
     jLabel5.setPreferredSize(new Dimension(0, 0));
-    jLabel5.setText("СЭТ4ТМ.02 - ");
+    jLabel5.setText("СЭТ4ТМ - ");
     noAnswerMIR.setHorizontalAlignment(SwingConstants.CENTER);
     noAnswerMIR.setText("");
     noAnswerMIR.addMouseListener(new Frame1_noAnswerMIR_mouseAdapter(this));
@@ -480,7 +478,7 @@ void saveCfgSystem(){
     noAnswerMIRG.setText("");
     noAnswerMIRG.addMouseListener(new Frame1_noAnswerMIRG_mouseAdapter(this));
     noAnswerMIRG.setHorizontalAlignment(SwingConstants.CENTER);
-    jLabel7.setText("СЭТ4ТМ.02 - ");
+    jLabel7.setText("СЭТ4ТМ - ");
     jLabel7.setPreferredSize(new Dimension(0, 0));
     jLabel8.setPreferredSize(new Dimension(0, 0));
     jLabel8.setText("МИР С-01 - ");
@@ -491,7 +489,6 @@ void saveCfgSystem(){
     bCfgGSM.setIcon(imageGSM);
     bCfgGSM.setText("");
     bCfgGSM.addActionListener(new Frame1_bCfgGSM_actionAdapter(this));
-
 
     jToolBar2.add(bRun);
     jToolBar2.add(bPause);
@@ -519,6 +516,7 @@ void saveCfgSystem(){
     jPanel3.add(bShowGrGPRSSET,  new XYConstraints(77, 59, 32, 32));
     jPanel3.add(bShowGrGPRS, new XYConstraints(0, 59, 32, 32));
     jPanel3.add(bShowGrGPRSVr,   new XYConstraints(37, 59, 32, 32));
+    jPanel1.add(test1, new XYConstraints(12, 247, 54, 19));
     jPanel1.add(jPanel7,               new XYConstraints(11, 11, 51, 175));
     jPanel7.add(bCfgGSM,    new XYConstraints(2, 2, 42, 40));
     jPanel7.add(bCfgGPRS,     new XYConstraints(2, 44, 42, 40));
@@ -644,12 +642,16 @@ Engine.restart();
 
 if (aiis.model.parKolMasGPRS == null & aiis.model.parKolMasGSM == null & aiis.model.parKolMasRADIO == null &
 exCfgSystem.tranGSM.isEmpty()==true & exCfgSystem.tranGPRS.isEmpty()==true){
-JOptionPane.showMessageDialog(this,"Отсутствуют каналы связи. Задайте структуру системы!","Внимание!",JOptionPane.WARNING_MESSAGE);
-exCfgSystem.show();
+      if (lang == true)
+      {
+        JOptionPane.showMessageDialog(this,"There are no communication channels. Please, set structure of the system.","Attention!",JOptionPane.WARNING_MESSAGE);
+      }
+      else {
+        JOptionPane.showMessageDialog(this,"Отсутствуют канала связи!Сначала задайте структуру системы.","Внимание!",JOptionPane.WARNING_MESSAGE);
+      }
+      exCfgSystem.show();
 }
-
   else {
-
     Engine.run();
     new OutThread(timeGet,exAnimation).start();
     new controlAnimation(exAnimation).start();
@@ -670,7 +672,16 @@ if (Engine.isRunning())
 }
   else
   {
-      JOptionPane.showMessageDialog(this,"Процесс моделирования не запущен!","Внимание!",JOptionPane.WARNING_MESSAGE);
+      if (lang == true)
+    {
+      JOptionPane.showMessageDialog(this, "The simulation hasn't been launched yet!",
+                                    "Attention!", JOptionPane.WARNING_MESSAGE);
+    }
+    else
+    {
+        JOptionPane.showMessageDialog(this, "Процесс моделирования не запущен!",
+                                    "Внимание!", JOptionPane.WARNING_MESSAGE);
+    }
   }
   }
 
@@ -873,7 +884,7 @@ exCfgSystem.show();
             "Mean polling time a counter in each channel",
             "Time, minutes",
             "GPRS channel",
-            "SET-4ТМ.02",
+            "SET-4ТМ",
             "MIR С-01"
             );
       }
@@ -884,7 +895,7 @@ exCfgSystem.show();
             "Среднее значение времени опроса одного счетчика в канале",
             "Время, минут",
             "Канал GPRS",
-            "CЭТ-4ТМ.02",
+            "CЭТ-4ТМ",
             "МИР С-01"
             );
       }
@@ -916,7 +927,7 @@ exCfgSystem.show();
                    "Mean polling time a counter in each channel",
                    "Time, minutes",
                    "GSM CSD channel",
-                   "SET-4ТМ.02",
+                   "SET-4ТМ",
                    "MIR С-01"
                    );
              }
@@ -927,7 +938,7 @@ exCfgSystem.show();
                    "Среднее значение времени опроса одного счетчика в канале",
                    "Время, минут",
                    "Канал GSM CSD",
-                   "CЭТ-4ТМ.02",
+                   "CЭТ-4ТМ",
                    "МИР С-01"
                    );
              }
@@ -1107,7 +1118,7 @@ exCfgSystem.show();
   }
 
   void jButton2_actionPerformed(ActionEvent e) {
-    exCfgSystem.setTitle("System's structure");
+    exCfgSystem.setTitle("Structure of the system");
     this.titledBorder1.setTitle("GPRS statistics");
     this.repaint();
   }
@@ -1120,13 +1131,30 @@ exCfgSystem.show();
   void bOption1_actionPerformed(ActionEvent e) {
     if (lang == false)
     {
+      int sGSM = 0;
+      for (int i=0; i<exCfgSystem.tranGSM.size(); i++)
+      {
+        sGSM = sGSM + ((Number) exCfgSystem.tranGSM.get(i)).intValue();
+      }
+
+      int sGPRS = 0;
+      for (int i=0; i<exCfgSystem.tranGPRS.size(); i++)
+      {
+        sGPRS = sGPRS + ((Number) exCfgSystem.tranGPRS.get(i)).intValue();
+      }
+
+      test1.setValue(new Integer(sGSM+sGPRS));
+
+      //JOptionPane.showMessageDialog(Engine.getAnimation(),msgRus1,alertRus1,JOptionPane.WARNING_MESSAGE);
+
+
       bOption1.setIcon(imageEng);
       //--------------------------------------------------------------//
-      exCfgSystem.setTitle("System's structure");
+      exCfgSystem.setTitle("Structure of the system");
       exCfgSystem.titledBorder1.setTitle("System configuration");
       exCfgSystem.jLabelTypeChannel.setText("Channel type:");
       exCfgSystem.jLabelTypeCh.setText("Counters type and quantity:");
-      exCfgSystem.jLabelSET.setText("SEТ-4ТМ.02");
+      exCfgSystem.jLabelSET.setText("SEТ-4ТМ");
       exCfgSystem.createChannel.setToolTipText("Create a channel");
       exCfgSystem.jLabelitogo.setText("All channels:");
       exCfgSystem.jLabelMIR.setText("MIR-С01");
@@ -1137,6 +1165,9 @@ exCfgSystem.show();
       exCfgSystem.msg = msgEng;
       exCfgSystem.alert = alEng;
       exCfgSystem.msgYesNo = "Delete GSM(Yes) or GPRS(No) channel?";
+      exCfgSystem.msgNoGSM = "There is no any GSM channel!";
+      exCfgSystem.msgNoGPRS = "There is no any GPRS channel!";
+      exCfgSystem.msgError = "Error!";
     //--------------------------------------------------------------//
 
       //--------------------------------------------------------------//
@@ -1206,7 +1237,7 @@ exCfgSystem.show();
       exCfgCounter.jLabel1.setText("Datarate, bps");
       exCfgCounter.jLabel2.setText("Maximum timeout");
       exCfgCounter.selectMIR.setLabel("MIR С-01");
-      exCfgCounter.selectSET.setLabel("SET-4ТМ.02");
+      exCfgCounter.selectSET.setLabel("SET-4ТМ");
       exCfgCounter.bExit.setText("Exit");
       exCfgCounter.bSaveCfg.setText("Save");
       exCfgCounter.jLabel3.setText("Probability of no response, %");
@@ -1246,7 +1277,7 @@ exCfgSystem.show();
       bOption1.setToolTipText("Language of interface");
       bCfgCounter.setToolTipText("Counters parameters");
       bCfgGPRS.setToolTipText("GPRS settings");
-      jSystemStructure.setText("System's structure");
+      jSystemStructure.setText("Structure of the system");
       jMenuItem2.setText("GSM CSD settings");
       jMenuItem3.setText("GPRS settings");
       jMenuItem4.setText("Counters parameters");
@@ -1262,15 +1293,17 @@ exCfgSystem.show();
 
       jLabel3.setText("Mean number of connection failures, pcs:");
       jLabel4.setText("Mean number of failed calls, pcs:");
-      jLabel5.setText("SEТ4ТМ.02 - ");
+      jLabel5.setText("SEТ4ТМ - ");
       jLabel6.setText("MIR С-01 - ");
-      jLabel7.setText("SEТ4ТМ.02 - ");
+      jLabel7.setText("SEТ4ТМ - ");
       jLabel8.setText("MIR С-01 - ");
       bCfgGSM.setToolTipText("GSM CSD settings");
 
       this.repaint();
       lang = true;
       aiis.model.langmodel = true;
+      aiis.MIRC01.langMIR = true;
+      aiis.SET.langSET = true;
     }
     else
     {
@@ -1280,7 +1313,7 @@ exCfgSystem.show();
         exCfgSystem.titledBorder1.setTitle("Конфигурация системы");
         exCfgSystem.jLabelTypeChannel.setText("Тип канала:");
         exCfgSystem.jLabelTypeCh.setText("Тип счётчиков и их количество:");
-        exCfgSystem.jLabelSET.setText("СЭТ-4ТМ.02");
+        exCfgSystem.jLabelSET.setText("СЭТ-4ТМ");
         exCfgSystem.createChannel.setToolTipText("Создать канал");
         exCfgSystem.jLabelitogo.setText("Всего каналов:");
         exCfgSystem.jLabelMIR.setText("МИР-С01");
@@ -1291,6 +1324,9 @@ exCfgSystem.show();
         exCfgSystem.msg = msgRus;
         exCfgSystem.alert = alRus;
         exCfgSystem.msgYesNo = "Удалить GSM(Да) или GPRS(Нет) канал?";
+        exCfgSystem.msgError = "Ошибка!";
+        exCfgSystem.msgNoGSM = "Канал GSM отсутствует!";
+        exCfgSystem.msgNoGPRS = "Канал GPRS отсутствует!";
         //--------------------------------------------------------------//
 
         //--------------------------------------------------------------//
@@ -1362,7 +1398,7 @@ exCfgSystem.show();
         exCfgCounter.jLabel1.setText("Скорость обмена данными, бит/с");
         exCfgCounter.jLabel2.setText("Максимальное значение таймаута");
         exCfgCounter.selectMIR.setLabel("МИР С-01");
-        exCfgCounter.selectSET.setLabel("СЭТ-4ТМ.02");
+        exCfgCounter.selectSET.setLabel("СЭТ-4ТМ");
         exCfgCounter.bExit.setText("Выйти");
         exCfgCounter.bSaveCfg.setText("Сохранить");
         exCfgCounter.jLabel3.setText("Вероятность отсутствия ответа,%");
@@ -1415,15 +1451,17 @@ exCfgSystem.show();
         bShowGrGSMVr.setToolTipText("Среднее значение опроса одного канала");
         jLabel3.setText("Среднее количество разрывов соединения, шт:");
         jLabel4.setText("Среднее количество неудачных дозвонов, шт:");
-        jLabel5.setText("СЭТ4ТМ.02 - ");
+        jLabel5.setText("СЭТ4ТМ - ");
         jLabel6.setText("МИР С-01 - ");
-        jLabel7.setText("СЭТ4ТМ.02 - ");
+        jLabel7.setText("СЭТ4ТМ - ");
         jLabel8.setText("МИР С-01 - ");
         bCfgGSM.setToolTipText("Настройка каналов GSM CSD");
 
         this.repaint();
         lang = false;
         aiis.model.langmodel = false;
+        aiis.MIRC01.langMIR = false;
+        aiis.SET.langSET = false;
     }
   }
 }
